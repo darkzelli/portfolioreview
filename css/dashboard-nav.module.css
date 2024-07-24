@@ -1,0 +1,73 @@
+.Settings_Nav_Container{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+.image{
+    cursor: pointer;
+}
+
+.settingsUl > li{
+    display: flex;
+    justify-content: center;
+}
+
+.settingsUl > li > span{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1vh;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    height: 5vh;
+    cursor: pointer;
+}
+
+.selectedTab{
+    color: #A005FF;
+}
+.notSelectedTab{
+    color: black;
+}
+.link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settingsUl > li > span:hover{
+    color: #A005FF;
+}
+
+
+
+.icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1vw;
+}
+
+
+.disabled{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1vh;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    height: 5vh;
+    color: rgb(170, 170, 170);
+}
+
+.disabled:hover{
+    color: red;
+}
+
+.disabledTab{
+    color: #a1a1a1;
+}
+

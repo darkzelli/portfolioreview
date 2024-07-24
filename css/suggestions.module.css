@@ -1,0 +1,27 @@
+.Suggestions{
+    display: flex;
+    justify-content: center;    
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.details{
+    display: flex;
+    flex-direction: row;
+}
+.details > span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.details > span:nth-child(1){
+    font-weight: 800;
+}
+
+.suggestion{
+    display: flex;
+    justify-content: centerw;
+}

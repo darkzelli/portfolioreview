@@ -1,0 +1,10 @@
+.signoutbtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2vh 2vw;
+    background-color: black;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+}

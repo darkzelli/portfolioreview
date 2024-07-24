@@ -1,0 +1,235 @@
+.SignupContainer{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    flex-direction: column;
+}
+
+.smalltext{
+    display: flex;
+    justify-content: flex-start;
+    color: black;
+    font-weight: 500;
+    font-size: 12px;
+    width: 100%;
+    cursor: pointer;
+}
+.maintext{
+    display: flex;
+    justify-content: flex-start;
+    color: black;
+    font-weight: 700;
+    font-size: 32px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.errortext{
+    color: #db1111;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.none{
+    display: none;
+}
+.undertext{
+    color: #424040;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.signup_formcontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    margin-bottom: 7vh;
+    flex-direction: column;
+}
+.username{
+    width: 100%;
+}
+
+.signupform{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+
+}
+
+.signupform > input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: black;
+    height: 5vh;
+    border: 1px solid #BFBCBC;
+}
+
+.signupform > input::placeholder{
+    color: #6D6B6B;
+}
+.urlContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.underlinedSpan{
+    text-decoration: underline;
+}
+.url{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0E0C0C;
+    padding: 10px 20px;
+    border-radius: 15px;
+    color: white;
+}
+
+.urlText{
+    display: flex;
+    justify-content: centers;
+    align-items: center;
+    color: #A005FF;
+    margin-right: 10px;
+}
+.terms_privacy{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.terms{
+    margin-left: 10px;
+    font-size: 12px;
+    color: #424040;
+}
+.tos{
+    color: black;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.submit{
+    width: 100%;
+    height: 5vh;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    color: white;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.switch{
+    margin-top: 1vh;
+    font-size: 14px;
+    color: #6D6B6B;
+}
+
+.switchbtn{
+    color: black;
+    cursor: pointer;
+    
+}
+
+.donotdisplay{
+    color: red;
+    display: none;
+}
+
+.nothing{
+    display: inherit;
+}
+
+.providersContainer{
+    width: 100%;
+    display: flex;
+}
+
+.providersGoogle{
+    width: 50%;
+    height: 5vh;
+    background-color: #A005FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    color: black;
+    margin-bottom: 15px;
+    margin: 0vw .2vw;
+    cursor: pointer;
+    
+}
+.providersGithub{
+    width: 50%;
+    height: 5vh;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    color: black;
+    margin-bottom: 15px;
+    margin: 0 .2vw;
+    cursor: pointer;
+    
+}
+
+.Error{
+    color: #db1111;
+    margin-bottom: 1vh;
+    font-weight: 500;
+}
+
+.details{
+    color: #C9C9C9;
+    margin-top: 2vh;
+    font-size: 12px;
+}
+
+
+
+@media screen and (min-width: 768px){
+    .urlContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+    }
+
+    .providersGithub{
+        height: 5vh;
+        border-radius: 20px;
+    }
+
+    .providersGoogle{
+        height: 5vh;
+        border-radius: 20px;
+    }
+
+    .signup_formcontainer{
+        width: 30%;
+    }
+
+    .details{
+        color: #C9C9C9;
+        margin-top: 2vh;
+        font-size: 18px;
+        line-height: 3vh;
+    }
+}

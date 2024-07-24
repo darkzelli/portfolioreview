@@ -1,0 +1,152 @@
+.showcase{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 15vh;
+    color: white;
+    flex-direction: column;
+}
+
+
+
+.blockedportfolios{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 50vw;
+    background-color: rgba(0, 0, 0, 0.096);
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    background-image: radial-gradient(closest-side, #9f05ff52, rgba(0, 0, 0, 0));
+    left: 0;
+    
+}
+
+.card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position:  absolute;
+    width: 75%;
+    background-color: #1B0F22;
+    z-index: 3;
+    border-radius: 25px;
+    
+
+}
+
+.cardMaintext{
+    margin-top: 25px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.cardUndertext{
+    color: #605D5D;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.perks{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-size: 8px;
+}
+
+.perkTop{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.perkTop > span{
+    display: flex;
+    justify-content: center;
+    justify-self: flex-start;
+    align-items: center;
+    margin: 10px 0;
+}
+.perkBottom > span{
+    margin: 10px 0;
+}
+
+.perkBottom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cardButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    background-color: #A005FF;
+    width: 90%;
+    margin-bottom: 15px;
+    border-radius: 25px;
+    cursor: pointer;
+
+}
+
+.toprow{
+    display: flex;
+}
+
+.bottomrow{
+    display: flex;
+    height: 50%;
+}
+
+.maintext{
+    display: flex;
+    font-size: 24px;
+    margin-bottom: 5vh;
+    color: #A005FF;
+}
+
+.toprow > span{
+    padding: 0 1vw;
+}
+
+.bottomrow > span{
+    padding: 0 1vw;
+}
+
+.column4{
+    margin-right: 0;
+}
+
+.image{
+    margin-bottom: 5vh;
+    border: 1px solid #A005FF;
+}
+
+@media screen and (min-width: 768px){
+    .card{
+        width: 25%;
+    }
+}
+
+
+@media screen and (max-width: 1362px){
+    .blockedportfolios{
+        height: 70vw;
+    }
+}
+
+
+@media screen and (min-width: 2520px){
+    .blockedportfolios{
+        height: 45vw;
+    }
+}

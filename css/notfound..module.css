@@ -1,0 +1,27 @@
+.notfound{
+    color: #A005FF;
+    font-weight: 200;
+    font-size: 12px;
+    margin-top: 2vh;
+}
+
+.notfound404{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: black;
+    font-size: 50px;
+}
+
+
+@media screen and (min-width: 768px){
+    .notfound{
+        font-size: 24px;
+    }
+
+    .notfound404{
+        font-size: 80px;
+    }
+}

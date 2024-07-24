@@ -1,0 +1,224 @@
+.getStartedContainer{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.maintext{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: 38px;
+    margin-top: 25vh;
+    font-weight: 600;
+    color: #BE61F8;
+    
+}
+
+.textCon{
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+}
+
+.undertext{
+    font-size: 18px;
+    margin-top: 2vh;
+    padding: 0vh 3vw;
+}
+.stepsContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10vh;
+
+}
+
+.nunber{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: #A005FF;
+    border-radius: 100px;
+    color: white;
+    font-size: 32px;
+    margin-bottom: 3vh;
+}
+.nunber1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: #A005FF;
+    border-radius: 100px;
+    color: white;
+    font-size: 32px;
+    margin-bottom: 3vh;
+}
+.nunber2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: #A005FF;
+    border-radius: 100px;
+    color: white;
+    font-size: 32px;
+    margin-bottom: 3vh;
+}
+
+
+.step1{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 95%;
+    margin-bottom: 15vh;
+    flex-direction: column;
+}
+
+.step2{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 95%;
+    margin-bottom: 15vh;
+    flex-direction: column;
+}
+
+.step3{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 95%;
+    margin-bottom: 15vh;
+    flex-direction: column;
+}
+
+.maintextStep1{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 2vh;
+    text-align: center;
+}
+
+.maintextStep2{
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 2vh;
+    text-align: center;
+}
+
+.maintextStep3{
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 2vh;
+    text-align: center;
+}
+
+.undertextStep1{
+    font-size: 18px;
+    line-height: 3vh;
+    color: #7B6E6E;
+    text-align: center;
+
+}
+
+.undertextStep2{
+    font-size: 18px;
+    line-height: 3vh;
+    color: #7B6E6E;
+    text-align: center;
+}
+
+.undertextStep3{
+    font-size: 18px;
+    line-height: 3vh;
+    color: #7B6E6E;
+    text-align: center;
+}
+
+@media screen and (min-width: 1184px) {
+    .maintext{
+        justify-content: flex-start;
+        font-size: 48px;
+        margin-left: 7vw;
+    }
+    .undertext{
+        font-size: 24px;
+    }
+
+    .maintextStep1{
+        font-size: 32px;
+        text-align: left;
+    }
+
+    .maintextStep2{
+        font-size: 32px;
+        text-align: left;
+    }
+
+
+    .maintextStep3{
+        font-size: 32px;
+        text-align: left;
+    }
+
+    .undertextStep1{
+        text-align: left;
+    }
+
+    .undertextStep2{
+        text-align: left;
+    }
+
+    .undertextStep3{
+        text-align: left;
+    }
+
+    .stepsContainer{
+        margin-left: 3vh;
+    }
+
+    .nunber{
+        margin-right: 4vh;
+    }
+
+    .nunber1{
+        margin-right: 4vh;
+    }
+
+    .nunber2{
+        margin-right: 4vh;
+    }
+
+    .step1{
+        flex-direction: row;
+    }
+
+    .step2{
+        flex-direction: row;
+    }
+
+    .step3{
+        flex-direction: row;
+    }
+
+    .textCon{
+        width: 50vw;
+    }
+
+    
+}

@@ -1,0 +1,166 @@
+.coverContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    font-size: 24px;
+    background-color: #0D0611;
+    color: white;
+    overflow-x: hidden;
+}
+
+
+.maintext{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 650;
+}
+
+.maintext2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 650;
+}
+
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #A005FF;
+    margin: 0 .5vw;
+    color: white;
+    padding: 0 7px;
+}
+.undertext{
+    margin-top: 2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    color: #A7A5A9;
+}
+
+.undertext2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    color: #A7A5A9;
+}
+
+.cursor{
+    display: none;
+}
+.cursor1{
+    display: none;
+}
+.cursor2{
+    display: none;
+}
+.cursor3{
+    display: none;
+}.cursor4{
+    display: none;
+}
+
+
+
+.blurryDot{
+    width: 150%;
+    overflow: hidden;
+    height: 100%;
+    background-image: radial-gradient(closest-side, #9f05ff93, rgba(0, 0, 0, 0));
+    position: absolute;
+    top: -75vh;
+    z-index: 99;
+    pointer-events: none;
+}
+
+.particles{
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    top: 18vh;
+    right: 5vw;
+    position: absolute;
+    pointer-events: none;
+
+}
+
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    background-color: #A005FF;
+    padding: 12px 12px;
+    border-radius: 15px;
+    margin-top: 5vh;
+    cursor: pointer;
+}
+
+
+@media screen and (min-width: 1024px){
+
+    .button{
+        padding: 6px 12px;
+        font-size: 20px;
+    }
+    .coverContainer{
+        font-size: 85px;
+    }
+
+    .undertext{
+        font-size: 32px;
+    }
+
+    .undertext2{
+        font-size: 32px;  
+    }
+
+    .cursor{
+        display: flex;
+        position: absolute;
+        top: 8vh;
+        right: 20vw;
+    }
+    .cursor1{
+        display: flex;
+        position: absolute;
+        bottom: 15vh;
+        right: 15vw;
+    }
+    
+    .cursor3{
+        display: flex;
+        position: absolute;
+        bottom: 23vh;
+        left: 20vw;
+    }
+}
+
+@media screen and (min-width: 1800px){
+
+    .cursor2{
+        display: flex;
+        position: absolute;
+        bottom: 50vh;
+        left: 4vw;
+    }
+    
+    .cursor4{
+        display: flex;
+        position: absolute;
+        top: 50vh;
+        right: 10vw;
+
+    }
+}

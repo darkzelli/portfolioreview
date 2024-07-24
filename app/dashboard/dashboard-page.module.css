@@ -1,0 +1,84 @@
+.dashboard_page_container{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.dashboard_content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    overflow: scroll;
+}
+
+.dashboard_content::-webkit-scrollbar{
+    display: none;
+}
+
+.nav{
+    display: none;
+}
+
+
+.suggest{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding-right: 10px;
+}
+
+.suggestBTN{
+    color: #A005FF;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+
+
+.suggestInputContainer{
+    width: 85%;
+}
+
+.suggestInput{
+    width: 100%;
+}
+.favorites{
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.views{
+    cursor: pointer;
+}
+
+.favorites > span{
+    margin-right: 10px;
+}
+.views > span{
+    margin-right: 10px;
+}
+
+.portfolioComments{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.loadmore{
+    color: #A005FF;
+}
+
+@media screen and (min-width: 1250px) {
+    .dashboard_content{
+        width: 60%;
+    }
+    
+    .nav{
+        display: flex;
+    }
+    
+}

@@ -1,0 +1,195 @@
+
+.icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 35px;
+    font-size: 16px;
+    margin-right: 2vw;
+}
+
+.label{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    flex-direction: row;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 2vh;
+}
+
+.profile{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+    height: 100vh;    
+}
+
+.inputareaContainer{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 4vh;
+}
+
+
+.input{
+    display: flex;
+    border: 1px solid #ADA5A5;
+    font-size: 18px;
+    height: 3.5vh;
+    padding: 1vh 2.5vw;
+    width: 100%;
+    border-radius: 25px;
+}
+
+.card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2vw;
+    background-color: #DFDFDF;
+    border-radius: 25px;
+    color: white;
+    padding: 2vh 5vw;
+    font-size: 14px;
+}
+
+.membershipCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2vw;
+    background-color: black;
+    border-radius: 25px;
+    color: white;
+    padding: 2vh 5vw;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.selectedCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2vw;
+    background-color: black;
+    border-radius: 25px;
+    color: white;
+    padding: 2vh 5vw;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cardContainer{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 4vh;
+    cursor: pointer;
+}
+.savechanges{
+    background-color: black;
+    padding: 1.5vh 3vw;
+    border-radius: 25px;
+    color: white;
+    margin-bottom: 4vh;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.disabledInput{
+    display: flex;
+    background-color: #DFDFDF;
+    color: rgb(109, 109, 109);
+    font-size: 18px;
+    height: 3.5vh;
+    padding: 1vh 2.5vw;
+    width: 100%;
+    border-radius: 25px;
+}
+
+.mode{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2vh;
+    color: #A005FF;
+    cursor: pointer;
+}
+
+.modeIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: .5vw;
+    color: #A005FF;
+}
+
+.displayNone{
+    display: none;
+}
+
+
+@media screen and (min-width: 768px) {
+    .savechanges{
+        font-size: 18px;
+    }
+    .icon{
+      width: 40px;
+      height: 40px;
+      font-size: 24px;
+      margin-right: .5vw;
+    }
+    .label{
+      font-size: 24px;
+    }
+    .input{
+      font-size: 19px;
+      height: 5vh;
+      padding: 1vh 1vw;
+      letter-spacing: 3px;
+    }
+
+    .disabledInput{
+        font-size: 19px;
+        height: 5vh;
+        padding: 1vh 1vw;
+        letter-spacing: 3px;
+    }
+
+    .profile{
+        margin-top: 34vh;
+    }
+  
+    .card{
+        margin-right: 1vw;
+        padding: 2vh 3vw;
+        font-size: 16px;
+        color: #6e6c6c;
+    }
+
+    
+    .selectedCard{
+        margin-right: 1vw;
+        padding: 2vh 3vw;
+        font-size: 16px;
+    }
+
+    .membershipCard{
+        margin-right: 1vw;
+        padding: 2vh 3vw;
+        font-size: 16px;
+    }
+  
+}

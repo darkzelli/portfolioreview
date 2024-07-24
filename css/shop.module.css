@@ -1,0 +1,215 @@
+.shop{
+    display: grid;
+    flex-direction: column;
+    width: 90%;
+    height: 100%;
+}
+
+.credits{
+    display: flex;
+    flex-direction: column;
+}
+.Pricingtab{
+    margin-top: 2vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 24px;
+    border-radius: 10px;
+    width: 300px;
+    height: 45vh;
+    box-shadow: rgba(54, 56, 56, 0.5) 0 2px 5px 0;
+    padding: 0 25px;
+    background-color: #1E0F26;
+    color: white;
+}
+
+.Credittab{
+    margin-top: 2vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 24px;
+    border-radius: 10px;
+    height: 35vh;
+    width: 300px;
+    box-shadow: rgba(54, 56, 56, 0.5) 0 2px 5px 0;
+    padding: 0 25px;
+    background-color: #1E0F26;
+    color: white;
+}
+.ogPrice{
+    text-decoration: line-through;
+}
+
+.currenccy{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    height: 100%;
+}
+.priceInfo{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    align-self: flex-start;
+}
+
+.Pricingtab:nth-child(1){
+    border: 3px solid #A005FF;
+}
+
+.percentOff{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #24FF00;
+    margin-right: 7px;
+}
+
+.maintext{
+    margin-top: 2vh;
+    font-weight: 400;
+    font-size: 12px;
+    color: #A005FF;
+    display: flex;
+    align-self: flex-start;
+}
+
+.undertext{
+    font-size: 17px;
+    text-align: center;
+    margin-top: 1vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.undertext2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: #878787;
+}
+.price{
+    font-size: 64px;
+    font-weight: 600;
+    margin-top: 1vh;
+    width: 100%;
+}
+
+.priceText{
+    margin-top: 1vh;
+    font-weight: 650;
+    color: #A005FF;
+}
+
+.button{
+    margin-top: 4vh;
+    font-size: 12px;
+    width: 85%;
+    height: 10%;
+    background-color: #A005FF;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.cbutton{
+    margin-top: 4vh;
+    font-size: 12px;
+    width: 85%;
+    height: 10%;
+    background-color: #A005FF;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.features{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+    flex-direction: column;
+    font-size: 12px;
+    margin-top: 1vh;
+    width: 100%;
+}
+.feature{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 5vh;
+    font-size: 14px;
+    width: 100%;
+}
+@media screen and (min-width: 768px) {
+    .Credittab:nth-child(1){
+        margin-right: 2vw;
+    }
+
+    .credits{
+        display: flex;
+        flex-direction: row;
+    }
+    .shop{
+        margin-top: 34vh;
+    }
+
+    .Pricingtab{
+        width: 500px;
+    }
+
+    .Pricingtab:nth-child(1){
+        margin-right: 4vw;
+    }
+    .features{
+        margin-top: .5vh;
+    }
+    .feature{
+        font-size: 16px;
+    }
+    .options{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .button{
+        font-size: 24px;
+    }
+    
+    .maintext{
+        margin-top: 4vh;
+        font-size: 18px;
+    }
+
+    .undertext{
+        font-size: 32px;
+        margin-bottom: 2vh;
+    }
+    
+    .undertext2{
+        font-size: 18px;
+    }
+    
+    .price{
+        font-size: 64px;
+        font-weight: 600;
+        margin-top: 1vh;
+    }
+    
+    .priceText{
+        margin-top: 1vh;
+        font-weight: 650;
+        color: #A005FF;
+    }
+    
+
+}

@@ -1,0 +1,18 @@
+.adminpanel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%
+}
+
+.termalBox{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #f7f7f7;
+    width: 90%;
+    padding: 2vh 1vw;
+    box-shadow: rgba(54, 56, 56, 0.5) 0 2px 5px 0;
+    font-size: 12px;
+    
+}

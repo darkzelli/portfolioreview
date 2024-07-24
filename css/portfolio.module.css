@@ -1,0 +1,254 @@
+.portfolio{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+    height: 100vh;
+
+}
+
+.portfolio::-webkit-scrollbar{
+    display: none;
+}
+
+.displayNone{
+    display: none;
+}
+
+
+.image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 20vh;
+    background-color: #A005FF;
+    border-radius: 15px;
+    margin-bottom: 3vh;
+}
+.details{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.userInfo{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 5vh;
+    width: 100%;
+}
+
+.name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: 650;
+    width: 100%;
+    margin-bottom: 2vh;
+}
+
+.role{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #A005FF;
+    width: 100%;
+}
+
+
+.description{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    overflow: scroll;
+    width: 100%;
+    height: 11vh;
+    
+
+}
+
+
+.description::-webkit-scrollbar{
+    display: none;
+}
+
+.icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 35px;
+    font-size: 16px;
+    margin-right: 2vw;
+}
+
+.label{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    flex-direction: row;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 2vh;
+}
+
+.textarea{
+    resize: none;
+    background-color: transparent;
+    border: 1px solid #ADA5A5;
+    height: 15vh;
+    width: 100%;
+    border-radius: 25px;
+    padding: 20px;
+    overflow: scroll;
+    font-size: 18px;
+    
+}
+
+.disabledTextArea{
+    resize: none;
+    height: 15vh;
+    width: 100%;
+    border-radius: 25px;
+    padding: 20px;
+    overflow: scroll;
+    font-size: 18px;
+    background-color: #DFDFDF; 
+}
+
+.textarea::-webkit-scrollbar{
+    display: none;
+}
+
+.disabledTextArea::-webkit-scrollbar{
+    display: none;
+}
+
+.textareaContainer{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 4vh;
+}
+.inputareaContainer{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 4vh;
+}
+
+
+.input{
+    display: flex;
+    border: 1px solid #ADA5A5;
+    font-size: 18px;
+    height: 3.5vh;
+    padding: 1vh 2.5vw;
+    width: 100%;
+    border-radius: 25px;
+}
+
+.data{
+    color: black;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 2vh;
+}
+
+.favorites{
+    margin-right: 2vw;
+}
+
+.savechanges{
+    background-color: black;
+    padding: 1.5vh 3vw;
+    border-radius: 25px;
+    color: white;
+    margin-bottom: 4vh;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.disabledInput{
+    display: flex;
+    background-color: #DFDFDF;
+    color: black;
+    font-size: 18px;
+    height: 3.5vh;
+    padding: 1vh 2.5vw;
+    width: 100%;
+    border-radius: 25px;
+}
+
+.mode{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2vh;
+    color: #A005FF;
+    cursor: pointer;
+}
+
+.modeIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: .5vw;
+    color: #A005FF;
+}
+
+
+
+
+
+
+@media screen and (min-width: 768px) {
+    .portfolio{
+        margin-top: 34vh;
+    }
+    .disabledInput{
+        font-size: 19px;
+        height: 5vh;
+        padding: 1vh 1vw;
+        letter-spacing: 3px;
+    }
+    .savechanges{
+        font-size: 18px;
+    }
+    .icon{
+      width: 40px;
+      height: 40px;
+      font-size: 24px;
+      margin-right: .5vw;
+    }
+    .label{
+      font-size: 24px;
+    }
+    .input{
+      font-size: 19px;
+      height: 5vh;
+      padding: 1vh 1vw;
+      letter-spacing: 3px;
+    }
+
+    .description{
+      font-size: 24px;
+    }
+
+}

@@ -1,0 +1,74 @@
+.reward{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+.inputareaContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 4vh;
+}
+
+
+.input{
+    display: flex;
+    border: 1px solid #ADA5A5;
+    font-size: 18px;
+    height: 3.5vh;
+    padding: 1vh 2vw;
+    width: 80%;
+    border-radius: 25px;
+}
+
+.maintext{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 64px;
+}
+
+.undertext{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    font-size: 24px;
+    margin-bottom: 2vh;
+}
+.card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2vw;
+    background-color: black;
+    border-radius: 25px;
+    color: white;
+    padding: 2vh 7vw;
+    font-size: 14px;
+}
+
+@media screen and (min-width: 768px) {
+
+
+    .input{
+        width: 30%;
+    }
+
+    .undertext{
+        width: 35%;
+    }
+
+    .card{
+        margin-right: 1vw;
+        padding: 2vh 3vw;
+        font-size: 16px;
+    }
+
+}
