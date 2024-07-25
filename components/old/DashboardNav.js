@@ -1,3 +1,4 @@
+"use client"
 import styles from '../../css/dashboard-nav.module.css'
 
 import logo from "/review_logo_black.png" 
@@ -19,8 +20,22 @@ import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 import StoreIcon from '@mui/icons-material/Store';
 import LogoutIcon from '@mui/icons-material/Logout';
 
+import { createClient } from "@/utils/supabase/client";
+
+import { useState, useEffect } from 'react';
 
 export default function DashboardNav(props) {
+    const [user, setUser] = useState()
+
+    useEffect(() => {
+        connectSupa()
+    }, [])
+  
+    async function connectSupa(){
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser()
+        setUser(user)
+    } 
     const session = false
 
     const enabledGallery = <li  className={props.currentTab === "gallery" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("gallery")}><span><span className={styles.icon}><PermMediaIcon/></span>Gallery</span></li>
@@ -36,11 +51,11 @@ export default function DashboardNav(props) {
         <span className={styles.Settings_Nav_Container}>
            <ul className={styles.settingsUl}>
                 <li className={styles.image}><Image src={logo} width={150} height={150} alt="logo.png"/></li>
-                <li  className={props.currentTab === "user" ? styles.selectedTab : styles.notSelectedTab}><span><span className={styles.icon}><PowerSettingsNewIcon/></span>{session ? <span onClick={() => props.tabSetter("user")}>{session?.user?.name}</span> : <Link href="/login">Log in</Link>}</span></li>
-                {disabledGallery}
-                {disabledPortfolio}
-                {disabledProfile}
-                {disabledShop}
+                <li  className={props.currentTab === "user" ? styles.selectedTab : styles.notSelectedTab}><span><span className={styles.icon}><PowerSettingsNewIcon/></span>{user ? <span onClick={() => props.tabSetter("user")}>{user?.email}</span> : <Link href="/login">Log in</Link>}</span></li>
+                {user ? enabledGallery : disabledGallery}
+                {user ? enabledPortfolio : disabledPortfolio}
+                {user ? enabledProfile : disabledProfile}
+                {user ? enabledShop : disabledShop}
                 <li  className={props.currentTab === "whatsnew" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("whatsnew")}><span><span className={styles.icon}><HistoryIcon/></span>What's New</span></li>
                 <li ><span><Link href="https://insigh.to/b/portfolio-review" className={styles.link}><span className={styles.icon}><FeedbackIcon/></span>Feedback</Link></span></li>
                 <li><span><Link href="/tos" className={styles.link}><span className={styles.icon}><GavelIcon/></span>TOS</Link></span></li>

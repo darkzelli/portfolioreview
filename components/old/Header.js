@@ -3,7 +3,7 @@ import styles from '../../css/header.module.css'
 
 import logo from "/review_logo_white.png" 
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Inter } from "next/font/google";
 import Link from "next/link";
@@ -13,11 +13,27 @@ import Image from "next/image";
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 
+import { createClient } from "@/utils/supabase/client";
+
 
 
 
 export default function Header(){
     const [hamOpen, setHamOpen] = useState(false);
+    const [user, setUser] = useState()
+
+    useEffect(() => {
+      connectSupa()
+    }, [])
+
+    async function connectSupa(){
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser()
+     setUser(user)
+    } 
+
+
+
     return(
         <span className={styles.header}>
           <ul className={styles.header_ul}>
@@ -43,7 +59,7 @@ export default function Header(){
                 <ul className={styles.nav_user}>
 
                   <li>
-                    <Link className={styles.nav_signup} href="/login"><span>Log in</span></Link>
+                    <Link className={styles.nav_signup} href={user !== null ? "/dashboard" : "/login"}><span>{user !== null ? user?.email : "Log in"}</span></Link>
                   </li>
                   <li className={styles.nav_menu}>
                     <span onClick={() => hamOpen ? setHamOpen(false) : setHamOpen(true)}>{hamOpen ? <CloseIcon className={styles.nav_menuicon}></CloseIcon> : <MenuIcon className={styles.nav_menuicon}></MenuIcon>}</span>
@@ -55,7 +71,7 @@ export default function Header(){
           <span className={hamOpen ? styles.extendedNav : styles.disnone}>
             <span><Link href="/dashboard">Gallery</Link></span>
             <span>
-              <Link href="/login">Log In</Link>
+              {user !== null ? <Link href="/login">{user?.email}</Link> : <Link href="/login">Log In</Link>}
             </span>
           </span>
         </span>

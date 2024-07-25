@@ -27,16 +27,22 @@ export default function AuthPage(){
         setSupabase(createClient())
     }, [])
     
+    function loginCallback(){
+        console.log("Log in completed")
+    }
 
     async function signIn(){
-        const { error } = await supabase?.auth.signInWithPassword({
-            email,
-            password,
+        return new Promise(async(resolve, reject) => {
+            const { error } = await supabase?.auth.signInWithPassword({
+                email,
+                password,
+            })
+    
+            if(error){
+                reject("error 400")
+            }
+            resolve("accepted 200")
         })
-
-        if(error){
-            setMessage("Sorry Could not authenticate user...");
-        }
     }
 
     async function signUp(){
@@ -64,7 +70,7 @@ export default function AuthPage(){
                 console.log("github")
                 break;
             case "email":
-                if(login) signIn()
+                if(login) signIn().then(() => loginCallback()).catch((err) => setMessage("Sorry Could not authenticate user..."))
                 else signUp()
                 break;
         }
