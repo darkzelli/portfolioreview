@@ -9,9 +9,10 @@ const user = null
 export default function UserProvider({children}){
 
     const [user, setUser] = useState()
+    const [userData, setUserData] = useState()
 
     return(
-        <userContext.Provider value={[user, setUser]}>
+        <userContext.Provider value={[user, setUser, userData, setUserData]}>
             {children}
         </userContext.Provider>
     )

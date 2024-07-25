@@ -5,11 +5,16 @@ import TollIcon from '@mui/icons-material/Toll';
 import CheckIcon from '@mui/icons-material/Check';
 import Link from 'next/link';
 
+import { useContext, useEffect } from 'react';
+
+import { userContext } from '../UseUser';
+
 export default function Shop() {
-    const {data: session } = useSession();
+    const [user, setUser, userData, setUserData] = useContext(userContext)
+
     return (
         <span className={styles.shop}>
-            { session?.user?.membership !== "FREE" ? <></> : <span className={styles.Pricingtab}>
+            { (userData?.membership === "Member" ||  userData?.membership === "Staff") ? <></> : <span className={styles.Pricingtab}>
                     <span className={styles.maintext}>Become a member</span>
                     <span className={styles.priceInfo}>
                         <span className={styles.ogPrice}>$25</span>

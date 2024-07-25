@@ -24,7 +24,7 @@ export default function AuthPage(){
     const [password, setPassword] = useState()
     const [supabase, setSupabase] = useState()
     const [message, setMessage] = useState(null)
-    const [user, setUser] = useContext(userContext)
+    const [user, setUser, userData, setUserData] = useContext(userContext)
     const router = useRouter()
     
 
@@ -33,7 +33,6 @@ export default function AuthPage(){
     }, [])
     
     function loginCallback(){
-        console.log("Log in completed")
         router.push("/dashboard")
 
     }
