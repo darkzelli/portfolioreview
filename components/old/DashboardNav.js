@@ -22,10 +22,12 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import { createClient } from "@/utils/supabase/client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+
+import { userContext } from '../UseUser';
 
 export default function DashboardNav(props) {
-    const [user, setUser] = useState()
+    const [user, setUser] = useContext(userContext)
 
     useEffect(() => {
         connectSupa()

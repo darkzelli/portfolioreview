@@ -9,35 +9,48 @@ import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { userContext } from '../UseUser';
 
 
 
 
 export default function Portfolio() {
-    const {data: session, update } = useSession();
     
+    const supabase = createClient()
 
     const [desc, setDesc] = useState()
     const [url, setUrl] = useState()
     const [portfolio, setPortfolio] = useState()
-    const [newSession, setNewSession] = useState()
-
     const [editMode, setEditMode] = useState(false)
+    const [user, setUser] = useContext(userContext)
+    const [userData, setUserData] = useState()
 
-    let updateData = {
-        portfolio : {
-            ...session?.user?.portfolio
+    useEffect(() => {
+        if(user) userData()
+    }, [user])
+
+    const getUserData = unstable_cache(
+        async () => {
+          return await supabase?.from('accounts').select()
+        }, 
+        ['userdata'],
+        {
+          tags: ['userdata']
         }
+      )
+
+    async function userData(){
+        const data = await getUserData(); 
+        setUserData(data)
+    }
+    let updateData = {
+       
     };
     
     async function updateSessionData(){
-        const newSession = {
-            ...session,
-            ...updateData
-        } 
-        console.log(newSession)
-        await update(newSession)
+        
     }
 
     async function handleUpdate(){

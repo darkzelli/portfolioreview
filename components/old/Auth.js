@@ -1,14 +1,16 @@
 "use client";
 import Link from 'next/link';
 import styles from '../../css/auth.module.css'
-import { useState, useRef, useEffect } from 'react';
-import { redirect } from 'next/navigation';
+import { useState, useRef, useEffect, useContext } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from "next/image";
 
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 import { createClient } from "@/utils/supabase/client";
+
+import { userContext } from "@/components/UseUser"
 
 
 
@@ -22,6 +24,9 @@ export default function AuthPage(){
     const [password, setPassword] = useState()
     const [supabase, setSupabase] = useState()
     const [message, setMessage] = useState(null)
+    const [user, setUser] = useContext(userContext)
+    const router = useRouter()
+    
 
     useEffect(() => {
         setSupabase(createClient())
@@ -29,14 +34,17 @@ export default function AuthPage(){
     
     function loginCallback(){
         console.log("Log in completed")
+        router.push("/dashboard")
+
     }
 
     async function signIn(){
         return new Promise(async(resolve, reject) => {
-            const { error } = await supabase?.auth.signInWithPassword({
+            const { error, data } = await supabase?.auth.signInWithPassword({
                 email,
                 password,
             })
+            if(data) setUser(data.user)
     
             if(error){
                 reject("error 400")

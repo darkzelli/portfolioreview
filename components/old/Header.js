@@ -3,7 +3,7 @@ import styles from '../../css/header.module.css'
 
 import logo from "/review_logo_white.png" 
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext} from 'react';
 
 import { Inter } from "next/font/google";
 import Link from "next/link";
@@ -14,13 +14,15 @@ import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { createClient } from "@/utils/supabase/client";
+import { userContext } from '../UseUser';
+
 
 
 
 
 export default function Header(){
     const [hamOpen, setHamOpen] = useState(false);
-    const [user, setUser] = useState()
+    const [user, setUser] = useContext(userContext)
 
     useEffect(() => {
       connectSupa()
