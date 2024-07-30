@@ -28,7 +28,7 @@ export default function Portfolio() {
     const [url, setUrl] = useState()
     const [portfolio, setPortfolio] = useState()
     const [editMode, setEditMode] = useState(false)
-    const [user, setUser, userData, setUserData] = useContext(userContext)
+    const {user, setUser, userData, setUserData }  = useContext(userContext)
 
     useEffect(() => {
         

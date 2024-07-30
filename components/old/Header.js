@@ -22,7 +22,7 @@ import { userContext } from '../UseUser';
 
 export default function Header(){
     const [hamOpen, setHamOpen] = useState(false);
-    const [user, setUser] = useContext(userContext)
+    const { user, setUser, userData, setUserData }  = useContext(userContext)
 
     useEffect(() => {
       connectSupa()

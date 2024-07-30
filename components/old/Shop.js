@@ -10,8 +10,7 @@ import { useContext, useEffect } from 'react';
 import { userContext } from '../UseUser';
 
 export default function Shop() {
-    const [user, setUser, userData, setUserData] = useContext(userContext)
-
+    const {user, setUser, userData, setUserData }  = useContext(userContext)
     return (
         <span className={styles.shop}>
             { (userData?.membership === "Member" ||  userData?.membership === "Staff") ? <></> : <span className={styles.Pricingtab}>

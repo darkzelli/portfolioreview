@@ -27,11 +27,14 @@ import { useState, useEffect, useContext } from 'react';
 import { userContext } from '../UseUser';
 
 export default function DashboardNav(props) {
-    const [user, setUser] = useContext(userContext)
+    const { user, setUser, userData, setUserData }  = useContext(userContext)
 
     useEffect(() => {
+        console.log("fucker:", user)
         connectSupa()
-    }, [])
+        console.log("nav", userData)
+        console.log()
+    }, [userData])
   
     async function connectSupa(){
         const supabase = createClient();
@@ -53,7 +56,7 @@ export default function DashboardNav(props) {
         <span className={styles.Settings_Nav_Container}>
            <ul className={styles.settingsUl}>
                 <li className={styles.image}><Image src={logo} width={150} height={150} alt="logo.png"/></li>
-                <li  className={props.currentTab === "user" ? styles.selectedTab : styles.notSelectedTab}><span><span className={styles.icon}><PowerSettingsNewIcon/></span>{user ? <span onClick={() => props.tabSetter("user")}>{user?.email}</span> : <Link href="/login">Log in</Link>}</span></li>
+                <li  className={props.currentTab === "user" ? styles.selectedTab : styles.notSelectedTab}><span><span className={styles.icon}><PowerSettingsNewIcon/></span>{user ? <span onClick={() => props.tabSetter("user")}>{(userData?.name !== "" && userData?.name !== null) ? userData?.name : "Account"}</span> : <Link href="/login">Log in</Link>}</span></li>
                 {user ? enabledGallery : disabledGallery}
                 {user ? enabledPortfolio : disabledPortfolio}
                 {user ? enabledProfile : disabledProfile}

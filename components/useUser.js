@@ -8,11 +8,14 @@ const user = null
 
 export default function UserProvider({children}){
 
-    const [user, setUser] = useState()
-    const [userData, setUserData] = useState()
+    const [user, setUser] = useState(null)
+    const [userData, setUserData] = useState(null)
 
+    const data = {
+        user, setUser, userData, setUserData
+    }
     return(
-        <userContext.Provider value={[user, setUser, userData, setUserData]}>
+        <userContext.Provider value={data}>
             {children}
         </userContext.Provider>
     )

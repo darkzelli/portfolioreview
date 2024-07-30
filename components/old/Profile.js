@@ -10,50 +10,51 @@ import EmailIcon from '@mui/icons-material/Email';
 import { useState, useContext } from 'react';
 
 
+import { createClient } from "@/utils/supabase/client";
+
 import { userContext } from '../UseUser';
 
 
 import Link from 'next/link';
 
 export default function Profile() {
-    const [user, setUser, userData, setUserData] = useContext(userContext)
+    const {user, setUser, userData, setUserData }  = useContext(userContext)
     const [editMode, setEditMode] = useState(false)
     const [username, setUserName] = useState()
     const [userRole, setUserRole] = useState()
 
-    /*let updateData = {};
+    const [test, settest] = useState()
+    const supabase = createClient()
+
     
-    async function updateSessionData(){
-    
+
+    function checkInput(value){
+        const allowedPattern = /^[a-zA-Z0-9\S]*$/;
+        return allowedPattern.test(value)
     }
 
     async function handleUpdate(){
-        console.log(username)
+        let updateData = {};
         
-        if(username !== undefined){ 
+        if(username !== undefined && checkInput(username)){ 
             updateData.name = username
         }
 
-        if(userRole !== session?.user?.role){
+        if(checkInput(userRole)){
             updateData.role = userRole
         }
+        const { data: { user } } = await supabase.auth.getUser()
+        updateData.id = user.id
+        const { data, error } = await supabase
+            .from('accounts')
+            .upsert(updateData)
+            .select();
+        if(error) console.log(error)
+        if(data) setUserData(data)
+        console.log(data)
+        console.log(userData)
         
-
-
-        const token = await getCsrfToken()
-        fetch(process.env.NEXT_PUBLIC_NEXT_URL + "api/protected/user/update", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "x-request-token": token
-            },
-            body: JSON.stringify(updateData)
-        }).then((res) => {
-            if(res.status === 200){
-                updateSessionData()
-            }
-        }).catch((err) => {})
-    }*/
+    }
 
     const roleView = <><span className={userData?.role === "Developer" ? styles.selectedCard : styles.card }>Developer</span><span className={userData?.role === "Designer" ? styles.selectedCard : styles.card }>Designer</span><span className={userData?.role === "Artist" ? styles.selectedCard : styles.card }>Artist</span></>
     const roleEdit = <><span onClick={() => setUserRole("Developer")}className={userRole === "Developer" ? styles.selectedCard : styles.card }>Developer</span><span onClick={() => setUserRole("Designer")} className={userRole === "Designer" ? styles.selectedCard : styles.card }>Designer</span><span onClick={() => setUserRole("Artist")} className={userRole === "Artist" ? styles.selectedCard : styles.card }>Artist</span></>

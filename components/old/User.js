@@ -6,7 +6,7 @@ import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function User() {
-    const [user, setUser, userData, setUserData] = useContext(userContext)
+    const {user, setUser, userData, setUserData } = useContext(userContext)
     const router = useRouter()
     async function signOut(){
         const supabase = createClient()

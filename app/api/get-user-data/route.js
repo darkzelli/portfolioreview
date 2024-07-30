@@ -11,7 +11,8 @@ export async function GET(){
 
 const getUserData = unstable_cache(
     async (supabase) => {
-        return await supabase.from('accounts').upsert({id: user?.auth?.id}, {ignoreDuplicates: true, onConflict: 'id'}).select()
+      const { data, error } = await supabase.from('accounts').select()
+      return await data
     }, 
     ['userdata'],
     {

@@ -24,7 +24,7 @@ export default function AuthPage(){
     const [password, setPassword] = useState()
     const [supabase, setSupabase] = useState()
     const [message, setMessage] = useState(null)
-    const [user, setUser, userData, setUserData] = useContext(userContext)
+    const {user, setUser, userData, setUserData} = useContext(userContext)
     const router = useRouter()
     
 
@@ -32,7 +32,12 @@ export default function AuthPage(){
         setSupabase(createClient())
     }, [])
     
-    function loginCallback(){
+    async function loginCallback(){
+        const { data, error } = await supabase
+            .from('accounts')
+            .select();
+        if(error) console.log(error)
+        if(data) setUserData(data)
         router.push("/dashboard")
 
     }
