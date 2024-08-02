@@ -28,62 +28,32 @@ export default function Portfolio() {
     const [url, setUrl] = useState()
     const [portfolio, setPortfolio] = useState()
     const [editMode, setEditMode] = useState(false)
-    const {user, setUser, userData, setUserData }  = useContext(userContext)
+    const {account, accountData} = useContext(userContext)
+    const [user, setUser] = useState()
+    const [userData, setUserData] = useState()
 
+    let parsedData;
     useEffect(() => {
-        
-    }, [user])
+      if(account) setUser(JSON.parse(account?.value))
+      if(accountData) parsedData = JSON.parse(accountData?.value)
+      if(Array.isArray(parsedData)) setUserData(parsedData[0])
+    }, [])
 
-    /*const getUserData = unstable_cache(
-        async () => {
-          return await supabase?.from('accounts').select()
-        }, 
-        ['userdata'],
-        {
-          tags: ['userdata']
-        }
-      )
-
-    async function callUserData(){
-        const data = await getUserData(); 
-        setUserData(data)
-    }
-    let updateData = {
-       
-    };*/
-    
-    async function updateSessionData(){
-        
-    }
 
     async function handleUpdate(){
-        
-        if(desc !== undefined){ 
-            updateData.description = desc
-        }
-        
-        if(url !== undefined) {
-            updateData.url = url
-        }
+        let updateData = {};
 
-        if(portfolio !== undefined) {
-            updateData.portfolio.url = portfolio
-        }
+        if(desc !== undefined) updateData.description = desc
+        if(url !== undefined)  updateData.url = url
+        if(portfolio !== undefined)updateData.portfolio.url = portfolio
 
+        const { data: { user } } = await supabase.auth.getUser()
+        updateData.id = user?.id
 
-        const token = await getCsrfToken()
-        fetch(process.env.NEXT_PUBLIC_NEXT_URL + "api/protected/user/update", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "x-request-token": token
-            },
-            body: JSON.stringify(updateData)
-        }).then((res) => {
-            if(res.status === 200){
-                updateSessionData()
-            }
-        }).catch((err) => {})
+        const { data, error } = await supabase
+            .from('accounts')
+            .upsert(updateData)
+        if(error) console.log(error)
     }
     return (
         <span className={styles.portfolio}>

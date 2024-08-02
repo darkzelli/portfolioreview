@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/layout.js", "app/layout.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/layout.js", "app/layout.js", "utils/react-query/ReactQueryProvider.jsx", "utils/react-query/ReactQueryProvider.jsx", "utils/react-query/ReactQueryProvider.jsx"],
   "exclude": ["node_modules"]
 }

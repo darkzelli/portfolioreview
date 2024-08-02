@@ -22,10 +22,17 @@ import { userContext } from '../UseUser';
 
 export default function Header(){
     const [hamOpen, setHamOpen] = useState(false);
-    const { user, setUser, userData, setUserData }  = useContext(userContext)
+    const {account, accountData} = useContext(userContext)
+    const [user, setUser] = useState()
+    const [userData, setUserData] = useState()
 
+    let parsedData;
     useEffect(() => {
       connectSupa()
+      console.log(account, accountData)
+      if(account) setUser(JSON.parse(account?.value))
+      if(accountData) parsedData = JSON.parse(accountData?.value)
+      if(Array.isArray(parsedData)) setUserData(parsedData[0])
     }, [])
 
     async function connectSupa(){
@@ -61,7 +68,7 @@ export default function Header(){
                 <ul className={styles.nav_user}>
 
                   <li>
-                    <Link className={styles.nav_signup} href={user !== null ? "/dashboard" : "/login"}><span>{user !== null ? user?.email : "Log in"}</span></Link>
+                    <Link className={styles.nav_signup} href={user !== null ? "/dashboard" : "/login"}><span>{user !== null ? userData?.name : "Log in"}</span></Link>
                   </li>
                   <li className={styles.nav_menu}>
                     <span onClick={() => hamOpen ? setHamOpen(false) : setHamOpen(true)}>{hamOpen ? <CloseIcon className={styles.nav_menuicon}></CloseIcon> : <MenuIcon className={styles.nav_menuicon}></MenuIcon>}</span>
@@ -73,7 +80,7 @@ export default function Header(){
           <span className={hamOpen ? styles.extendedNav : styles.disnone}>
             <span><Link href="/dashboard">Gallery</Link></span>
             <span>
-              {user !== null ? <Link href="/login">{user?.email}</Link> : <Link href="/login">Log In</Link>}
+              {user !== null ? <Link href="/login">{userData?.name}</Link> : <Link href="/login">Log In</Link>}
             </span>
           </span>
         </span>

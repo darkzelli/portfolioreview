@@ -5,12 +5,21 @@ import TollIcon from '@mui/icons-material/Toll';
 import CheckIcon from '@mui/icons-material/Check';
 import Link from 'next/link';
 
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { userContext } from '../UseUser';
 
 export default function Shop() {
-    const {user, setUser, userData, setUserData }  = useContext(userContext)
+    const {account, accountData} = useContext(userContext)
+    const [user, setUser] = useState()
+    const [userData, setUserData] = useState()
+
+    let parsedData;
+    useEffect(() => {
+      if(account) setUser(JSON.parse(account?.value))
+      if(accountData) parsedData = JSON.parse(accountData?.value)
+      if(Array.isArray(parsedData)) setUserData(parsedData[0])
+    }, [])
     return (
         <span className={styles.shop}>
             { (userData?.membership === "Member" ||  userData?.membership === "Staff") ? <></> : <span className={styles.Pricingtab}>

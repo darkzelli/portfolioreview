@@ -15,6 +15,7 @@ import { userContext } from "@/components/UseUser"
 
 
 import logo from "/review_logo_black.png" 
+import { revalidateUser, revalidateUserData } from '../revalidateTags';
 
 export default function AuthPage(){
     
@@ -24,21 +25,29 @@ export default function AuthPage(){
     const [password, setPassword] = useState()
     const [supabase, setSupabase] = useState()
     const [message, setMessage] = useState(null)
-    const {user, setUser, userData, setUserData} = useContext(userContext)
+    const {account, accountData} = useContext(userContext)
+    const [user, setUser] = useState()
+    const [userData, setUserData] = useState()
     const router = useRouter()
     
-
+    let parsedData;
     useEffect(() => {
         setSupabase(createClient())
+        if(account) setUser(JSON.parse(account?.value))
+        if(accountData) parsedData = JSON.parse(accountData?.value)
+        if(Array.isArray(parsedData)) setUserData(parsedData[0])
     }, [])
     
     async function loginCallback(){
-        const { data, error } = await supabase
+        const { data: { user } } = await supabase.auth.getUser()
+        const {data, error} = await supabase
             .from('accounts')
-            .select();
-        if(error) console.log(error)
-        if(data) setUserData(data)
-        router.push("/dashboard")
+            .upsert({id: user?.id, name: "fucker"}, { onConflict: "id"});
+        if(!error){
+            revalidateUser()
+            revalidateUserData()
+            router.push("/dashboard")
+        }
 
     }
 

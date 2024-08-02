@@ -25,23 +25,21 @@ import { createClient } from "@/utils/supabase/client";
 import { useState, useEffect, useContext } from 'react';
 
 import { userContext } from '../UseUser';
+import { useRouter } from 'next/navigation';
 
 export default function DashboardNav(props) {
-    const { user, setUser, userData, setUserData }  = useContext(userContext)
-
+    const {account, accountData} = useContext(userContext)
+    const [user, setUser] = useState()
+    const [userData, setUserData] = useState()
+    const router = useRouter()
+    let parsedData;
     useEffect(() => {
-        console.log("fucker:", user)
-        connectSupa()
-        console.log("nav", userData)
-        console.log()
-    }, [userData])
+        if(account) setUser(JSON.parse(account?.value))
+        if(accountData) parsedData = JSON.parse(accountData?.value)
+        if(Array.isArray(parsedData)) setUserData(parsedData[0])
+    }, [])
   
-    async function connectSupa(){
-        const supabase = createClient();
-        const { data: { user } } = await supabase.auth.getUser()
-        setUser(user)
-    } 
-    const session = false
+
 
     const enabledGallery = <li  className={props.currentTab === "gallery" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("gallery")}><span><span className={styles.icon}><PermMediaIcon/></span>Gallery</span></li>
     const disabledGallery = <li className={styles.disabledTab}><span><span className={styles.icon}><PermMediaIcon/></span>Gallery</span></li>
@@ -65,7 +63,7 @@ export default function DashboardNav(props) {
                 <li ><span><Link href="https://insigh.to/b/portfolio-review" className={styles.link}><span className={styles.icon}><FeedbackIcon/></span>Feedback</Link></span></li>
                 <li><span><Link href="/tos" className={styles.link}><span className={styles.icon}><GavelIcon/></span>TOS</Link></span></li>
                 <li><span><Link href="/privacy-policy" className={styles.link}><span className={styles.icon}><PrivacyTipIcon/></span>Privacy Policy</Link></span></li>
-                {session?.user?.adminStatus ? <li onClick={() => props.tabSetter("adminpanel")}><span><span className={styles.icon}><AdminPanelSettingsIcon/></span>Admin Panel</span></li> : <></>} 
+                {user ? <li onClick={() => props.tabSetter("adminpanel")}><span><span className={styles.icon}><AdminPanelSettingsIcon/></span>Admin Panel</span></li> : <></>} 
            </ul>
         </span>
     );

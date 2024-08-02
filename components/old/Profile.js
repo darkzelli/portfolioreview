@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EmailIcon from '@mui/icons-material/Email';
 
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 
 import { createClient } from "@/utils/supabase/client";
@@ -18,13 +18,24 @@ import { userContext } from '../UseUser';
 import Link from 'next/link';
 
 export default function Profile() {
-    const {user, setUser, userData, setUserData }  = useContext(userContext)
+    const {account, accountData} = useContext(userContext)
+    const [user, setUser] = useState()
+    const [userData, setUserData] = useState()
+
+
     const [editMode, setEditMode] = useState(false)
     const [username, setUserName] = useState()
     const [userRole, setUserRole] = useState()
 
     const [test, settest] = useState()
     const supabase = createClient()
+
+    let parsedData;
+    useEffect(() => {
+      if(account) setUser(JSON.parse(account?.value))
+      if(accountData) parsedData = JSON.parse(accountData?.value)
+      if(Array.isArray(parsedData)) setUserData(parsedData[0])
+    }, [])
 
     
 
@@ -44,15 +55,11 @@ export default function Profile() {
             updateData.role = userRole
         }
         const { data: { user } } = await supabase.auth.getUser()
-        updateData.id = user.id
+        updateData.id = user?.id
         const { data, error } = await supabase
             .from('accounts')
             .upsert(updateData)
-            .select();
         if(error) console.log(error)
-        if(data) setUserData(data)
-        console.log(data)
-        console.log(userData)
         
     }
 
@@ -64,7 +71,7 @@ export default function Profile() {
             <span className={styles.label}> <span className={styles.icon}><PersonIcon fontSize='inherit'/></span> <span>Name</span> </span>
             <span className={styles.inputareaContainer}><input type='text' name='name' placeholder={user ? userData?.name : 'name'} disabled={!editMode} onChange={(e) => setUserName(e.target.value)}className={editMode ? styles.input : styles.disabledInput}/></span>
             <span className={styles.label}> <span className={styles.icon}><EmailIcon fontSize='inherit'/></span> <span>Email</span> </span>
-            <span className={styles.inputareaContainer}><span className={styles.disabledInput}>{editMode ? "Your email can not be changed" : userData?.email}</span></span>
+            <span className={styles.inputareaContainer}><span className={styles.disabledInput}>{editMode ? "Your email can not be changed" : user?.email}</span></span>
             <span className={styles.label}> <span className={styles.icon}><MilitaryTechIcon fontSize='inherit'/></span> <span>Membership</span> </span>
             <span className={styles.cardContainer}><span className={styles.membershipCard}>{userData?.membership ? userData?.membership : "FREE"}</span>{(userData?.membership === "Member" || userData?.membership === "Staff") ?  "" :  <Link href="/membership">Upgrade</Link>}</span>
             <span className={styles.label}> <span className={styles.icon}><WaterDropIcon fontSize='inherit'/></span> <span>Role</span> </span>
