@@ -36,12 +36,11 @@ export default function AuthPage(){
         const { data: { user } } = await supabase.auth.getUser()
         if(user) queryClient.setQueriesData(['user'], user)
 
-        const {data, error} = await supabase
+        const {error} = await supabase
             .from('accounts')
             .upsert({id: user?.id}, { onConflict: "id"})
-            .select();
-
-        if(data && data?.length !== 0) queryClient.setQueryData(['userdata'], data)
+        if(error) console.log(error)
+        queryClient.invalidateQueries({queryKey: ['userdata']})
         router.push("/dashboard")
 
     }

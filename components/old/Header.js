@@ -19,13 +19,6 @@ import { useQuery } from '@tanstack/react-query';
 
 const supabase = createClient()
 
-const getUserData = async () => {
-  const {data, error} = await supabase
-      .from('accounts')
-      .select();
-
-  return (await data[0] ?? null)
-}
 
 const getUser = async () => {
   const { data: { user } } = await supabase.auth.getUser()
@@ -37,7 +30,6 @@ export default function Header(){
   const [hamOpen, setHamOpen] = useState(false);
 
   const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
-  const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
   //{ data, isLoading, isError, isFetching}
 
 
@@ -66,7 +58,7 @@ export default function Header(){
           <span>
             <ul className={styles.nav_user}>
               <li>
-                <Link className={styles.nav_signup} href={userQuery?.data !== null ? "/dashboard" : "/login"}><span>{userQuery?.data !== null ? userDataQuery?.data?.name : "Log in"}</span></Link>
+                <Link className={styles.nav_signup} href={userQuery?.data !== null ? "/dashboard" : "/login"}><span>{userQuery?.data !== null ? "Dashboard" : "Log in"}</span></Link>
               </li>
               <li className={styles.nav_menu}>
                 <span onClick={() => hamOpen ? setHamOpen(false) : setHamOpen(true)}>{hamOpen ? <CloseIcon className={styles.nav_menuicon}></CloseIcon> : <MenuIcon className={styles.nav_menuicon}></MenuIcon>}</span>
@@ -78,7 +70,7 @@ export default function Header(){
       <span className={hamOpen ? styles.extendedNav : styles.disnone}>
         <span><Link href="/dashboard">Gallery</Link></span>
         <span>
-          {userQuery?.data !== null ? <Link href="/login">{userDataQuery?.data?.name}</Link> : <Link href="/login">Log In</Link>}
+          {userQuery?.data !== null ? <Link href="/login">Dashboard</Link> : <Link href="/login">Log In</Link>}
         </span>
       </span>
     </span>

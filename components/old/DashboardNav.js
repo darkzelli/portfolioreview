@@ -33,8 +33,8 @@ const getUserData = async () => {
   const {data, error} = await supabase
       .from('accounts')
       .select();
-  console.log(data)
-  return (await data[0] ?? null)
+  console.log("getting data", {data})
+  return (await data[0] ?? null)  
 }
 
 const getUser = async () => {
@@ -47,6 +47,8 @@ export default function DashboardNav(props) {
 
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
+    console.log('loading:',userQuery.isLoading,'fecthing:',userQuery.isFetching)
+    console.log('loading:',userDataQuery.isLoading,'fecthing:',userDataQuery.isFetching)
 
     const enabledGallery = <li  className={props.currentTab === "gallery" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("gallery")}><span><span className={styles.icon}><PermMediaIcon/></span>Gallery</span></li>
     const disabledGallery = <li className={styles.disabledTab}><span><span className={styles.icon}><PermMediaIcon/></span>Gallery</span></li>

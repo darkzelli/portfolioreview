@@ -14,8 +14,13 @@ export default function User() {
     const router = useRouter()
     async function signOut(){
         const supabase = createClient()
-        await supabase.auth.signOut().then(() => queryClient.invalidateQueries({queryKey: ['user', 'userdata']})).catch((error) => console.log(error))
-        
+        const { error } = await supabase.auth.signOut()
+        if(error) console.log("Could not sign out")
+        else{
+            console.log("invalidating")
+            queryClient.invalidateQueries({queryKey: ['user']})
+            queryClient.invalidateQueries({queryKey: ['userdata']})
+        }
     }
     return (
         <span className={styles.user}>
