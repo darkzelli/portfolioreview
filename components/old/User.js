@@ -7,19 +7,15 @@ import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
 import { revalidateUser, revalidateUserData } from '../revalidateTags'
 
+import { useQueryClient } from '@tanstack/react-query'
+
 export default function User() {
+    const queryClient = useQueryClient()
     const router = useRouter()
     async function signOut(){
         const supabase = createClient()
-        const { error } = await supabase.auth.signOut()
-        if(error) console.log("Could not sign out")
-        else{
-            console.log("revalidating...")
-            revalidateUser()
-            revalidateUserData()
-            router.refresh()
-            console.log("revalidated")
-        }
+        await supabase.auth.signOut().then(() => queryClient.invalidateQueries({queryKey: ['user', 'userdata']})).catch((error) => console.log(error))
+        
     }
     return (
         <span className={styles.user}>

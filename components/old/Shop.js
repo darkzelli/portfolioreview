@@ -9,20 +9,29 @@ import { useContext, useEffect, useState } from 'react';
 
 import { userContext } from '../UseUser';
 
-export default function Shop() {
-    const {account, accountData} = useContext(userContext)
-    const [user, setUser] = useState()
-    const [userData, setUserData] = useState()
+import { useQuery } from '@tanstack/react-query';
 
-    let parsedData;
-    useEffect(() => {
-      if(account) setUser(JSON.parse(account?.value))
-      if(accountData) parsedData = JSON.parse(accountData?.value)
-      if(Array.isArray(parsedData)) setUserData(parsedData[0])
-    }, [])
+import { createClient } from "@/utils/supabase/client";
+
+
+const supabase = createClient()
+
+const getUserData = async () => {
+    const {data, error} = await supabase
+      .from('accounts')
+      .select();
+    return (await data[0] ?? null)
+}
+
+export default function Shop() {
+    
+    const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
+
+
+
     return (
         <span className={styles.shop}>
-            { (userData?.membership === "Member" ||  userData?.membership === "Staff") ? <></> : <span className={styles.Pricingtab}>
+            { (userDataQuery?.data?.membership === "Member" ||  userDataQuery?.data?.membership === "Staff") ? <></> : <span className={styles.Pricingtab}>
                     <span className={styles.maintext}>Become a member</span>
                     <span className={styles.priceInfo}>
                         <span className={styles.ogPrice}>$25</span>

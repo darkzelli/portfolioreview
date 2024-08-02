@@ -19,7 +19,7 @@ const getData = async () => {
         .from('accounts')
         .select();
     if(error) console.log(error)
-    return await data[0]
+    return await (await data[0] ?? null)
 }
 
 export default function Test() {

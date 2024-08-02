@@ -24,22 +24,29 @@ import { createClient } from "@/utils/supabase/client";
 
 import { useState, useEffect, useContext } from 'react';
 
-import { userContext } from '../UseUser';
 import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+
+const supabase = createClient()
+
+const getUserData = async () => {
+  const {data, error} = await supabase
+      .from('accounts')
+      .select();
+  console.log(data)
+  return (await data[0] ?? null)
+}
+
+const getUser = async () => {
+  const { data: { user } } = await supabase.auth.getUser()
+  return await user
+}
+
 
 export default function DashboardNav(props) {
-    const {account, accountData} = useContext(userContext)
-    const [user, setUser] = useState()
-    const [userData, setUserData] = useState()
-    const router = useRouter()
-    let parsedData;
-    useEffect(() => {
-        if(account) setUser(JSON.parse(account?.value))
-        if(accountData) parsedData = JSON.parse(accountData?.value)
-        if(Array.isArray(parsedData)) setUserData(parsedData[0])
-    }, [])
-  
 
+    const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
+    const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
 
     const enabledGallery = <li  className={props.currentTab === "gallery" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("gallery")}><span><span className={styles.icon}><PermMediaIcon/></span>Gallery</span></li>
     const disabledGallery = <li className={styles.disabledTab}><span><span className={styles.icon}><PermMediaIcon/></span>Gallery</span></li>
@@ -54,16 +61,16 @@ export default function DashboardNav(props) {
         <span className={styles.Settings_Nav_Container}>
            <ul className={styles.settingsUl}>
                 <li className={styles.image}><Image src={logo} width={150} height={150} alt="logo.png"/></li>
-                <li  className={props.currentTab === "user" ? styles.selectedTab : styles.notSelectedTab}><span><span className={styles.icon}><PowerSettingsNewIcon/></span>{user ? <span onClick={() => props.tabSetter("user")}>{(userData?.name !== "" && userData?.name !== null) ? userData?.name : "Account"}</span> : <Link href="/login">Log in</Link>}</span></li>
-                {user ? enabledGallery : disabledGallery}
-                {user ? enabledPortfolio : disabledPortfolio}
-                {user ? enabledProfile : disabledProfile}
-                {user ? enabledShop : disabledShop}
+                <li  className={props.currentTab === "user" ? styles.selectedTab : styles.notSelectedTab}><span><span className={styles.icon}><PowerSettingsNewIcon/></span>{userQuery?.data ? <span onClick={() => props.tabSetter("user")}>{(userDataQuery?.data?.name !== "" && userDataQuery?.data?.name !== null) ? userDataQuery?.data?.name : "Account"}</span> : <Link href="/login">Log in</Link>}</span></li>
+                {userQuery?.data ? enabledGallery : disabledGallery}
+                {userQuery?.data ? enabledPortfolio : disabledPortfolio}
+                {userQuery?.data ? enabledProfile : disabledProfile}
+                {userQuery?.data ? enabledShop : disabledShop}
                 <li  className={props.currentTab === "whatsnew" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("whatsnew")}><span><span className={styles.icon}><HistoryIcon/></span>What's New</span></li>
                 <li ><span><Link href="https://insigh.to/b/portfolio-review" className={styles.link}><span className={styles.icon}><FeedbackIcon/></span>Feedback</Link></span></li>
                 <li><span><Link href="/tos" className={styles.link}><span className={styles.icon}><GavelIcon/></span>TOS</Link></span></li>
                 <li><span><Link href="/privacy-policy" className={styles.link}><span className={styles.icon}><PrivacyTipIcon/></span>Privacy Policy</Link></span></li>
-                {user ? <li onClick={() => props.tabSetter("adminpanel")}><span><span className={styles.icon}><AdminPanelSettingsIcon/></span>Admin Panel</span></li> : <></>} 
+                {userQuery?.data ? <li onClick={() => props.tabSetter("adminpanel")}><span><span className={styles.icon}><AdminPanelSettingsIcon/></span>Admin Panel</span></li> : <></>} 
            </ul>
         </span>
     );

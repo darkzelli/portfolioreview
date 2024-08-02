@@ -12,10 +12,11 @@ import { createClient } from "@/utils/supabase/client";
 
 import { userContext } from "@/components/UseUser"
 
-
+import { useQueryClient } from '@tanstack/react-query';
 
 import logo from "/review_logo_black.png" 
-import { revalidateUser, revalidateUserData } from '../revalidateTags';
+
+const supabase = createClient()
 
 export default function AuthPage(){
     
@@ -23,31 +24,25 @@ export default function AuthPage(){
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState()
-    const [supabase, setSupabase] = useState()
+
+
     const [message, setMessage] = useState(null)
-    const {account, accountData} = useContext(userContext)
-    const [user, setUser] = useState()
-    const [userData, setUserData] = useState()
+
     const router = useRouter()
-    
-    let parsedData;
-    useEffect(() => {
-        setSupabase(createClient())
-        if(account) setUser(JSON.parse(account?.value))
-        if(accountData) parsedData = JSON.parse(accountData?.value)
-        if(Array.isArray(parsedData)) setUserData(parsedData[0])
-    }, [])
-    
+
+    const queryClient = useQueryClient()
+
     async function loginCallback(){
         const { data: { user } } = await supabase.auth.getUser()
+        if(user) queryClient.setQueriesData(['user'], user)
+
         const {data, error} = await supabase
             .from('accounts')
-            .upsert({id: user?.id, name: "fucker"}, { onConflict: "id"});
-        if(!error){
-            revalidateUser()
-            revalidateUserData()
-            router.push("/dashboard")
-        }
+            .upsert({id: user?.id}, { onConflict: "id"})
+            .select();
+
+        if(data && data?.length !== 0) queryClient.setQueryData(['userdata'], data)
+        router.push("/dashboard")
 
     }
 
@@ -57,7 +52,6 @@ export default function AuthPage(){
                 email,
                 password,
             })
-            if(data) setUser(data.user)
     
             if(error){
                 reject("error 400")
