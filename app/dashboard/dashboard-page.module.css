@@ -131,3 +131,17 @@
     
 }
 
+
+@media screen and (max-width: 370px) {
+    .Hamburger{
+        padding: 0 4px;
+    }
+    .Hamburger_Menu{
+        padding: 0 2px;
+    }
+    .Hamburger_Menu > span{
+        padding: 0 9px;
+        font-size: 24px;
+    }
+
+}

@@ -64,7 +64,6 @@ export default function RootLayout({
         <main className="min-h-screen flex flex-col items-center">
           <Providers>
             {children}
-            <ReactQueryDevtools/>
           </Providers>
         </main>
       </body>

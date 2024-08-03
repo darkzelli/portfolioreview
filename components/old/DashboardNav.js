@@ -72,7 +72,6 @@ export default function DashboardNav(props) {
                 <li ><span><Link href="https://insigh.to/b/portfolio-review" className={styles.link}><span className={styles.icon}><FeedbackIcon/></span>Feedback</Link></span></li>
                 <li><span><Link href="/tos" className={styles.link}><span className={styles.icon}><GavelIcon/></span>TOS</Link></span></li>
                 <li><span><Link href="/privacy-policy" className={styles.link}><span className={styles.icon}><PrivacyTipIcon/></span>Privacy Policy</Link></span></li>
-                {userQuery?.data ? <li onClick={() => props.tabSetter("adminpanel")}><span><span className={styles.icon}><AdminPanelSettingsIcon/></span>Admin Panel</span></li> : <></>} 
            </ul>
         </span>
     );
