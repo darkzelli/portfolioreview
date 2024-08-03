@@ -7,7 +7,7 @@ const nextConfig = {
         }
     },
     experimental: {
-        optimizePackageImports: ['@emotion/styled', '@emotion/react', '@mui/icons-material', '@mui/joy', 'lucide-react'],
+        optimizePackageImports: ['@emotion/styled', '@emotion/react', '@mui/icons-material', '@mui/joy', 'lucide-react', '@mui/material'],
     },
 };
 
