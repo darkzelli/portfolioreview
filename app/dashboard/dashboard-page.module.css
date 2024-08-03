@@ -108,6 +108,11 @@
 .purpleColor{
     color: #A005FF;
 }
+
+.twentyFour{
+    padding: 0 10px;
+    font-size: 24px;
+}
 @media screen and (min-width: 1250px) {
     .dashboard_page_container{
         flex-direction: row;

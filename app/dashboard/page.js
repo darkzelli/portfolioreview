@@ -127,7 +127,7 @@ export default function DASHBOARD(){
             <span className={styles.Hamburger}>
                 <span onClick={() => setHamburgerOpen(!hamburgerOpen)}><MenuIcon fontSize='inherit'/></span>
                 <span className={hamburgerOpen ? styles.Hamburger_Menu : styles.Hamburger_Menu_Closed}>
-                    {userQuery?.data ? <span  onClick={() => setTab("user")} className={tab === "user" ? styles.purpleColor : styles.blackColor}><PowerSettingsNewIcon fontSize='inherit' /></span> : <Link href="/login"><PowerSettingsNewIcon fontSize='inherit' /></Link>}
+                    {userQuery?.data ? <span  onClick={() => setTab("user")} className={tab === "user" ? styles.purpleColor : styles.blackColor}><PowerSettingsNewIcon fontSize='inherit' /></span> : <Link className={styles.twentyFour} href="/login"><PowerSettingsNewIcon fontSize='inherit' /></Link>}
                     <span onClick={() => setTab("gallery")}className={tab === "gallery" ? styles.purpleColor : styles.blackColor}><PermMediaIcon fontSize='inherit'/></span>
                     {userQuery?.data ? <span onClick={() => setTab("portfolio")} className={tab === "portfolio" ? styles.purpleColor : styles.blackColor}><FolderOpenIcon fontSize='inherit'/></span> : <></>}
                     {userQuery?.data ? <span onClick={() => setTab("profile")} className={tab === "profile" ? styles.purpleColor : styles.blackColor}><PersonIcon fontSize='inherit'/></span> : <></>}
