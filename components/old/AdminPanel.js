@@ -1,5 +1,4 @@
 import styles from '../../css/adminpanel.module.css'
-import React, { Component } from 'react';
 
 
 

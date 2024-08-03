@@ -1,36 +1,29 @@
 "use client";
-import Link from 'next/link';
 import styles from '../../css/auth.module.css'
+
 import { useState, useRef, useEffect, useContext } from 'react';
+
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Image from "next/image";
+
+import { useQueryClient } from '@tanstack/react-query';
+import { createClient } from "@/utils/supabase/client";
 
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
-import { createClient } from "@/utils/supabase/client";
 
-import { userContext } from "@/components/UseUser"
-
-import { useQueryClient } from '@tanstack/react-query';
-
-import logo from "/review_logo_black.png" 
 
 const supabase = createClient()
 
 export default function AuthPage(){
-    
-    const [login, setLogin] = useState(true);
-
     const [email, setEmail] = useState();
-    const [password, setPassword] = useState()
-
-
+    const [login, setLogin] = useState(true);
     const [message, setMessage] = useState(null)
-
+    const [password, setPassword] = useState()
+    const queryClient = useQueryClient()
     const router = useRouter()
 
-    const queryClient = useQueryClient()
 
     async function loginCallback(){
         const { data: { user } } = await supabase.auth.getUser()
@@ -90,12 +83,6 @@ export default function AuthPage(){
         }
     }
 
-    function checkAuthErrors(){
-        confirmAuth()
-    }
-    async function confirmAuth(){
-        
-    }
 
     if(message !== null) return (<div className={styles.SignupContainer}>{message}</div>)
     return(

@@ -1,7 +1,9 @@
 import styles from './reward.module.css'
+
 import Image from "next/image";
-import logo from "/review_logo_black.png" 
 import Link from 'next/link';
+
+import logo from "/review_logo_black.png" 
 
 export default function Reward() {
     return (

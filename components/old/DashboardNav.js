@@ -1,31 +1,25 @@
 "use client"
 import styles from '../../css/dashboard-nav.module.css'
 
-import logo from "/review_logo_black.png" 
 
 import Image from "next/image";
 import Link from 'next/link';
 
+import { createClient } from "@/utils/supabase/client";
+import { useQuery } from '@tanstack/react-query';
 
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import PermMediaIcon from '@mui/icons-material/PermMedia';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import PersonIcon from '@mui/icons-material/Person';
-import SettingsIcon from '@mui/icons-material/Settings';
 import HistoryIcon from '@mui/icons-material/History';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import GavelIcon from '@mui/icons-material/Gavel';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 import StoreIcon from '@mui/icons-material/Store';
-import LogoutIcon from '@mui/icons-material/Logout';
 
-import { createClient } from "@/utils/supabase/client";
 
-import { useState, useEffect, useContext } from 'react';
-
-import { useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import logo from "/review_logo_black.png" 
 
 const supabase = createClient()
 

@@ -1,8 +1,10 @@
 "use client"
+
+import styles from './tos-page.module.css'
+
 import Header from "@/components/old/Header";
 import Tos from "@/components/old/Tos";
 
-import styles from './tos-page.module.css'
 
 export default function TOS(){
     return(

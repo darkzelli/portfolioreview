@@ -1,17 +1,9 @@
 "use client"
-import { useState } from 'react';
 import styles from '../../css/faq.module.css'
 
-import AddBoxIcon from '@mui/icons-material/AddBox';
-
-import Accordion from '@mui/joy/Accordion';
-import AccordionDetails from '@mui/joy/AccordionDetails';
-import AccordionGroup from '@mui/joy/AccordionGroup';
-import AccordionSummary from '@mui/joy/AccordionSummary';
 
 
 export default function FAQ() {
-    const [qOpen, setQOpen] = useState(false)
     return (
         <span className={styles.faqContainer}>
             <h1 className={styles.maintext}>Frequently Asked Questions</h1>
@@ -33,7 +25,7 @@ export default function FAQ() {
             <span className={styles.info}>
                 Simply take your portfolio website url and enter it into your dashboard
             </span>
-            <span onClick={() => setQOpen(true)} className={styles.question4}>
+            <span className={styles.question4}>
                 What are Critique Credits?
             </span>
             <span className={styles.info1}>

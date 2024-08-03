@@ -1,21 +1,20 @@
 "use client"
 import styles from '../../css/header.module.css'
 
-import logo from "/review_logo_white.png" 
-
-import { useEffect, useState, useContext} from 'react';
+import { useState} from 'react';
 
 import Link from "next/link";
 import Image from "next/image";
+
+import { createClient } from "@/utils/supabase/client";
+import { useQuery } from '@tanstack/react-query';
 
 
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 
+import logo from "/review_logo_white.png" 
 
-import { createClient } from "@/utils/supabase/client";
-
-import { useQuery } from '@tanstack/react-query';
 
 const supabase = createClient()
 
@@ -28,9 +27,7 @@ const getUser = async () => {
 
 export default function Header(){
   const [hamOpen, setHamOpen] = useState(false);
-
   const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
-  //{ data, isLoading, isError, isFetching}
 
 
 

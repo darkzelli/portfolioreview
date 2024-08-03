@@ -1,5 +1,13 @@
 "use client"
 import styles from '../../css/profile.module.css'
+
+import { useState} from 'react';
+
+import Link from 'next/link';
+
+import { createClient } from "@/utils/supabase/client";
+import { useQuery } from '@tanstack/react-query';
+
 import PersonIcon from '@mui/icons-material/Person';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
@@ -7,16 +15,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EmailIcon from '@mui/icons-material/Email';
 
-import { useState, useContext, useEffect } from 'react';
 
 
-import { createClient } from "@/utils/supabase/client";
 
-import { userContext } from '../UseUser';
-
-import { useQuery } from '@tanstack/react-query';
-
-import Link from 'next/link';
 
 const supabase = createClient()
 
@@ -36,8 +37,6 @@ export default function Profile() {
     const [editMode, setEditMode] = useState(false)
     const [username, setUserName] = useState()
     const [userRole, setUserRole] = useState()
-
-
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
 

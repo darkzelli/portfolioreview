@@ -1,6 +1,7 @@
 import styles from '../../css/pricing.module.css'
 
 import Link from 'next/link';
+
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import RedeemIcon from '@mui/icons-material/Redeem';

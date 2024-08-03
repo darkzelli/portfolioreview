@@ -1,5 +1,7 @@
 import styles from '../../css/showcase.module.css'
+
 import Image from 'next/image';
+import Link from 'next/link';
 
 import portfolio1 from '../../images/1.jpg'
 import portfolio2 from '../../images/2.jpg'
@@ -25,12 +27,6 @@ import portfolio21 from '../../images/21.jpg'
 import portfolio22 from '../../images/22.jpg'
 import portfolio23 from '../../images/23.jpg'
 import portfolio24 from '../../images/24.jpg'
-
-import LockIcon from '@mui/icons-material/Lock';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
-
-import Link from 'next/link';
-
 
 
 

@@ -1,7 +1,9 @@
 import styles from '../../css/cover.module.css'
-import Particles from '../magicui/particles';
 
 import Link from 'next/link';
+
+import Particles from '../magicui/particles';
+
 
 
 

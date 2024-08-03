@@ -1,52 +1,45 @@
 "use client"
 
+//styles
 import styles from './dashboard-page.module.css'
 
+//React
+import { useState, useEffect } from "react";
+
+//Next
+import Image from 'next/image';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+
+//Other Functional Libaries
+import { useQuery } from '@tanstack/react-query';
+
+//Icons
 import MenuIcon from '@mui/icons-material/Menu';
-
-import DashboardNav from "@/components/old/DashboardNav";
-import Gallery from "@/components/old/Gallery";
-import Portfolio from "@/components/old/Portfolio";
-import Profile from "@/components/old/Profile";
-import Settings from "@/components/old/Settings";
-import MembershipTab from "@/components/old/MembershipTab";
-import Shop from "@/components/old/Shop";
-import Whatsnew from "@/components/old/Whatsnew";
-import { AdminPanel } from '@/components/old/AdminPanel';
-import User from '@/components/old/User';
-
-
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import PermMediaIcon from '@mui/icons-material/PermMedia';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import PersonIcon from '@mui/icons-material/Person';
-import SettingsIcon from '@mui/icons-material/Settings';
 import HistoryIcon from '@mui/icons-material/History';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import FeedbackIcon from '@mui/icons-material/Feedback';
-import GavelIcon from '@mui/icons-material/Gavel';
-import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 import StoreIcon from '@mui/icons-material/Store';
+import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 
-import { useSearchParams } from 'next/navigation';
-
-
-import { useState, useEffect } from "react";
-
-import Image from 'next/image';
-
-
-import portfolio1 from '../../images/1.jpg'
-
-
-
+//Outsourced Components
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from '@/components/ui/dialog';
 
-import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
-import Link from 'next/link';
+//Created Components
+import DashboardNav from "@/components/old/DashboardNav";
+import Gallery from "@/components/old/Gallery";
+import Portfolio from "@/components/old/Portfolio";
+import Profile from "@/components/old/Profile";
+import Shop from "@/components/old/Shop";
+import Whatsnew from "@/components/old/Whatsnew";
+import User from '@/components/old/User';
 import Suggestions from '@/components/old/Suggestions';
+import { AdminPanel } from '@/components/old/AdminPanel';
 
-import { useQuery } from '@tanstack/react-query';
+//Images
+import portfolio1 from '../../images/1.jpg'
 
 const getUser = async () => {
     const { data: { user } } = await supabase.auth.getUser()
@@ -54,20 +47,20 @@ const getUser = async () => {
 }
 
 export default function DASHBOARD(){
-    
-    const [hamburgerOpen, setHamburgerOpen] = useState(false)
-    const [tab, setTab] = useState("gallery");
-    const [tabContent, setTabContent] = useState();
-    const searchParams = useSearchParams()
+    //React Hooks - Alphabetical Order
     const [dialogStatus, setDialogStatus] = useState(false)
-    const [userPortfolio, setUserPortfolio] = useState("")
+    const [hamburgerOpen, setHamburgerOpen] = useState(false)
     const [portfolioData, setPortfolioData] = useState()
     const [replies, setReplies] = useState([])
+    const searchParams = useSearchParams()
+    const [tab, setTab] = useState("gallery");
+    const [tabContent, setTabContent] = useState();
+    const [userPortfolio, setUserPortfolio] = useState("")
 
+    //Outsourced Hooks
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
 
     async function getPortfolio(portfolio){
-        console.log(portfolio)
         fetch(process.env.NEXT_PUBLIC_NEXT_URL + "api/user/info?portfolio=" + portfolio.toString() , {method: "GET"})
         .then((res) => res.json().then((data) => {
           if(res.status === 200){setPortfolioData(data); setReplies(data?.message?.portfolio?.suggestions)}
@@ -76,15 +69,12 @@ export default function DASHBOARD(){
         .catch((err) => console.log(err))
     }
 
-
     useEffect(() => {
         if(searchParams.has('portfolio')){
             const portfolio = searchParams.get('portfolio')
             setUserPortfolio(portfolio)
             setDialogStatus(true)
-            getPortfolio(portfolio)
-
-            
+            getPortfolio(portfolio) 
         }    
     }, [searchParams.get('portfolio')])
 
@@ -102,12 +92,6 @@ export default function DASHBOARD(){
             case "profile":
                 setTabContent(<Profile/>)
                 break;
-            case "settings":
-                setTabContent(<Settings/>)
-                break;
-            case "membership":
-                setTabContent(<MembershipTab/>)
-                break;
             case "shop":
                 setTabContent(<Shop/>)
                 break;
@@ -121,7 +105,7 @@ export default function DASHBOARD(){
                 break;
         }
     }, [tab])
-    const suggest = <></>
+
     return(
         <span className={styles.dashboard_page_container}>
             <span className={styles.Hamburger}>

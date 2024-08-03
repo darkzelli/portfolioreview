@@ -1,8 +1,9 @@
 import styles from '../../css/footer.module.css'
 
+import Link from 'next/link';
+
 import CopyrightIcon from '@mui/icons-material/Copyright';
 
-import Link from 'next/link';
 
 export default function Footer() {
     return (

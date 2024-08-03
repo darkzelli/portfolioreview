@@ -1,5 +1,4 @@
 "use client";
-import { redirect } from 'next/navigation';
 
 import Header from "@/components/old/Header";
 import Pricing from "@/components/old/Pricing";

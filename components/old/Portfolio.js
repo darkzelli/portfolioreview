@@ -1,24 +1,17 @@
 "use client"
 import styles from '../../css/portfolio.module.css'
 
+import { useState } from 'react';
+
+import { createClient } from "@/utils/supabase/client";
+import { useQuery } from '@tanstack/react-query';
+
 import DescriptionIcon from '@mui/icons-material/Description';
 import LinkIcon from '@mui/icons-material/Link';
 import FolderIcon from '@mui/icons-material/Folder';
-import ImageIcon from '@mui/icons-material/Image';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-import { createClient } from "@/utils/supabase/client";
-
-
-import { useEffect, useState, useContext } from 'react';
-
-import { userContext } from '../UseUser';
-
-
-import { unstable_cache } from 'next/cache';
-
-import { useQuery } from '@tanstack/react-query';
 
 const supabase = createClient()
 
@@ -32,10 +25,9 @@ const getUserData = async () => {
 
 export default function Portfolio() {
     const [desc, setDesc] = useState()
-    const [url, setUrl] = useState()
-    const [portfolio, setPortfolio] = useState()
     const [editMode, setEditMode] = useState(false)
-
+    const [portfolio, setPortfolio] = useState()
+    const [url, setUrl] = useState()
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
 
 

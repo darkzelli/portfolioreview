@@ -1,17 +1,17 @@
 "use client"
 import styles from '../../css/user.module.css'
-import { createClient } from '@/utils/supabase/client'
 
-import { userContext } from '../UseUser'
-import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
-import { revalidateUser, revalidateUserData } from '../revalidateTags'
 
+import { createClient } from '@/utils/supabase/client'
 import { useQueryClient } from '@tanstack/react-query'
+
+
 
 export default function User() {
     const queryClient = useQueryClient()
     const router = useRouter()
+    
     async function signOut(){
         const supabase = createClient()
         const { error } = await supabase.auth.signOut()
@@ -22,6 +22,7 @@ export default function User() {
             queryClient.invalidateQueries({queryKey: ['userdata']})
         }
     }
+
     return (
         <span className={styles.user}>
             <span className={styles.signoutbtn} onClick={() => signOut()}>Log Out</span>

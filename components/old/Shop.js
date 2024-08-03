@@ -1,17 +1,14 @@
 "use client";
 import styles from '../../css/shop.module.css'
 
-import TollIcon from '@mui/icons-material/Toll';
-import CheckIcon from '@mui/icons-material/Check';
 import Link from 'next/link';
 
-import { useContext, useEffect, useState } from 'react';
-
-import { userContext } from '../UseUser';
-
 import { useQuery } from '@tanstack/react-query';
-
 import { createClient } from "@/utils/supabase/client";
+
+import CheckIcon from '@mui/icons-material/Check';
+
+
 
 
 const supabase = createClient()
@@ -24,10 +21,7 @@ const getUserData = async () => {
 }
 
 export default function Shop() {
-    
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
-
-
 
     return (
         <span className={styles.shop}>
