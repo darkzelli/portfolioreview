@@ -1,5 +1,5 @@
 <a href="https://portfolioreview.me">
-  <img alt="Portfolio Review - Make Your Portfolio Better" src="https://imgur.com/a/GIFCNfo">
+  ![alt](https://imgur.com/2SUcZN4)
   <h1 align="center">Get advice and constructive criticism on your portfolio or provide feedback on others.</h1>
 </a>
 
@@ -7,15 +7,15 @@
 
 ## Packages
 ##### Basic
-Free
-Upload a Portfolio
-Limited Number of Critique Credits
+Free<br/>
+Upload a Portfolio<br/>
+Limited Number of Critique Credits<br/>
 View Portfolios
 
 ##### Member
-$10
-Upload a Portfolio
-Limited Number of Critique Credits
+$10<br/>
+Upload a Portfolio<br/>
+Limited Number of Critique Credits<br/>
 View Portfolios
 
 
