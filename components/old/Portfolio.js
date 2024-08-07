@@ -16,10 +16,12 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 const supabase = createClient()
 
 const getUserData = async () => {
-  const {data, error} = await supabase
-      .from('accounts')
-      .select();
-  return (await data[0] ?? null)
+    const { data: { user } } = await supabase.auth.getUser()
+    const {data, error} = await supabase
+        .from('accounts')
+        .select()
+        .eq('id', user?.id);
+    return (await data[0] ?? null)
 }
 
 
@@ -52,7 +54,7 @@ export default function Portfolio() {
             <span className={styles.label}><span className={styles.icon}><DescriptionIcon fontSize='inherit'/></span> <span>Description</span> </span>
             <span className={styles.textareaContainer}><textarea placeholder={userDataQuery?.data ? userDataQuery?.data?.description : ''} className={editMode ? styles.textarea : styles.disabledTextArea} disabled={!editMode}  onChange={(e) => setDesc(e.target.value)}/></span>
             <span className={styles.label}> <span className={styles.icon}><LinkIcon fontSize='inherit'/></span> <span>URL</span> </span>
-            <span className={styles.inputareaContainer}><input disabled={!editMode} type='url' name='url' placeholder={userDataQuery?.data ? userDataQuery?.data?.route_url : ''} onChange={(e) => setUrl(e.target.value)} className={editMode ? styles.input : styles.disabledInput}/></span>
+            <span className={styles.inputareaContainer}><input disabled={!editMode} type='url' name='url' placeholder={userDataQuery?.data ? "portfolioreview.me/" + userDataQuery?.data?.route_url : ''} onChange={(e) => setUrl(e.target.value)} className={editMode ? styles.input : styles.disabledInput}/></span>
             <span className={styles.label}> <span className={styles.icon}><FolderIcon fontSize='inherit'/></span> <span>Portfolio</span> </span>
             <span className={styles.inputareaContainer}><input disabled={!editMode} type='url' name='portfolio' placeholder={userDataQuery?.data ? userDataQuery?.data?.portfolio_url : ''} onChange={(e) => setPortfolio(e.target.value)} className={editMode ? styles.input : styles.disabledInput}/></span>
             <span className={editMode ? styles.savechanges : styles.displayNone} onClick={() =>  handleUpdate()}>Save Changes</span>

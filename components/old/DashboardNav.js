@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { createClient } from "@/utils/supabase/client";
 import { useQuery } from '@tanstack/react-query';
 
+import TollIcon from '@mui/icons-material/Toll';
+
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import PermMediaIcon from '@mui/icons-material/PermMedia';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
@@ -24,10 +26,11 @@ import logo from "/review_logo_black.png"
 const supabase = createClient()
 
 const getUserData = async () => {
+  const { data: { user } } = await supabase.auth.getUser()
   const {data, error} = await supabase
       .from('accounts')
-      .select();
-  console.log("getting data", {data})
+      .select()
+      .eq('id', user?.id);
   return (await data[0] ?? null)  
 }
 
@@ -61,7 +64,6 @@ export default function DashboardNav(props) {
                 {userQuery?.data ? enabledGallery : disabledGallery}
                 {userQuery?.data ? enabledPortfolio : disabledPortfolio}
                 {userQuery?.data ? enabledProfile : disabledProfile}
-                {userQuery?.data ? enabledShop : disabledShop}
                 <li  className={props.currentTab === "whatsnew" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("whatsnew")}><span><span className={styles.icon}><HistoryIcon/></span>What's New</span></li>
                 <li ><span><Link href="https://insigh.to/b/portfolio-review" className={styles.link}><span className={styles.icon}><FeedbackIcon/></span>Feedback</Link></span></li>
                 <li><span><Link href="/tos" className={styles.link}><span className={styles.icon}><GavelIcon/></span>TOS</Link></span></li>

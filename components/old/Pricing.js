@@ -21,7 +21,6 @@ export default function Pricing() {
                     </span>
                     <span className={styles.features}>
                         <span className={styles.feature}><CloseIcon/>Upload a Portfolio</span>
-                        <span className={styles.feature}><CheckIcon/>3 Critique Credits</span>
                         <span className={styles.feature} ><CheckIcon/>View portfolios</span>
                     </span>
                     <Link href="/dashboard" className={styles.button}>Start Free</Link>
@@ -34,7 +33,6 @@ export default function Pricing() {
                     </span>
                     <span className={styles.features}>
                         <span className={styles.feature}><CheckIcon/>Upload a Portfolio</span>
-                        <span className={styles.feature}><CheckIcon/>Unlimited Critique Credits</span>
                         <span className={styles.feature} ><CheckIcon/>View portfolios</span>
                     </span>
                     <Link href="/dashboard" className={styles.button}>One Time Payment</Link>

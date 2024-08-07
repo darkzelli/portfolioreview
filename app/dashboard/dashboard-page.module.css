@@ -28,7 +28,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     padding-right: 10px;
 }
 
@@ -36,28 +36,48 @@
     color: #A005FF;
     font-weight: 500;
     cursor: pointer;
+    margin-right: 8px;
 }
 
 
 
+.likecount{
+    margin-right: 4px;
+}
+
+.favoritesGroup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    padding: 8px 12px;
+    flex-direction: row;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.FavIcon{
+    font-size: 12px;
+}
+
 .suggestInputContainer{
-    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .suggestInput{
     width: 100%;
 }
-.favorites{
-    margin-right: 30px;
-    cursor: pointer;
-}
+
 
 .views{
     cursor: pointer;
 }
 
 .favorites > span{
-    margin-right: 10px;
+    margin-right: 5px;
 }
 .views > span{
     margin-right: 10px;
@@ -65,8 +85,14 @@
 
 .portfolioComments{
     display: flex;
+    height: 20vh;
     width: 100%;
     flex-direction: column;
+    overflow: scroll;
+}
+
+.portfolioComments::-webkit-scrollbar{
+    display: none;
 }
 
 .loadmore{
@@ -112,6 +138,19 @@
 .twentyFour{
     padding: 0 10px;
     font-size: 24px;
+}
+
+.suggestDetails{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    color: #A005FF;
+}
+
+.suggestDetails > p{
+    color: #938989;
+    margin-right: 10px;
 }
 @media screen and (min-width: 1250px) {
     .dashboard_page_container{

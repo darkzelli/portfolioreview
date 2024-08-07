@@ -14,9 +14,11 @@ import CheckIcon from '@mui/icons-material/Check';
 const supabase = createClient()
 
 const getUserData = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
     const {data, error} = await supabase
-      .from('accounts')
-      .select();
+        .from('accounts')
+        .select()
+        .eq('id', user?.id);
     return (await data[0] ?? null)
 }
 

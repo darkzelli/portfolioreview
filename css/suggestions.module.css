@@ -10,18 +10,23 @@
     display: flex;
     flex-direction: row;
 }
-.details > span{
+.details > span:nth-child(1){
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
-}
-
-.details > span:nth-child(1){
+    margin-right: 5px;
     font-weight: 800;
 }
+
+
 
 .suggestion{
     display: flex;
     justify-content: centerw;
+}
+
+.deleteBTN{
+    font-weight: 800;
+    color: lightgray;
+    cursor: pointer;
 }

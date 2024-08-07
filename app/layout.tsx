@@ -2,13 +2,12 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import UserProvider from "@/components/UseUser"
 import { unstable_cache } from "next/cache";
-import { createClient } from "@/utils/supabase/server";
 import { data } from "autoprefixer";
 
 import Providers from "@/utils/react-query/ReactQueryProvider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-const supabase = createClient()
+/*const supabase = createClient()
 
 async function InitializeUser(){
   const user = await getUser(supabase)
@@ -41,7 +40,7 @@ const getUser = unstable_cache(
   {
     tags: ['user']
   }
-)
+)*/
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`

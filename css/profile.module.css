@@ -110,6 +110,7 @@
 
 .disabledInput{
     display: flex;
+    align-items: center;
     background-color: #DFDFDF;
     color: rgb(109, 109, 109);
     font-size: 18px;

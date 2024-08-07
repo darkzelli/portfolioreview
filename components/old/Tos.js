@@ -71,11 +71,7 @@ export default function Tos(){
             <span className={styles.white}>
                 Portfolio Review may update these Terms from time to time. We will notify you of any changes by posting the new Terms under the changelog. You are advised to review these Terms periodically for any changes. Your continued use of the Service after the posting of any revised Terms constitutes your acceptance of such revised Terms.
             </span>
-            <span>15. Reward</span>
-            <span className={styles.white}>
-                By accessing and reviewing these terms Portfolio Review may grant you a reward, such that you are among the first 25 publicly registered users to the service. To see if you are eligible for these rewards visit PortfolioReview.me/tos-reward-9384622. Once 25 users have received these awards they will no longer be available at any time. 
-            </span>
-            <span>16. Contact Us</span>
+            <span>15. Contact Us</span>
             <span className={styles.white}>
                 If you have any questions about these Terms, please contact us at support@portfolioreview.me
             </span>

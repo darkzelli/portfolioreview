@@ -22,9 +22,11 @@ import EmailIcon from '@mui/icons-material/Email';
 const supabase = createClient()
 
 const getUserData = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
     const {data, error} = await supabase
         .from('accounts')
-        .select();
+        .select()
+        .eq("id", user?.id);
     return (await data[0] ?? null)
 }
   

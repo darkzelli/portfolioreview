@@ -13,6 +13,7 @@ import { useSearchParams } from 'next/navigation';
 
 //Other Functional Libaries
 import { useQuery } from '@tanstack/react-query';
+import { createClient } from "@/utils/supabase/client";
 
 //Icons
 import MenuIcon from '@mui/icons-material/Menu';
@@ -23,6 +24,9 @@ import PersonIcon from '@mui/icons-material/Person';
 import HistoryIcon from '@mui/icons-material/History';
 import StoreIcon from '@mui/icons-material/Store';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
+import TollIcon from '@mui/icons-material/Toll';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 //Outsourced Components
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from '@/components/ui/dialog';
@@ -38,8 +42,18 @@ import User from '@/components/old/User';
 import Suggestions from '@/components/old/Suggestions';
 import { AdminPanel } from '@/components/old/AdminPanel';
 
+const supabase = createClient()
 //Images
 import portfolio1 from '../../images/1.jpg'
+
+const getUserData = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    const {data, error} = await supabase
+        .from('accounts')
+        .select()
+        .eq('id', user?.id);
+    return (await data[0] ?? null)  
+}
 
 const getUser = async () => {
     const { data: { user } } = await supabase.auth.getUser()
@@ -60,13 +74,20 @@ export default function DASHBOARD(){
     //Outsourced Hooks
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
 
+    async function getReplies(portfolio){
+        const queryComments = await supabase.from('comments').select().eq('portfolio_location', portfolio);
+        if(Array.isArray(queryComments?.data)){
+            setReplies(queryComments?.data.sort((a,b) => b.pinned - a.pinned))
+        }
+    }
+
     async function getPortfolio(portfolio){
-        fetch(process.env.NEXT_PUBLIC_NEXT_URL + "api/user/info?portfolio=" + portfolio.toString() , {method: "GET"})
-        .then((res) => res.json().then((data) => {
-          if(res.status === 200){setPortfolioData(data); setReplies(data?.message?.portfolio?.suggestions)}
-          else console.log("an error")
-        }).catch((err) => console.log(err)))
-        .catch((err) => console.log(err))
+        let portfoliodata = {}
+        const queryAccountData = await supabase.from('accounts').select().eq('route_url', portfolio);
+        if(Array.isArray(queryAccountData.data)){ 
+            portfoliodata.account = queryAccountData?.data[0]
+            setPortfolioData(portfoliodata)
+        }
     }
 
     useEffect(() => {
@@ -75,6 +96,8 @@ export default function DASHBOARD(){
             setUserPortfolio(portfolio)
             setDialogStatus(true)
             getPortfolio(portfolio) 
+            getReplies(portfolio)
+            console.log(replies)
         }    
     }, [searchParams.get('portfolio')])
 
@@ -126,25 +149,19 @@ export default function DASHBOARD(){
             <Dialog open={dialogStatus}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>{portfolioData?.message?.name ? userPortfolio : "No User Found"}<Link target='_blank' passHref={true} href={portfolioData?.message?.portfolio?.url ?? "/dashboard"}><OpenInNewOutlinedIcon/></Link></DialogTitle>
-                        <DialogDescription>{portfolioData?.message?.role}</DialogDescription>
-                        <DialogDescription>{portfolioData?.message?.description}</DialogDescription>
+                        <DialogTitle>{portfolioData ? userPortfolio : "No User Found"}<Link target='_blank' passHref={true} href={portfolioData?.account?.portfolio_url ?? "/dashboard"}><OpenInNewOutlinedIcon/></Link></DialogTitle>
+                        <DialogDescription>@{portfolioData?.account?.name}</DialogDescription>
+                        <DialogDescription>{portfolioData?.account?.role}</DialogDescription>
                     </DialogHeader>
                     <Image  className={styles.image} alt='portfolio.png' src={portfolio1} width={512} height={288}/>
-                    <span className={styles.portfolioDetails}> 
-                        <span className={styles.favorites}> 
-                            <span>{portfolioData?.message?.portfolio?.likes ?? 0}</span>
-                            <span>Likes</span>
-                        </span>
-                        <span className={styles.views}>
-                            <span>{portfolioData?.message?.portfolio?.views ?? 0}</span>
-                            <span>Views</span>
+                    <DialogDescription>{portfolioData?.account?.description}</DialogDescription>
+
+                    <span className={styles.suggestInputContainer}>
+                        <input className={styles.suggestInput} placeholder='suggest something...'/>
+                        <span className={styles.suggestBTN}>
+                            Suggest
                         </span>
                     </span>
-                    {portfolioData?.message?.portfolio?.suggestions?.length < 100 ?<span className={styles.suggest}>
-                        <span className={styles.suggestInputContainer}><input className={styles.suggestInput} placeholder='suggest something...'/></span>
-                        <span className={styles.suggestBTN}>Suggest</span>
-                    </span> : "" }
                     <span className={styles.portfolioComments}>
                         {replies.map((item, key) => (
                             <Suggestions key={key} content={item} />
