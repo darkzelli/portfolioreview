@@ -1,5 +1,5 @@
 <a href="https://portfolioreview.me">
-  ![alt](https://imgur.com/2SUcZN4)
+  ![sc](https://github.com/user-attachments/assets/95d74e65-fc1f-4478-ac22-75037c72f811)
   <h1 align="center">Get advice and constructive criticism on your portfolio or provide feedback on others.</h1>
 </a>
 
@@ -8,14 +8,12 @@
 ## Packages
 ##### Basic
 Free<br/>
-Upload a Portfolio<br/>
-Limited Number of Critique Credits<br/>
+Review Portfolios<br/>
 View Portfolios
 
 ##### Member
 $10<br/>
 Upload a Portfolio<br/>
-Limited Number of Critique Credits<br/>
 View Portfolios
 
 

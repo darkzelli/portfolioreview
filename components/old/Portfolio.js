@@ -4,7 +4,7 @@ import styles from '../../css/portfolio.module.css'
 import { useState } from 'react';
 
 import { createClient } from "@/utils/supabase/client";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient, useMutation  } from '@tanstack/react-query';
 
 import DescriptionIcon from '@mui/icons-material/Description';
 import LinkIcon from '@mui/icons-material/Link';
@@ -30,23 +30,35 @@ export default function Portfolio() {
     const [editMode, setEditMode] = useState(false)
     const [portfolio, setPortfolio] = useState()
     const [url, setUrl] = useState()
+    const queryClient = useQueryClient()
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
 
+
+    const mutation = useMutation({
+        mutationFn: () => getUserData(),
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['userdata']})
+        }
+
+    })
 
     async function handleUpdate(){
         let updateData = {};
 
-        if(desc !== undefined) updateData.description = desc
-        if(url !== undefined)  updateData.url = url
-        if(portfolio !== undefined)updateData.portfolio.url = portfolio
+        const allowedPattern = /[a-zA-Z1-9]+$/
+        const urlPattern = /^(https?:\/\/)?([a-zA-Z0-9.-]+)(:[0-9]{1,5})?(\/\S*)?$/
+
+        if(allowedPattern.test(desc) && desc?.length <= 120) updateData.description = desc
+        if(urlPattern.test(url)) updateData.route_url = url
+        if(urlPattern.test(portfolio)) updateData.portfolio_url = portfolio
 
         const { data: { user } } = await supabase.auth.getUser()
         updateData.id = user?.id
 
-        const { data, error } = await supabase
+        const { error } = await supabase
             .from('accounts')
             .upsert(updateData)
-        if(error) console.log(error)
+        if(!error) mutation.mutate()
     }
     return (
         <span className={styles.portfolio}>

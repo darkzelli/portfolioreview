@@ -6,7 +6,7 @@ import { useState} from 'react';
 import Link from 'next/link';
 
 import { createClient } from "@/utils/supabase/client";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 
 import PersonIcon from '@mui/icons-material/Person';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
@@ -39,32 +39,35 @@ export default function Profile() {
     const [editMode, setEditMode] = useState(false)
     const [username, setUserName] = useState()
     const [userRole, setUserRole] = useState()
+    const queryClient = useQueryClient()
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
 
     
 
-    function checkInput(value){
-        const allowedPattern = /^[a-zA-Z0-9\S]*$/;
-        return allowedPattern.test(value)
-    }
+    const mutation = useMutation({
+        mutationFn: () => getUserData(),
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['userdata']})
+        }
+
+    })
 
     async function handleUpdate(){
         let updateData = {};
-        
-        if(username !== undefined && checkInput(username)){ 
-            updateData.name = username
-        }
 
-        if(checkInput(userRole)){
-            updateData.role = userRole
-        }
+        const allowedPattern = /[a-zA-Z1-9]+$/;
+
+        if(allowedPattern.test(username) && username.length <= 50) updateData.name = username
+
+        if(allowedPattern.test(userRole)) updateData.role = userRole
+
         const { data: { user } } = await supabase.auth.getUser()
         updateData.id = user?.id
-        const { data, error } = await supabase
+        const { error } = await supabase
             .from('accounts')
             .upsert(updateData)
-        if(error) console.log(error)
+        if(!error) mutation.mutate()
         
     }
 
