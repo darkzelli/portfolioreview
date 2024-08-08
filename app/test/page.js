@@ -1,7 +1,6 @@
 "use client"
 import styles from '../../css/notfound..module.css'
 import { useContext, useEffect, useState } from 'react';
-import { userContext } from '@/components/UseUser';
 import { revalidateUserData } from '@/components/revalidateTags'
 import { useRouter } from 'next/navigation';
 

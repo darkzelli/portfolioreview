@@ -34,7 +34,6 @@ export default function AuthPage(){
             .upsert({id: user?.id}, { onConflict: "id"})
         if(error) console.log(error)
         queryClient.invalidateQueries({queryKey: ['userdata']})
-        router.push("/dashboard")
 
     }
 
@@ -68,13 +67,19 @@ export default function AuthPage(){
         setMessage("Check the email to provided to continue the sign in process...");
     }
 
-    function handleSubmit(auth){
+    async function handleSubmit(auth){
         switch(auth){
             case "google":
-                console.log("google")
+                const googleLogin = await supabase.auth.signInWithOAuth({
+                    provider: 'google',
+                })
+                if(!googleLogin?.error) loginCallback()
                 break;
             case "github":
-                console.log("github")
+                const githubLogin = await supabase.auth.signInWithOAuth({
+                    provider: 'github',
+                })
+                if(!githubLogin?.error) loginCallback()
                 break;
             case "email":
                 if(login) signIn().then(() => loginCallback()).catch((err) => setMessage("Sorry Could not authenticate user..."))

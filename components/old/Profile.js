@@ -67,7 +67,10 @@ export default function Profile() {
         const { error } = await supabase
             .from('accounts')
             .upsert(updateData)
-        if(!error) mutation.mutate()
+        if(!error){
+            mutation.mutate()
+            setEditMode(false)
+        } 
         
     }
 

@@ -55,12 +55,12 @@ export default function DashboardNav(props) {
     const disabledProfile = <li className={styles.disabledTab}><span><span className={styles.icon}><PersonIcon/></span>Profile</span></li>
     const enabledShop = <li  className={props.currentTab === "shop" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("shop")}><span><span className={styles.icon}><StoreIcon/></span>Shop</span></li>
     const disabledShop = <li className={styles.disabledTab}><span><span className={styles.icon}><StoreIcon/></span>Shop</span></li>
-
+    console.log(userDataQuery?.data?.name !== "" || userDataQuery?.data?.name !== undefined)
     return (
         <span className={styles.Settings_Nav_Container}>
            <ul className={styles.settingsUl}>
                 <li className={styles.image}><Image src={logo} width={150} height={150} alt="logo.png"/></li>
-                <li  className={props.currentTab === "user" ? styles.selectedTab : styles.notSelectedTab}><span><span className={styles.icon}><PowerSettingsNewIcon/></span>{userQuery?.data ? <span onClick={() => props.tabSetter("user")}>{(userDataQuery?.data?.name !== "" && userDataQuery?.data?.name !== null) ? userDataQuery?.data?.name : "Account"}</span> : <Link href="/login">Log in</Link>}</span></li>
+                <li  className={props.currentTab === "user" ? styles.selectedTab : styles.notSelectedTab}><span><span className={styles.icon}><PowerSettingsNewIcon/></span>{userQuery?.data ? <span onClick={() => props.tabSetter("user")}>{userDataQuery?.data?.name !== undefined ? userDataQuery?.data?.name : "Account"}</span> : <Link href="/login">Log in</Link>}</span></li>
                 {userQuery?.data ? enabledGallery : disabledGallery}
                 {userQuery?.data ? enabledPortfolio : disabledPortfolio}
                 {userQuery?.data ? enabledProfile : disabledProfile}
