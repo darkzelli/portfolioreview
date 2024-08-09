@@ -48,11 +48,13 @@ import portfolio1 from '../../images/1.jpg'
 
 const getUserData = async () => {
     const { data: { user } } = await supabase.auth.getUser()
-    const {data, error} = await supabase
-        .from('accounts')
-        .select()
-        .eq('id', user?.id);
-    return (await data[0] ?? null)  
+    if(user){
+        const {data, error} = await supabase
+            .from('accounts')
+            .select()
+            .eq('id', user?.id);
+        return (await data[0] ?? null)  
+    }else return null
 }
 
 const getUser = async () => {

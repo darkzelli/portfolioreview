@@ -56,7 +56,7 @@ export default function AuthPage(){
             email,
             password,
             options: {
-              emailRedirectTo: `http://localhost:3000/auth/callback`,
+              emailRedirectTo: 'http://localhost:3000/auth/callback',
             },
         });
       
@@ -64,7 +64,7 @@ export default function AuthPage(){
             setMessage("Sorry Could not authenticate user...");
         }
       
-        setMessage("Check the email to provided to continue the sign in process...");
+        setMessage("Check the email you provided to continue the sign in process...");
     }
 
     async function handleSubmit(auth){
