@@ -3,6 +3,7 @@ import "./globals.css";
 import UserProvider from "@/components/UseUser"
 import { unstable_cache } from "next/cache";
 import { data } from "autoprefixer";
+import { Toaster } from "@/components/ui/toaster";
 
 import Providers from "@/utils/react-query/ReactQueryProvider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -63,6 +64,7 @@ export default function RootLayout({
         <main className="min-h-screen flex flex-col items-center">
           <Providers>
             {children}
+            <Toaster/>
             <ReactQueryDevtools/>
           </Providers>
         </main>
