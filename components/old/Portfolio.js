@@ -7,6 +7,8 @@ import Image from 'next/image';
 
 import { createClient } from "@/utils/supabase/client";
 import { useQuery, useQueryClient, useMutation  } from '@tanstack/react-query';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import DescriptionIcon from '@mui/icons-material/Description';
 import LinkIcon from '@mui/icons-material/Link';
@@ -104,12 +106,16 @@ export default function Portfolio() {
         let updateData = {};
         imageUpdate()
 
-        const allowedPattern = /[a-zA-Z1-9]+$/
-        const urlPattern = /^(https?:\/\/)?([a-zA-Z0-9.-]+)(:[0-9]{1,5})?(\/\S*)?$/
+        const allowedPattern = /^[a-zA-Z0-9 ]+$/
+        const urlPattern = /^[a-zA-Z0-9_-]+$/
+        const PortfolioPattern = /^(https?:\/\/)?([a-zA-Z0-9.-]+)(:[0-9]{1,5})?(\/\S*)?$/
 
         if(allowedPattern.test(desc) && desc?.length <= 120) updateData.description = desc
-        if(urlPattern.test(url)) updateData.route_url = url
-        if(urlPattern.test(portfolio)) updateData.portfolio_url = portfolio
+        else toast("Description was not updated! Your new description must have no special characters and be under 120 characters", {type: 'error', theme: 'dark', hideProgressBar: true})
+        if(urlPattern.test(url) && url?.length <= 25) updateData.route_url = url
+        else toast("URL was not updated! Your new url must be url encoded and be under 25 characters", {type: 'error', theme: 'dark', hideProgressBar: true})
+        if(PortfolioPattern.test(portfolio)) updateData.portfolio_url = portfolio
+        else toast("Portfolio was not updated! Invalid Website", {type: 'error', theme: 'dark', hideProgressBar: true})
 
         const { data: { user } } = await supabase.auth.getUser()
         updateData.id = user?.id
@@ -118,9 +124,10 @@ export default function Portfolio() {
             .from('accounts')
             .upsert(updateData)
         if(!error){
+            toast("Portfolio Updated", {type: 'success', theme: 'dark', hideProgressBar: true})
             dataMutation.mutate()
             setEditMode(false)
-        }
+        }else toast("Error updating Portfolio", {type: 'error', theme: 'dark', hideProgressBar: true})
     }
     return (
         <span className={styles.portfolio}>
@@ -134,7 +141,7 @@ export default function Portfolio() {
             <span className={styles.label}> <span className={styles.icon}><FolderIcon fontSize='inherit'/></span> <span>Portfolio</span> </span>
             <span className={styles.inputareaContainer}><input disabled={!editMode} type='url' name='portfolio' placeholder={userDataQuery?.data ? userDataQuery?.data?.portfolio_url : ''} onChange={(e) => setPortfolio(e.target.value)} className={editMode ? styles.input : styles.disabledInput}/></span>
             <span className={editMode ? styles.savechanges : styles.displayNone} onClick={() =>  handleUpdate()}>Save Changes</span>
-            <button onClick={() => testonclick()}>Tester</button>
+            <ToastContainer/>
         </span>
     )
 

@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { createClient } from "@/utils/supabase/client";
 import { useQuery } from '@tanstack/react-query';
 
-import TollIcon from '@mui/icons-material/Toll';
 
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import PermMediaIcon from '@mui/icons-material/PermMedia';
@@ -62,7 +61,7 @@ export default function DashboardNav(props) {
         <span className={styles.Settings_Nav_Container}>
            <ul className={styles.settingsUl}>
                 <li className={styles.image}><Image src={logo} width={150} height={150} alt="logo.png"/></li>
-                <li  className={props.currentTab === "user" ? styles.selectedTab : styles.notSelectedTab}><span><span className={styles.icon}><PowerSettingsNewIcon/></span>{userQuery?.data ? <span onClick={() => props.tabSetter("user")}>{userDataQuery?.data?.name !== undefined ? userDataQuery?.data?.name : "Account"}</span> : <Link href="/login">Log in</Link>}</span></li>
+                <li  className={props.currentTab === "user" ? styles.selectedTab : styles.notSelectedTab}><span><span className={styles.icon}><PowerSettingsNewIcon/></span>{userQuery?.data ? <span onClick={() => props.tabSetter("user")}>{userDataQuery?.data?.name !== undefined && userDataQuery?.data?.name !== null   ? userDataQuery?.data?.name : "Account"}</span> : <Link href="/login">Log in</Link>}</span></li>
                 {userQuery?.data ? enabledGallery : disabledGallery}
                 {userQuery?.data ? enabledPortfolio : disabledPortfolio}
                 {userQuery?.data ? enabledProfile : disabledProfile}

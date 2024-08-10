@@ -29,7 +29,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 //Outsourced Components
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose} from '@/components/ui/dialog';
 
 //Created Components
 import DashboardNav from "@/components/old/DashboardNav";
@@ -148,7 +148,7 @@ export default function DASHBOARD(){
             <span className={styles.dashboard_content}>
                 {tabContent}
             </span>
-            <Dialog open={dialogStatus}>
+            <Dialog open={dialogStatus} onOpenChange={setDialogStatus}>
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>{portfolioData ? userPortfolio : "No User Found"}<Link target='_blank' passHref={true} href={portfolioData?.account?.portfolio_url ?? "/dashboard"}><OpenInNewOutlinedIcon/></Link></DialogTitle>

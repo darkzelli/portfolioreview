@@ -7,6 +7,8 @@ import Link from 'next/link';
 
 import { createClient } from "@/utils/supabase/client";
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import PersonIcon from '@mui/icons-material/Person';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
@@ -58,9 +60,11 @@ export default function Profile() {
     async function handleUpdate(){
         let updateData = {};
 
-        const allowedPattern = /[a-zA-Z1-9]+$/;
+        const allowedPattern = /^[a-zA-Z0-9]+$/;
 
-        if(allowedPattern.test(username) && username.length <= 50) updateData.name = username
+        if(allowedPattern.test(username) && username.length <= 15) updateData.name = username
+        else toast("Name was not updated! Your new name must have no special characters and be under 15 characters", {type: 'error', theme: 'dark', hideProgressBar: true})
+        
 
         if(allowedPattern.test(userRole)) updateData.role = userRole
 
@@ -70,9 +74,10 @@ export default function Profile() {
             .from('accounts')
             .upsert(updateData)
         if(!error){
+            toast("Profile Updated", {type: 'success', theme: 'dark', hideProgressBar: true})
             mutation.mutate()
             setEditMode(false)
-        } 
+        }else toast("Error updating Portfolio", {type: 'error', theme: 'dark', hideProgressBar: true})
         
     }
 
@@ -90,6 +95,7 @@ export default function Profile() {
             <span className={styles.label}> <span className={styles.icon}><WaterDropIcon fontSize='inherit'/></span> <span>Role</span> </span>
             <span className={styles.cardContainer}>{editMode ? roleEdit : roleView}</span>
             <span className={editMode ? styles.savechanges : styles.displayNone} onClick={() =>  handleUpdate()}>Save Changes</span>
+            <ToastContainer/>
         </span>
     );
 
