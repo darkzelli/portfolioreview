@@ -30,3 +30,9 @@
     color: lightgray;
     cursor: pointer;
 }
+
+.Pin{
+    color: rgb(182, 180, 180);
+    font-weight: 800;
+    margin-left: 10px;
+}

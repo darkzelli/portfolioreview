@@ -66,15 +66,18 @@ export default function DASHBOARD(){
     //React Hooks - Alphabetical Order
     const [dialogStatus, setDialogStatus] = useState(false)
     const [hamburgerOpen, setHamburgerOpen] = useState(false)
+    const [portfolio_location, setPortfolio_location] = useState()
     const [portfolioData, setPortfolioData] = useState()
     const [replies, setReplies] = useState([])
     const searchParams = useSearchParams()
+    const [suggestion, setSuggestion] = useState()
     const [tab, setTab] = useState("gallery");
     const [tabContent, setTabContent] = useState();
     const [userPortfolio, setUserPortfolio] = useState("")
 
     //Outsourced Hooks
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
+    const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
 
     async function getReplies(portfolio){
         const queryComments = await supabase.from('comments').select().eq('portfolio_location', portfolio);
@@ -92,6 +95,15 @@ export default function DASHBOARD(){
         }
     }
 
+    async function submitSuggestion(){
+        if(userDataQuery?.data){
+            const {error} = await supabase
+                .from('comments')
+                .insert({owner: userDataQuery?.data?.id , name: userDataQuery?.data?.name, payload: suggestion, portfolio_location: portfolio_location});
+            if(error) toast("Error adding comment", {type: 'error', theme: 'dark', hideProgressBar: true})
+        }else if(error) toast("<ust be logged in to add a comment", {type: 'error', theme: 'dark', hideProgressBar: true})
+    }
+
     useEffect(() => {
         if(searchParams.has('portfolio')){
             const portfolio = searchParams.get('portfolio')
@@ -99,6 +111,7 @@ export default function DASHBOARD(){
             setDialogStatus(true)
             getPortfolio(portfolio) 
             getReplies(portfolio)
+            setPortfolio_location(portfolio)
             console.log(replies)
         }    
     }, [searchParams.get('portfolio')])
@@ -159,8 +172,8 @@ export default function DASHBOARD(){
                     <DialogDescription>{portfolioData?.account?.description}</DialogDescription>
 
                     <span className={styles.suggestInputContainer}>
-                        <input className={styles.suggestInput} placeholder='suggest something...'/>
-                        <span className={styles.suggestBTN}>
+                        <input className={styles.suggestInput} onChange={(e) => setSuggestion(e.target.value)} placeholder='suggest something...'/>
+                        <span className={styles.suggestBTN} onClick={() => submitSuggestion()}>
                             Suggest
                         </span>
                     </span>

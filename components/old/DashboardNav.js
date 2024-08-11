@@ -45,8 +45,8 @@ export default function DashboardNav(props) {
 
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
-    console.log('loading:',userQuery.isLoading,'fecthing:',userQuery.isFetching)
-    console.log('loading:',userDataQuery.isLoading,'fecthing:',userDataQuery.isFetching)
+    //console.log('loading:',userQuery.isLoading,'fecthing:',userQuery.isFetching)
+    //console.log('loading:',userDataQuery.isLoading,'fecthing:',userDataQuery.isFetching)
 
     const enabledGallery = <li  className={props.currentTab === "gallery" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("gallery")}><span><span className={styles.icon}><PermMediaIcon/></span>Gallery</span></li>
     const disabledGallery = <li className={styles.disabledTab}><span><span className={styles.icon}><PermMediaIcon/></span>Gallery</span></li>
@@ -56,7 +56,6 @@ export default function DashboardNav(props) {
     const disabledProfile = <li className={styles.disabledTab}><span><span className={styles.icon}><PersonIcon/></span>Profile</span></li>
     const enabledShop = <li  className={props.currentTab === "shop" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("shop")}><span><span className={styles.icon}><StoreIcon/></span>Shop</span></li>
     const disabledShop = <li className={styles.disabledTab}><span><span className={styles.icon}><StoreIcon/></span>Shop</span></li>
-    console.log(userDataQuery?.data?.name !== "" || userDataQuery?.data?.name !== undefined)
     return (
         <span className={styles.Settings_Nav_Container}>
            <ul className={styles.settingsUl}>
