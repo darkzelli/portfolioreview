@@ -70,16 +70,18 @@ export default function AuthPage(){
     async function handleSubmit(auth){
         switch(auth){
             case "google":
+                queryClient.invalidateQueries({queryKey: ['userdata']})
+                queryClient.invalidateQueries({queryKey: ['user']})
                 const googleLogin = await supabase.auth.signInWithOAuth({
                     provider: 'google',
                 })
-                if(!googleLogin?.error) loginCallback()
                 break;
             case "github":
+                queryClient.invalidateQueries({queryKey: ['userdata']})
+                queryClient.invalidateQueries({queryKey: ['user']})
                 const githubLogin = await supabase.auth.signInWithOAuth({
                     provider: 'github',
                 })
-                if(!githubLogin?.error) loginCallback()
                 break;
             case "email":
                 if(login) signIn().then(() => loginCallback()).catch((err) => setMessage("Sorry Could not authenticate user..."))

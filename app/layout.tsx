@@ -2,6 +2,7 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
 
+import { createClient } from "@/utils/supabase/server";
 
 import Providers from "@/utils/react-query/ReactQueryProvider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";

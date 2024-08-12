@@ -234,6 +234,21 @@
 }
 
 
+.noMembership{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px 10px;
+}
+
+.becomeMember{
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: 900;
+}
+
 
 
 

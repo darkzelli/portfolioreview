@@ -20,6 +20,7 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 import thumbnail from '../../default_thumbnail.png'
 
+
 const supabase = createClient()
 
 
@@ -129,6 +130,7 @@ export default function Portfolio() {
             setEditMode(false)
         }else toast("Error updating Portfolio", {type: 'error', theme: 'dark', hideProgressBar: true})
     }
+    if(userDataQuery?.data?.membership === "Free") return <span className={styles.noMembership}><span className={styles.becomeMember}>Become a Member</span><span>Click <b>"Upgrade"</b> in the profile tab to become a member and get started on your portfolio</span></span>
     return (
         <span className={styles.portfolio}>
             <span className={styles.mode} onClick={() => setEditMode(!editMode)}><span className={styles.modeIcon}>{editMode ? <EditIcon/> : <VisibilityIcon/>}</span>{ editMode ? "Edit Mode" : "View Mode"}</span>

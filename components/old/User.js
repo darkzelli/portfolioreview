@@ -6,6 +6,9 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
 import { useQueryClient } from '@tanstack/react-query'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 export default function User() {
@@ -15,9 +18,9 @@ export default function User() {
     async function signOut(){
         const supabase = createClient()
         const { error } = await supabase.auth.signOut()
-        if(error) console.log("Could not sign out")
+        if(error) toast("Error Logging Out", {type: 'error', theme: 'dark', hideProgressBar: true})
         else{
-            console.log("invalidating")
+            toast("Logged Out", {type: 'success', theme: 'dark', hideProgressBar: true})
             queryClient.invalidateQueries({queryKey: ['user']})
             queryClient.invalidateQueries({queryKey: ['userdata']})
         }
@@ -26,6 +29,7 @@ export default function User() {
     return (
         <span className={styles.user}>
             <span className={styles.signoutbtn} onClick={() => signOut()}>Log Out</span>
+            <ToastContainer/>
         </span>
     );
 

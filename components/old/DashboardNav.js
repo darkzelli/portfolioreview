@@ -61,7 +61,7 @@ export default function DashboardNav(props) {
            <ul className={styles.settingsUl}>
                 <li className={styles.image}><Image src={logo} width={150} height={150} alt="logo.png"/></li>
                 <li  className={props.currentTab === "user" ? styles.selectedTab : styles.notSelectedTab}><span><span className={styles.icon}><PowerSettingsNewIcon/></span>{userQuery?.data ? <span onClick={() => props.tabSetter("user")}>{userDataQuery?.data?.name !== undefined && userDataQuery?.data?.name !== null   ? userDataQuery?.data?.name : "Account"}</span> : <Link href="/login">Log in</Link>}</span></li>
-                {userQuery?.data ? enabledGallery : disabledGallery}
+                {enabledGallery}
                 {userQuery?.data ? enabledPortfolio : disabledPortfolio}
                 {userQuery?.data ? enabledProfile : disabledProfile}
                 <li  className={props.currentTab === "whatsnew" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("whatsnew")}><span><span className={styles.icon}><HistoryIcon/></span>What's New</span></li>
