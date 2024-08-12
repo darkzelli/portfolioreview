@@ -10,12 +10,17 @@ import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 import PersonIcon from '@mui/icons-material/Person';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EmailIcon from '@mui/icons-material/Email';
+
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose} from '@/components/ui/dialog';
+
+import Membership from '@/components/old/Membership';
 
 
 
@@ -40,6 +45,7 @@ const getUser = async () => {
 }
 
 export default function Profile() {
+    const [dialogPaymentStatus, setDialogPaymentStatus] = useState(false)
     const [editMode, setEditMode] = useState(false)
     const [username, setUserName] = useState()
     const [userRole, setUserRole] = useState()
@@ -91,10 +97,20 @@ export default function Profile() {
             <span className={styles.label}> <span className={styles.icon}><EmailIcon fontSize='inherit'/></span> <span>Email</span> </span>
             <span className={styles.inputareaContainer}><span className={styles.disabledInput}>{editMode ? "Your email can not be changed" : userQuery?.data?.email}</span></span>
             <span className={styles.label}> <span className={styles.icon}><MilitaryTechIcon fontSize='inherit'/></span> <span>Membership</span> </span>
-            <span className={styles.cardContainer}><span className={styles.membershipCard}>{userDataQuery?.data?.membership ? userDataQuery?.data?.membership : "FREE"}</span>{(userDataQuery?.data?.membership === "Member" || userDataQuery?.data?.membership === "Staff") ?  "" :  <Link href="/membership">Upgrade</Link>}</span>
+            <span className={styles.cardContainer}><span className={styles.membershipCard}>{userDataQuery?.data?.membership ? userDataQuery?.data?.membership : "FREE"}</span>{(userDataQuery?.data?.membership === "Member" || userDataQuery?.data?.membership === "Staff") ?  "" :  <span onClick={() => setDialogPaymentStatus(true)}>Upgrade</span>}</span>
             <span className={styles.label}> <span className={styles.icon}><WaterDropIcon fontSize='inherit'/></span> <span>Role</span> </span>
             <span className={styles.cardContainer}>{editMode ? roleEdit : roleView}</span>
             <span className={editMode ? styles.savechanges : styles.displayNone} onClick={() =>  handleUpdate()}>Save Changes</span>
+            <Dialog  open={dialogPaymentStatus} onOpenChange={setDialogPaymentStatus} >
+                <DialogContent>
+                    <DialogHeader>
+                        <span className={styles.dialogTitle}><DialogTitle>Portfolio Review Membership</DialogTitle></span>
+                    </DialogHeader>
+                    <span className={styles.StripeMembership}>
+                        <Membership/>
+                    </span>
+                </DialogContent>
+            </Dialog>
             <ToastContainer/>
         </span>
     );

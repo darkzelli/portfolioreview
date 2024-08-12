@@ -1,12 +1,15 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import { createClient } from "@/utils/supabase/server";
 import { NextRequest } from 'next/server';
  async function handler(req) {
   switch (req.method) {
     case "POST":
       try {
-        // Create Checkout Sessions from body params.
+        const supabase = createClient()
+        const { data: { user } } = await supabase.auth.getUser()
         const session = await stripe.checkout.sessions.create({
           ui_mode: 'embedded',
+          client_reference_id: user?.id?.toString(),
           line_items: [
             {
               price: 'price_1PWUrgAHFnpEtkCSCHY9B6Eq',

@@ -142,6 +142,23 @@
     display: none;
 }
 
+.StripeMembership{
+    overflow: scroll;
+    height: 70vh;
+}
+
+.dialogTitle{
+    font-weight: 600;
+    text-align: center;
+}
+
+.dialogWarning{
+    color: red;
+    text-align: center;
+}
+.StripeMembership::-webkit-scrollbar{
+    display: none;
+}
 
 @media screen and (min-width: 768px) {
     .savechanges{
