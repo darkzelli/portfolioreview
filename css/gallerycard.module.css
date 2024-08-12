@@ -1,0 +1,39 @@
+.GalleryCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.details{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.thumbnail{
+    width: 288px;
+    height: 162px;
+    border: 1px solid black;
+}
+
+.user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px 4px;
+}

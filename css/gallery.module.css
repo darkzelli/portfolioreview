@@ -1,0 +1,156 @@
+.gallery{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+    height: 100vh;
+    margin-top: 12vh;
+    color: black;
+
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    
+}
+
+.labelContainer{
+    display: none;
+}
+.label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 15px;
+    padding: 5px 15px;
+    color: #6D6B6B;
+    cursor: pointer;
+}
+
+.labelSecleted{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    cursor: pointer;
+    color: white;
+    margin: 0 15px;
+    padding: 5px 15px;
+    border-radius: 13PX;
+}
+.searchLabel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 13PX;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.paginationContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.paginationBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin: 0 7px;
+    padding: 0 15px;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 5px;
+    font-weight: 650;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 30px;
+    height: 30px;
+    margin: 0 7px;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 5px;
+    font-weight: 650;
+}
+
+.content{
+    margin: 30px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    align-items: start;
+    gap: 10px;
+
+}
+
+.paginationInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 4px;
+}
+
+.paginationInfoCount{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 4px;
+    font-weight: 650;
+}
+
+.selector{
+    display: flex;
+    width: 100%;
+
+}
+
+@media screen and (min-width: 768px) {
+    .labelContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+    }
+    
+    .selector{
+        display: none;
+
+    }
+    .searchLabel{
+        border-radius: 13PX;
+        cursor: pointer;
+    }
+
+    .gallery{
+        margin-top: 34vh;
+    }
+}
+
+
+@media screen and (min-width: 1458px) {
+    .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        width: 80%;
+    }
+    .searchLabel{
+        width: unset;
+        margin-top: unset;
+    }
+}
