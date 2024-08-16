@@ -83,6 +83,14 @@ export default function Test() {
             queryClient.invalidateQueries({queryKey: ['userdata']})
         }
     }
+
+    async function deleteImage(){
+        const {data, error } = await supabase
+                .storage
+                .from('test')
+                .remove([userQuery?.data?.id + '/thumbnail'])
+        if(error) console.log(error)
+    }
     
     return (
         <span style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
@@ -108,6 +116,7 @@ export default function Test() {
             <span>|</span>
             <button onClick={() => signout()}>Signout</button>
             {mutation.isPending ? "changing name...": ""}
+            <button onClick={() => deleteImage()}>Delete image</button>
         </span>
     );
 

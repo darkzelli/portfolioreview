@@ -7,8 +7,10 @@ import { useQuery, useQueryClient, useMutation  } from '@tanstack/react-query';
 import Select from 'react-select'
 
 import SearchIcon from '@mui/icons-material/Search';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 
 import GalleryCard from '@/components/old/GalleryCard'
 
@@ -40,6 +42,9 @@ export default function Gallery() {
         }else return nonZeroIndexValue
     }
 
+    function updateGalleryBasedOnPagination(){
+
+    }
 
     async function getGalleryCount(){
         const rangeStart = calculateRangeStart(currentpage)
@@ -88,6 +93,7 @@ export default function Gallery() {
 
     function changeTab(tab){
         setCurrentTab(tab)
+        setCurentPage(1)
         countMutation.mutate()
     }
 
@@ -113,7 +119,27 @@ export default function Gallery() {
             label: 'Popular'
         }
     ]
-    
+
+    function usePagination(type){
+        switch(type){
+            case "start":
+                setCurentPage(1)
+                countMutation.mutate()
+                break;
+            case "before":
+                setCurentPage(currentpage - 1)
+                countMutation.mutate()
+                break;
+            case "after":
+                setCurentPage(currentpage + 1)
+                countMutation.mutate()
+                break;
+            case "end":
+                setCurentPage(pagination)
+                countMutation.mutate()
+                break;
+        }
+    }
 
     useEffect(() => {
     }, [currentTab])
@@ -136,9 +162,13 @@ export default function Gallery() {
                 <GalleryCard content={data} key={key}/>
            ))}</span>
            <span className={styles.paginationContainer} onClick={() => setPaginationFocus(!paginationFocus)} onBlur={() => setPaginationFocus(false)}>
-                <Select  className={styles.paginationBtn} menuIsOpen={paginationFocus} options={paginationOptions} defaultValue={paginationOptions[0]} noOptionsMessage={() => null} components={{DropdownIndicator: false}} onChange={(e) => setCurentPage(e?.value)} unstyled/>
+                {(!userQueryGalleryCount?.isLoading && pagination !== 1) ? <span className={styles.paginationContols} onClick={() => usePagination("start")}><KeyboardDoubleArrowLeftIcon fontSize='inherit'/> </span> : ""}
+                {(!userQueryGalleryCount?.isLoading && pagination !== 1) ? <span className={styles.paginationContols} onClick={() => usePagination("before")}><ChevronLeftIcon fontSize='inherit'/> </span> : ""}
+                <span className={styles.paginationBtn}>{currentpage}</span>
                 <span className={styles.paginationInfo}>of</span>
                 <span className={styles.paginationInfoCount}>{pagination ?? ""}</span>
+                {(!userQueryGalleryCount?.isLoading && pagination !== 1) ? <span className={styles.paginationContols}  onClick={() => usePagination("after")}><ChevronRightIcon fontSize='inherit'/> </span> : ""}
+                {(!userQueryGalleryCount?.isLoading && pagination !== 1) ? <span className={styles.paginationContols}  onClick={() => usePagination("end")}><KeyboardDoubleArrowRightIcon fontSize='inherit'/> </span> : ""}
            </span>
         </span>
     );
