@@ -1,0 +1,217 @@
+.userPortfolio{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    margin-top: 150px;
+    background-color: white;
+    
+}
+
+
+.infoandimage{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.content{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 95%;
+    height: 100%;
+    margin-top: 40px;
+}
+
+.info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+
+}
+
+.userInfo{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    width: 50%;
+}
+
+.user{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.role{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 12px;
+    
+}
+
+.visit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 100%;
+    margin-left: 30px;
+}
+
+.imageContainer{
+    background-color: rgb(209, 205, 212);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.description{
+    overflow: scroll;
+    width: 100%;
+    text-align: left;
+}
+
+
+.suggestionContainer{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 95%;
+    height: 100%;
+}
+
+.label{
+    display: none;
+}
+
+.suggestionContainerContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 0px;
+    width: 100%;
+    flex-direction: column-reverse;
+}
+
+.suggestions{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin: 20px 0;
+    overflow: scroll;
+
+}
+
+.suggestions::-webkit-scrollbar{
+    display: none;
+}
+
+.suggest{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    
+
+}
+
+.suggestInput{
+    width: 80%;
+    border-bottom: 1px solid #A005FF;
+}
+
+.suggestBTN{
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (min-width: 1478px) {
+    .userPortfolio{
+        flex-direction: row;
+        padding: 60px 100px;
+    }
+
+    .content{
+        width: 50%;
+    }
+    .info{
+        justify-content: space-between;
+        flex-direction: row;
+        padding: 10px 20px;
+    }
+
+    .user{
+        margin-right: 10px;
+        justify-content: center;
+    }
+
+    .role{
+        justify-content: center;
+    }
+
+    .userInfo{
+        flex-direction: row;
+    }
+
+    .infoandimage{
+        flex-direction: column;
+    }
+
+    .suggestionContainerContainer{
+        height: 625px;
+        flex-direction: column;
+    }
+
+    .label{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        font-weight: 650;
+    }
+
+    .suggestionContainer{
+        padding: 20px 0px;
+        width: 50%; 
+    }
+
+    .suggestions{
+        height: 625px;
+    }
+
+
+    .suggestionContainerContainer{
+        width: 60%;
+    }
+
+    .description{
+        height: unset;
+        overflow: unset;
+        width: 100%;
+        text-align: left;
+        
+    }
+    
+
+    
+
+}

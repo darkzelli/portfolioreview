@@ -23,13 +23,10 @@ import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import PersonIcon from '@mui/icons-material/Person';
 import HistoryIcon from '@mui/icons-material/History';
 import StoreIcon from '@mui/icons-material/Store';
-import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
-import TollIcon from '@mui/icons-material/Toll';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
 
 //Outsourced Components
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose} from '@/components/ui/dialog';
+
 
 //Created Components
 import DashboardNav from "@/components/old/DashboardNav";
@@ -64,57 +61,12 @@ const getUser = async () => {
 
 export default function DASHBOARD(){
     //React Hooks - Alphabetical Order
-    const [dialogStatus, setDialogStatus] = useState(false)
-    const [hamburgerOpen, setHamburgerOpen] = useState(false)
-    const [portfolio_location, setPortfolio_location] = useState()
-    const [portfolioData, setPortfolioData] = useState()
-    const [replies, setReplies] = useState([])
-    const searchParams = useSearchParams()
-    const [suggestion, setSuggestion] = useState()
     const [tab, setTab] = useState("gallery");
     const [tabContent, setTabContent] = useState();
-    const [userPortfolio, setUserPortfolio] = useState("")
 
     //Outsourced Hooks
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
-    const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
 
-    async function getReplies(portfolio){
-        const queryComments = await supabase.from('comments').select().eq('portfolio_location', portfolio);
-        if(Array.isArray(queryComments?.data)){
-            setReplies(queryComments?.data.sort((a,b) => b.pinned - a.pinned))
-        }
-    }
-
-    async function getPortfolio(portfolio){
-        let portfoliodata = {}
-        const queryAccountData = await supabase.from('accounts').select().eq('route_url', portfolio);
-        if(Array.isArray(queryAccountData.data)){ 
-            portfoliodata.account = queryAccountData?.data[0]
-            setPortfolioData(portfoliodata)
-        }
-    }
-
-    async function submitSuggestion(){
-        if(userDataQuery?.data){
-            const {error} = await supabase
-                .from('comments')
-                .insert({owner: userDataQuery?.data?.id , name: userDataQuery?.data?.name, payload: suggestion, portfolio_location: portfolio_location});
-            if(error) toast("Error adding comment", {type: 'error', theme: 'dark', hideProgressBar: true})
-        }else if(error) toast("<ust be logged in to add a comment", {type: 'error', theme: 'dark', hideProgressBar: true})
-    }
-
-    useEffect(() => {
-        if(searchParams.has('portfolio')){
-            const portfolio = searchParams.get('portfolio')
-            setUserPortfolio(portfolio)
-            setDialogStatus(true)
-            getPortfolio(portfolio) 
-            getReplies(portfolio)
-            setPortfolio_location(portfolio)
-            console.log(replies)
-        }    
-    }, [searchParams.get('portfolio')])
 
     useEffect(() => {
         switch(tab){
@@ -160,30 +112,6 @@ export default function DASHBOARD(){
             <span className={styles.dashboard_content}>
                 {tabContent}
             </span>
-            <Dialog open={dialogStatus} onOpenChange={setDialogStatus}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>{portfolioData ? userPortfolio : "No User Found"}<Link target='_blank' passHref={true} href={portfolioData?.account?.portfolio_url ?? "/dashboard"}><OpenInNewOutlinedIcon/></Link></DialogTitle>
-                        <DialogDescription>@{portfolioData?.account?.name}</DialogDescription>
-                        <DialogDescription>{portfolioData?.account?.role}</DialogDescription>
-                    </DialogHeader>
-                    <Image  className={styles.image} alt='portfolio.png' src={portfolio1} width={512} height={288}/>
-                    <DialogDescription>{portfolioData?.account?.description}</DialogDescription>
-
-                    <span className={styles.suggestInputContainer}>
-                        <input className={styles.suggestInput} onChange={(e) => setSuggestion(e.target.value)} placeholder='suggest something...'/>
-                        <span className={styles.suggestBTN} onClick={() => submitSuggestion()}>
-                            Suggest
-                        </span>
-                    </span>
-                    <span className={styles.portfolioComments}>
-                        {replies.map((item, key) => (
-                            <Suggestions key={key} content={item} />
-                        ))}
-                    </span>
-                    <button onClick={() => setDialogStatus(false)}>close</button>
-                </DialogContent>
-            </Dialog>
         </span>
     );
 }

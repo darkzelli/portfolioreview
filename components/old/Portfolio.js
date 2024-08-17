@@ -50,24 +50,10 @@ export default function Portfolio() {
     const [portfolio, setPortfolio] = useState()
     const [url, setUrl] = useState()
     const queryClient = useQueryClient()
+    const [userThumbnail, setUserThumbnail] = useState()
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
-    const userQueryThumbnail = useQuery({queryKey: ['thumbnail'], queryFn: () => getThumbnail()})
 
-
-    const getThumbnail = async () => {
-        if(userQuery?.data?.id){
-            const { data } = supabase.storage.from('test').getPublicUrl(userQuery?.data?.id + '/thumbnail')
-            return (data?.publicUrl ?? null)
-        }else return null
-    }
-    
-    const thumbnailMutation = useMutation({
-        mutationFn: () => getThumbnail(),
-        onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['thumbnail']})
-        }
-    })
 
     const dataMutation = useMutation({
         mutationFn: () => getUserData(),
@@ -87,14 +73,24 @@ export default function Portfolio() {
     })
 
     async function imageUpdate(){
-        //for instant updating image on page no cache
-        const randomindex =  Math.floor(Math.random()*100)
-        if(userQuery?.data?.id){
-            const imageUpload = await supabase.storage.from('test').upload(userQuery?.data?.id + '/thumbnail' + `?ri=${randomindex}` , image, {
-                upsert: true
-            })
-            if(!imageUpload.error) thumbnailMutation.mutate()
-        }    
+        if(userDataQuery?.data?.thumbnail){
+            const {data, error } = await supabase
+                .storage
+                .from('test')
+                .remove([userQuery?.data?.id + '/thumbnail'])
+            if(!error && userQuery?.data?.id){
+                const imageUpload = await supabase.storage.from('test').upload(userQuery?.data?.id + '/thumbnail' , image, {
+                })
+                
+            }
+        }else{
+            if(userQuery?.data?.id){
+                const imageUpload = await supabase.storage.from('test').upload(userQuery?.data?.id + '/thumbnail' , image, {
+                })
+                
+            }
+        }
+        
     }
 
     async function testonclick(){
@@ -130,12 +126,16 @@ export default function Portfolio() {
             setEditMode(false)
         }else toast("Error updating Portfolio", {type: 'error', theme: 'dark', hideProgressBar: true})
     }
+
+    useEffect(() => {
+        setUserThumbnail(`https://ohfftirpfjwsakryntaz.supabase.co/storage/v1/object/public/test/${userQuery?.data?.id}/thumbnail`)
+    }, [])
     if(userDataQuery?.data?.membership === "Free") return <span className={styles.noMembership}><span className={styles.becomeMember}>Become a Member</span><span>Click <b>"Upgrade"</b> in the profile tab to become a member and get started on your portfolio</span></span>
     return (
         <span className={styles.portfolio}>
             <span className={styles.mode} onClick={() => setEditMode(!editMode)}><span className={styles.modeIcon}>{editMode ? <EditIcon/> : <VisibilityIcon/>}</span>{ editMode ? "Edit Mode" : "View Mode"}</span>
             <span className={styles.label}> <span className={styles.icon}><SaveAltIcon fontSize='inherit'/></span> <span>Thumbnail</span> </span>
-            { editMode ? <span  className={styles.thumbnail}> { preview ? <Image  alt='thumbnail.png' src={preview} width={512} height={288}/> : ""}<input onChange={(e) => updatePreview(e.target.files[0])} className={styles.inputfile} type='file'/></span> : <span className={styles.thumbnail_image}><Image  alt='thumbnail.png' src={userQueryThumbnail?.data ? userQueryThumbnail?.data : thumbnail} width={512} height={288}/></span> }
+            { editMode ? <span  className={styles.thumbnail}> { preview ? <Image  alt='thumbnail.png' src={preview} width={512} height={288}/> : ""}<input onChange={(e) => updatePreview(e.target.files[0])} className={styles.inputfile} type='file'/></span> : <span className={styles.thumbnail_image}><Image  alt='thumbnail.png' src={userThumbnail ? userThumbnail : thumbnail} width={512} height={288}/></span> }
             <span className={styles.label}><span className={styles.icon}><DescriptionIcon fontSize='inherit'/></span> <span>Description</span> </span>
             <span className={styles.textareaContainer}><textarea placeholder={userDataQuery?.data ? userDataQuery?.data?.description : ''} className={editMode ? styles.textarea : styles.disabledTextArea} disabled={!editMode}  onChange={(e) => setDesc(e.target.value)}/></span>
             <span className={styles.label}> <span className={styles.icon}><LinkIcon fontSize='inherit'/></span> <span>URL</span> </span>

@@ -7,16 +7,17 @@ import { redirect, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
+import portfolio1 from '../../images/1.jpg'
+import Header from '@/components/old/Header';
+
+import PortfolioPage from '@/components/PortfolioPage'
+
 export default function UserPortfolio() {
     const params = useParams()
-    useEffect(() => {
-        redirect(`/dashboard?portfolio=${params.portfolio}`)
-    })
-
     return (
         <span className={styles.userPortfolio}>
-            <Link href="/"><Image src={logo} width={150} height={150} alt="logo.png"/></Link>
-           <span>Sending you to <span className={styles.username}>{params.portfolio}'s</span> Portfolio...</span>
+            <Header/>
+            <PortfolioPage portfolio={params?.portfolio}/>
         </span>
     );
 

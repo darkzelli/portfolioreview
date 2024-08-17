@@ -13,12 +13,15 @@ import Link from 'next/link'
 
 const supabase = createClient()
 const getUserData = async () => {
-    const {data, error} = await supabase
-        .from('accounts')
-        .select();
-  
-    return (await data[0] ?? null)
-}
+    const { data: { user } } = await supabase.auth.getUser()
+    if(user){
+        const {data, error} = await supabase
+            .from('accounts')
+            .select()
+            .eq('id', user?.id);
+        return (await data[0] ?? null)  
+    }else return null
+ }
 
 const getUser = async () => {
     const { data: { user } } = await supabase.auth.getUser()
@@ -33,8 +36,7 @@ export default function Test() {
     const queryClient = useQueryClient()
 
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
-    const { data, isLoading, isError, isFetching} = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
-    console.log({isLoading, isFetching})  
+    const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
     const mutation = useMutation({
         mutationFn: () => getData(),
         onSuccess: () => {
@@ -43,9 +45,7 @@ export default function Test() {
 
     })
 
-    if(isLoading) return <div>loading...</div>
-    if(isFetching)
-    if(isError || !data) return <div>Error</div>
+
 
     const handleupdate = async() => {
         const { data: { user } } = await supabase.auth.getUser()
@@ -91,21 +91,35 @@ export default function Test() {
                 .remove([userQuery?.data?.id + '/thumbnail'])
         if(error) console.log(error)
     }
+
+    async function listofAll(){
+        const bucket = await supabase
+            .storage
+            .from('test')
+            .list(`${userDataQuery?.data?.id?.toString()}`, {
+              limit: 100,
+              offset: 0,
+              sortBy: { column: 'name', order: 'asc' },
+            })
+            console.log(userDataQuery?.data?.id?.toString())
+        console.log(bucket?.data)
+        console.log(bucket?.error)
+    }
     
     return (
         <span style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
             <span><Link href="/test">test</Link><Link href="/test2">test2</Link></span>
             <span>user? {userQuery?.data ? "true" : "false"}</span>
-            <span><b>id:  </b>{data?.id}</span>
-            <span><b>name:  </b>{data?.name}</span>
-            <span><b>desc:  </b>{data?.description}</span>
-            <span><b>route:  </b>{data?.route_url}</span>
-            <span><b>role:  </b>{data?.role}</span>
-            <span><b>membership:  </b>{data?.membership}</span>
-            <span><b>url:  </b>{data?.portfolio_url}</span>
-            <span><b>can_post:  </b>{data?.can_post?.toString()}</span>
-            <span><b>can_comment:  </b>{data?.can_comment?.toString()}</span>
-            <span><b>can_like:  </b>{data?.can_like?.toString()}</span>
+            <span><b>id:  </b>{userDataQuery?.data?.id}</span>
+            <span><b>name:  </b>{userDataQuery?.data?.name}</span>
+            <span><b>desc:  </b>{userDataQuery?.data?.description}</span>
+            <span><b>route:  </b>{userDataQuery?.data?.route_url}</span>
+            <span><b>role:  </b>{userDataQuery?.data?.role}</span>
+            <span><b>membership:  </b>{userDataQuery?.data?.membership}</span>
+            <span><b>url:  </b>{userDataQuery?.data?.portfolio_url}</span>
+            <span><b>can_post:  </b>{userDataQuery?.data?.can_post?.toString()}</span>
+            <span><b>can_comment:  </b>{userDataQuery?.data?.can_comment?.toString()}</span>
+            <span><b>can_like:  </b>{userDataQuery?.data?.can_like?.toString()}</span>
             <input type="text" placeholder="name" onChange={(e) => setname(e.target.value)}/>
             <span>|</span>
             <button  onClick={handleupdate}>Submit</button>
@@ -117,6 +131,7 @@ export default function Test() {
             <button onClick={() => signout()}>Signout</button>
             {mutation.isPending ? "changing name...": ""}
             <button onClick={() => deleteImage()}>Delete image</button>
+            <butto onClick={() => listofAll()}>list of all</butto>
         </span>
     );
 

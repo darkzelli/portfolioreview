@@ -1,7 +1,7 @@
 "use client"
 import styles from '../../css/header.module.css'
 
-import { useState} from 'react';
+import { useEffect, useState} from 'react';
 
 import Link from "next/link";
 import Image from "next/image";
@@ -27,9 +27,13 @@ const getUser = async () => {
 
 export default function Header(){
   const [hamOpen, setHamOpen] = useState(false);
+  const [user, setUser] = useState(null)
   const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
 
-
+  useEffect(() => {
+    getUser().then().then((res) => {setUser(res) })
+    console.log(user?.id)
+  }, [])
 
   return(
     <span className={styles.header}>
@@ -55,7 +59,7 @@ export default function Header(){
           <span>
             <ul className={styles.nav_user}>
               <li>
-                <Link className={styles.nav_signup} href={userQuery?.data !== null ? "/dashboard" : "/login"}><span>{userQuery?.data !== null ? "Dashboard" : "Log in"}</span></Link>
+                <Link className={styles.nav_signup} href={user?.id  ? "/dashboard" : "/login"}><span>{user?.id   ? "Dashboard" : "Log in"}</span></Link>
               </li>
               <li className={styles.nav_menu}>
                 <span onClick={() => hamOpen ? setHamOpen(false) : setHamOpen(true)}>{hamOpen ? <CloseIcon className={styles.nav_menuicon}></CloseIcon> : <MenuIcon className={styles.nav_menuicon}></MenuIcon>}</span>
@@ -67,7 +71,7 @@ export default function Header(){
       <span className={hamOpen ? styles.extendedNav : styles.disnone}>
         <span><Link href="/dashboard">Gallery</Link></span>
         <span>
-          {userQuery?.data !== null ? <Link href="/login">Dashboard</Link> : <Link href="/login">Log In</Link>}
+          {user?.id  ? <Link href="/dashboard">Dashboard</Link> : <Link href="/login">Log In</Link>}
         </span>
       </span>
     </span>

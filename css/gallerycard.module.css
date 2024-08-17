@@ -37,3 +37,42 @@
     align-items: center;
     margin: 4px 4px;
 }
+
+.suggest{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding-right: 10px;
+}
+
+.suggestBTN{
+    color: #A005FF;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.suggestInputContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.suggestInput{
+    width: 100%;
+}
+
+.suggestDetails{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    color: #A005FF;
+}
+
+.suggestDetails > p{
+    color: #938989;
+    margin-right: 10px;
+}

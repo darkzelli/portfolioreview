@@ -12,6 +12,8 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose} from '@/components/ui/dialog';
+
 import GalleryCard from '@/components/old/GalleryCard'
 
 const supabase = createClient()
@@ -162,13 +164,13 @@ export default function Gallery() {
                 <GalleryCard content={data} key={key}/>
            ))}</span>
            <span className={styles.paginationContainer} onClick={() => setPaginationFocus(!paginationFocus)} onBlur={() => setPaginationFocus(false)}>
-                {(!userQueryGalleryCount?.isLoading && pagination !== 1) ? <span className={styles.paginationContols} onClick={() => usePagination("start")}><KeyboardDoubleArrowLeftIcon fontSize='inherit'/> </span> : ""}
-                {(!userQueryGalleryCount?.isLoading && pagination !== 1) ? <span className={styles.paginationContols} onClick={() => usePagination("before")}><ChevronLeftIcon fontSize='inherit'/> </span> : ""}
+                {(!userQueryGalleryCount?.isLoading && pagination !== 1 && currentpage !== 1) ? <span className={styles.paginationContols} onClick={() => usePagination("start")}><KeyboardDoubleArrowLeftIcon fontSize='inherit'/> </span> : ""}
+                {(!userQueryGalleryCount?.isLoading && pagination !== 1 && currentpage !== 1) ? <span className={styles.paginationContols} onClick={() => usePagination("before")}><ChevronLeftIcon fontSize='inherit'/> </span> : ""}
                 <span className={styles.paginationBtn}>{currentpage}</span>
                 <span className={styles.paginationInfo}>of</span>
                 <span className={styles.paginationInfoCount}>{pagination ?? ""}</span>
-                {(!userQueryGalleryCount?.isLoading && pagination !== 1) ? <span className={styles.paginationContols}  onClick={() => usePagination("after")}><ChevronRightIcon fontSize='inherit'/> </span> : ""}
-                {(!userQueryGalleryCount?.isLoading && pagination !== 1) ? <span className={styles.paginationContols}  onClick={() => usePagination("end")}><KeyboardDoubleArrowRightIcon fontSize='inherit'/> </span> : ""}
+                {(!userQueryGalleryCount?.isLoading && pagination !== 1 && currentpage !== pagination) ? <span className={styles.paginationContols}  onClick={() => usePagination("after")}><ChevronRightIcon fontSize='inherit'/> </span> : ""}
+                {(!userQueryGalleryCount?.isLoading && pagination !== 1 && currentpage !== pagination) ? <span className={styles.paginationContols}  onClick={() => usePagination("end")}><KeyboardDoubleArrowRightIcon fontSize='inherit'/> </span> : ""}
            </span>
         </span>
     );

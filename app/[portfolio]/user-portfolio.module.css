@@ -1,14 +1,5 @@
 .userPortfolio{
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    color: white;
-    background-color: #0D0611;
-    flex-direction: column;
-}
-
-.username{
-    color: #A005FF;
+    width: 100%;
 }
