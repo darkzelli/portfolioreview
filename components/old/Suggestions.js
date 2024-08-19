@@ -3,6 +3,7 @@ import styles from '../../css/suggestions.module.css'
 
 import { useQuery } from '@tanstack/react-query';
 import { createClient } from "@/utils/supabase/client";
+import Link from 'next/link';
 
 import PushPinIcon from '@mui/icons-material/PushPin';
 
@@ -47,7 +48,7 @@ export default function Suggestions(props) {
     return (
         <span className={styles.Suggestions}>
             <span className={styles.details}> 
-                <span>{props?.content?.name} </span>
+                <span><Link href={"/" + userDataQuery?.data?.route_url }>{props?.content?.name}</Link></span>
                 <span>{props?.content?.pinned ? <PushPinIcon fontSize='inherit'/> : ""} </span>
                 <span>{userDataQuery?.data?.route_url === props?.content?.portfolio_location ?  (props?.content?.pinned ? <span className={styles.Pin} onClick={() => pinSuggestion(true)}>unpin</span> : <span className={styles.Pin} onClick={() => pinSuggestion(true)}>Pin</span>): ""}</span>
             </span>

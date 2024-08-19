@@ -3,7 +3,6 @@
     justify-content: flex-start;
     align-items: center;
     width: 100vw;
-    height: 100vh;
     flex-direction: column;
     margin-top: 150px;
     background-color: white;
@@ -25,7 +24,24 @@
     flex-direction: column;
     width: 95%;
     height: 100%;
-    margin-top: 40px;
+    margin-top: 120px;
+}
+.infoBtns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ico{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    border: 1px solid rgb(153, 151, 151);
+    border-radius: 25px;
+    padding: 9px 9px;
+    margin-left: 20px;
+    cursor: pointer;
 }
 
 .info{
@@ -34,15 +50,14 @@
     align-items: center;
     flex-direction: row;
     width: 100%;
-
+    margin-bottom: 20px;
 }
 
 .userInfo{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    flex-direction: row;
-    width: 50%;
+    flex-direction: column;
 }
 
 .user{
@@ -51,6 +66,7 @@
     align-items: center;
     font-size: 18px;
     font-weight: 800;
+    width: 100%;
 }
 
 .role{
@@ -58,6 +74,7 @@
     justify-content: flex-start;
     align-items: center;
     font-size: 12px;
+    width: 100%;
     
 }
 
@@ -66,8 +83,22 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    height: 100%;
-    margin-left: 30px;
+    font-weight: 650;
+    padding: 8px 15px;
+    margin-left: 20px;
+    background-color: black;
+    color: white;
+    border-radius: 25px;
+}
+.linktext{
+    display: none;
+}
+.linkbtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: white;
 }
 
 .imageContainer{
@@ -79,20 +110,21 @@
 }
 
 .description{
-    overflow: scroll;
     width: 100%;
     text-align: left;
 }
 
 
 .suggestionContainer{
+    margin-top: 100px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    width: 95%;
+    width: 90%;
     height: 100%;
 }
+
 
 .label{
     display: none;
@@ -113,12 +145,28 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
+    height: 500px;
     margin: 20px 0;
     overflow: scroll;
 
 }
 
+.nosuggestions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 500px;
+    margin: 20px 0;
+    overflow: scroll; 
+}
+
 .suggestions::-webkit-scrollbar{
+    display: none;
+}
+
+.nosuggestions::-webkit-scrollbar{
     display: none;
 }
 
@@ -128,90 +176,126 @@
     align-items: center;
     flex-direction: row;
     width: 100%;
+    border: 1px solid rgb(184, 181, 181);
+    padding: 0 15px;
+    margin-bottom: 20px;
     
 
 }
 
 .suggestInput{
-    width: 80%;
-    border-bottom: 1px solid #A005FF;
+    width: 85%;
+    height: 50px;
 }
 
 .suggestBTN{
-    width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    border-radius: 25px;
+    margin-left: 5%;
+    font-size: 12px;
+    font-weight: 800;
 }
 
-@media screen and (min-width: 1478px) {
-    .userPortfolio{
-        flex-direction: row;
-        padding: 60px 100px;
+.suggesthr{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    width: 1px;
+    background-color: black;
+}
+
+.alsoLike{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
+.alsoLikeLabel{
+    font-weight: 800;
+
+}
+.alsoLikeGallery{
+    margin: 30px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    align-items: start;
+    gap: 10px;
+}
+
+.suggesttopLabel{
+    font-weight: 800;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    width: 100%;
+    margin-top: 100px;
+    flex-direction: column;
+}
+
+.messageLabel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.messageContainer{
+    width: 100%;
+    padding: 20px 20px;
+}
+@media screen and (min-width: 768px) {
+   
+    .description{
+        width: 95%;
+        text-align: left;
+    }
+    
+    .visit{
+        margin-left: 30px;
     }
 
-    .content{
-        width: 50%;
-    }
-    .info{
-        justify-content: space-between;
-        flex-direction: row;
-        padding: 10px 20px;
-    }
-
-    .user{
-        margin-right: 10px;
-        justify-content: center;
-    }
-
-    .role{
-        justify-content: center;
-    }
-
-    .userInfo{
-        flex-direction: row;
-    }
-
-    .infoandimage{
-        flex-direction: column;
-    }
-
-    .suggestionContainerContainer{
-        height: 625px;
-        flex-direction: column;
-    }
-
-    .label{
+    .linktext{
         display: flex;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: center;
-        width: 100%;
-        font-weight: 650;
+    }
+
+    .linkbtn{
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1035px) {
+    .description{
+        width: 928px;
+        text-align: left;
     }
 
     .suggestionContainer{
-        padding: 20px 0px;
-        width: 50%; 
+        width: 928px; 
     }
 
-    .suggestions{
-        height: 625px;
+    .alsoLike{
+        width: 928px;
     }
 
-
-    .suggestionContainerContainer{
-        width: 60%;
+    .message{
+        width: 928px;
     }
 
-    .description{
-        height: unset;
-        overflow: unset;
-        width: 100%;
-        text-align: left;
-        
-    }
-    
 
     
-
 }

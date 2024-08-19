@@ -47,21 +47,40 @@
 }
 
 .suggestBTN{
-    color: #A005FF;
-    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(0, 0, 0);
     cursor: pointer;
-    margin-right: 8px;
+    border-radius: 25px;
+    margin-left: 5%;
+    font-size: 12px;
+    font-weight: 800;
 }
 
 .suggestInputContainer{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    flex-direction: row;
     width: 100%;
+    border: 1px solid rgb(184, 181, 181);
+    padding: 0 15px;
+    margin-bottom: 20px;
+}
+
+.suggesthr{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    width: 1px;
+    background-color: black;
 }
 
 .suggestInput{
-    width: 100%;
+    width: 85%;
+    height: 50px;
 }
 
 .suggestDetails{

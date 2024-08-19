@@ -22,7 +22,6 @@ const supabase = createClient()
 export default function GalleryCard({content}) {
     const [dialogStatus, setDialogStatus] = useState(false)
     const [replies, setReplies] = useState([])
-    const [thumbnail, setThumbnail] = useState()
     async function getReplies(){
         const queryComments = await supabase.from('comments').select().eq('portfolio_location', content?.route_url);
         if(Array.isArray(queryComments?.data)){
@@ -39,20 +38,14 @@ export default function GalleryCard({content}) {
         }else if(error) toast("<ust be logged in to add a comment", {type: 'error', theme: 'dark', hideProgressBar: true})
     }
 
-    async function getThumbnail(){
-        console.log('ffefe')
-        const { data } = supabase.storage.from('test').getPublicUrl(content?.id + '/thumbnail')
-        setThumbnail(data?.publicUrl ?? null)
-    }
+    
 
     useEffect(() => {
         getReplies()
-        getThumbnail()
-        console.log(thumbnail?.error)
     }, [content])
     return (
         <span className={styles.GalleryCard}>
-            <Image alt="" src={thumbnail ?? defaultthumbnail} width={288} height={162} onClick={() => setDialogStatus(true)}/>
+            <Image alt="" src={content?.thumbnail ?? defaultthumbnail} width={288} height={162} onClick={() => setDialogStatus(true)}/>
             <span className={styles.details}>
                 <span className={styles.user}>
                     <span className={styles.detail}>{content?.name}</span>
@@ -71,13 +64,14 @@ export default function GalleryCard({content}) {
                         <DialogDescription>portfolioreview.me/{content?.route_url}</DialogDescription>
                         <DialogDescription>{content?.role}</DialogDescription>
                     </DialogHeader>
-                    <Image  className={styles.image} alt='portfolio.png' src={`https://ohfftirpfjwsakryntaz.supabase.co/storage/v1/object/public/test/${content?.id}/thumbnail`} width={512} height={288}/>
+                    <Image  className={styles.image} alt='portfolio.png' src={content?.thumbnail ?? defaultthumbnail} width={512} height={288}/>
                     <DialogDescription>{content?.description}</DialogDescription>
 
                     <span className={styles.suggestInputContainer}>
                         <input className={styles.suggestInput} onChange={(e) => setSuggestion(e.target.value)} placeholder='suggest something...'/>
+                        <span className={styles.suggesthr}></span>
                         <span className={styles.suggestBTN} onClick={() => submitSuggestion()}>
-                            Suggest
+                            Enter
                         </span>
                     </span>
                     <span className={styles.portfolioComments}>

@@ -152,6 +152,49 @@
     margin-bottom: 4vh;
 }
 
+.colopickerContainer{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-self: flex-start;
+    flex-direction: column;
+    margin-bottom: 4vh;
+    margin-left: 2px;
+}
+
+.colorPickLabel{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: 700;
+    width: 100%;
+    margin-bottom: 2vh;
+}
+
+.diabledurlinputcontainer{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 4vh; 
+    background-color: #DFDFDF;
+    color: black;
+    font-size: 18px;
+    height: 3.5vh;
+    padding: 1vh 2.5vw;
+    width: 100%;
+    border-radius: 25px;
+}
+
+.urlinputcontainer{
+    display: flex;
+    border: 1px solid #ADA5A5;
+    font-size: 18px;
+    height: 3.5vh;
+    padding: 1vh 2.5vw;
+    width: 100%;
+    border-radius: 25px;
+    margin-bottom: 4vh;
+}
 
 .input{
     display: flex;
@@ -184,6 +227,20 @@
     margin-bottom: 4vh;
     cursor: pointer;
     font-size: 12px;
+}
+
+.origiurl{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #A005FF;
+}
+
+.urlinput{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
 }
 
 .disabledInput{
@@ -263,6 +320,20 @@
         padding: 1vh 1vw;
         letter-spacing: 3px;
     }
+    .diabledurlinputcontainer{
+        font-size: 19px;
+        height: 5vh;
+        padding: 1vh 1vw;
+        letter-spacing: 3px;
+    }
+
+    .urlinputcontainer{
+        font-size: 19px;
+        height: 5vh;
+        padding: 1vh 1vw;
+        letter-spacing: 3px; 
+    }
+
     .savechanges{
         font-size: 18px;
     }

@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import { createClient } from "@/utils/supabase/client";
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, useToast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -17,6 +17,15 @@ import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EmailIcon from '@mui/icons-material/Email';
+import Groups3Icon from '@mui/icons-material/Groups3';
+
+import XIcon from '@mui/icons-material/X';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import SailingIcon from '@mui/icons-material/Sailing';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose} from '@/components/ui/dialog';
 
@@ -45,10 +54,14 @@ const getUser = async () => {
 }
 
 export default function Profile() {
+    const [currentlyBeingAddedSocail, setCurrentlyBeingAddedSocail] = useState(null)
     const [dialogPaymentStatus, setDialogPaymentStatus] = useState(false)
+    const [dialogSocialStatus, setDialogSocialStatus] = useState(false)
+    const [whichSocial, setWhichSocial] = useState(null)
     const [editMode, setEditMode] = useState(false)
     const [username, setUserName] = useState()
     const [userRole, setUserRole] = useState()
+    const [social, setSocial] = useState([])
     const queryClient = useQueryClient()
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
@@ -87,6 +100,11 @@ export default function Profile() {
         
     }
 
+    function editSocial(social){
+        setDialogSocialStatus(true)
+        setWhichSocial(social)
+    }
+
     const roleView = <><span className={userDataQuery?.data?.role === "Developer" ? styles.selectedCard : styles.card }>Developer</span><span className={userDataQuery?.data?.role === "Designer" ? styles.selectedCard : styles.card }>Designer</span><span className={userDataQuery?.data?.role === "Artist" ? styles.selectedCard : styles.card }>Artist</span></>
     const roleEdit = <><span onClick={() => setUserRole("Developer")}className={userRole === "Developer" ? styles.selectedCard : styles.card }>Developer</span><span onClick={() => setUserRole("Designer")} className={userRole === "Designer" ? styles.selectedCard : styles.card }>Designer</span><span onClick={() => setUserRole("Artist")} className={userRole === "Artist" ? styles.selectedCard : styles.card }>Artist</span></>
     return (
@@ -100,7 +118,26 @@ export default function Profile() {
             <span className={styles.cardContainer}><span className={styles.membershipCard}>{userDataQuery?.data?.membership ? userDataQuery?.data?.membership : "FREE"}</span>{(userDataQuery?.data?.membership === "Member" || userDataQuery?.data?.membership === "Staff") ?  "" :  <span onClick={() => setDialogPaymentStatus(true)}>Upgrade</span>}</span>
             <span className={styles.label}> <span className={styles.icon}><WaterDropIcon fontSize='inherit'/></span> <span>Role</span> </span>
             <span className={styles.cardContainer}>{editMode ? roleEdit : roleView}</span>
+            <span className={styles.label}> <span className={styles.icon}><Groups3Icon fontSize='inherit'/></span> <span>Socials</span> </span>
+            <span className={styles.socials}>
+                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("X")}><XIcon fontSize='inherit'/></span>
+                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("Github")}><GitHubIcon fontSize='inherit'/></span>
+                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("Facebook")}><FacebookIcon fontSize='inherit'/></span>
+                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("Linkedin")}><LinkedInIcon fontSize='inherit'/></span>
+                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("Youtube")}><YouTubeIcon fontSize='inherit'/></span>
+                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("Instagram")}><InstagramIcon fontSize='inherit'/></span>
+                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("Artstation")}><SailingIcon fontSize='inherit'/></span>
+            </span>
             <span className={editMode ? styles.savechanges : styles.displayNone} onClick={() =>  handleUpdate()}>Save Changes</span>
+            <Dialog  open={dialogSocialStatus} onOpenChange={setDialogSocialStatus} >
+                <DialogContent>
+                    <DialogHeader>
+                        <span className={styles.dialogTitle}><DialogTitle>Editing {whichSocial}</DialogTitle></span>
+                    </DialogHeader>
+                    <input type='text' placeholder={whichSocial + ".com/"} onChange={()}/>
+                    <span className={styles.addSocial} onClick={() => }>Add {whichSocial}</span>
+                </DialogContent>
+            </Dialog>
             <Dialog  open={dialogPaymentStatus} onOpenChange={setDialogPaymentStatus} >
                 <DialogContent>
                     <DialogHeader>

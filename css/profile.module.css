@@ -160,6 +160,47 @@
     display: none;
 }
 
+.socials{
+    margin: 30px 0;
+    display: grid;
+    align-self: flex-start;
+    grid-template-columns: repeat(auto-fill, 300px);
+    align-items: start;
+    gap: 10px;
+}
+
+.disabledsocialIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    border-radius: 25px;
+    padding: 9px 20px;
+    margin-right: 20px;
+    cursor: pointer;
+    background-color: #DFDFDF;
+}
+
+.socialIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    border-radius: 25px;
+    padding: 9px 20px;
+    margin-right: 20px;
+    cursor: pointer;
+    border: 1px solid rgb(153, 151, 151);
+}
+
+.addSocial{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: #A005FF;
+    cursor: pointer;
+}
 @media screen and (min-width: 768px) {
     .savechanges{
         font-size: 18px;

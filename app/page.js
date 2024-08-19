@@ -13,13 +13,7 @@ import { useEffect } from 'react';
 
 
 export default  function Home(){
-  const queryClient = useQueryClient()
 
-  useEffect(() => {
-    console.log("dwddw")
-    queryClient.invalidateQueries({queryKey: ['user']})
-    queryClient.invalidateQueries({queryKey: ['userdata']})
-  }, [])
   return (
     <main>
       <Header/>

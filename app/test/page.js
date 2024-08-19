@@ -85,11 +85,21 @@ export default function Test() {
     }
 
     async function deleteImage(){
-        const {data, error } = await supabase
+        const raw = "https://ohfftirpfjwsakryntaz.supabase.co/storage/v1/object/public/test/cfb50385-82ae-428d-8e03-75f0617ed045/thumbnail"
+        const removedUrl = raw.split(userDataQuery?.data?.id?.toString())[1]
+            console.log(removedUrl)
+            const {data, error } = await supabase
+                .storage
+                .from('test')
+                .remove([userQuery?.data?.id + removedUrl ]);
+        console.log("deleted")
+        if(data) console.log(data)
+        if(error) console.log(error)
+        /*const {data, error } = await supabase
                 .storage
                 .from('test')
                 .remove([userQuery?.data?.id + '/thumbnail'])
-        if(error) console.log(error)
+        if(error) console.log(error)*/
     }
 
     async function listofAll(){

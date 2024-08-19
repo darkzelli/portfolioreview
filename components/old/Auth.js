@@ -74,6 +74,9 @@ export default function AuthPage(){
                 queryClient.invalidateQueries({queryKey: ['user']})
                 const googleLogin = await supabase.auth.signInWithOAuth({
                     provider: 'google',
+                    options: {
+                        redirectTo: 'http://localhost:3000/auth/callback'
+                    }
                 })
                 break;
             case "github":
@@ -81,6 +84,9 @@ export default function AuthPage(){
                 queryClient.invalidateQueries({queryKey: ['user']})
                 const githubLogin = await supabase.auth.signInWithOAuth({
                     provider: 'github',
+                    options: {
+                        redirectTo: 'http://localhost:3000/auth/callback'
+                    }
                 })
                 break;
             case "email":

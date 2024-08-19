@@ -23,12 +23,14 @@
     "autoprefixer": "10.4.17",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "copy-to-clipboard": "^3.3.3",
     "framer-motion": "^11.3.12",
     "geist": "^1.2.1",
     "lucide-react": "^0.414.0",
     "next": "latest",
     "postcss": "8.4.33",
     "react": "18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "18.2.0",
     "react-select": "^5.8.0",
     "react-toastify": "^10.0.5",
@@ -42,6 +44,7 @@
     "@tanstack/eslint-plugin-query": "^5.51.15",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
+    "@types/react-color": "^3.0.12",
     "@types/react-dom": "18.2.18",
     "encoding": "^0.1.13"
   }
