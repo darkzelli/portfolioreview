@@ -22,10 +22,15 @@ const supabase = createClient()
 export default function GalleryCard({content}) {
     const [dialogStatus, setDialogStatus] = useState(false)
     const [replies, setReplies] = useState([])
+    const [replyCount, setReplyCount] = useState(0);
     async function getReplies(){
-        const queryComments = await supabase.from('comments').select().eq('portfolio_location', content?.route_url);
+        const queryComments = await supabase
+            .from('comments')
+            .select('*', { count: 'exact' })
+            .eq('portfolio_location', content?.route_url);
         if(Array.isArray(queryComments?.data)){
             setReplies(queryComments?.data.sort((a,b) => b.pinned - a.pinned))
+            setReplyCount(queryComments?.count)
         }
     }
 
@@ -54,7 +59,7 @@ export default function GalleryCard({content}) {
                 </span>
                 <span className={styles.info}>
                     <span className={styles.detail}><NotesIcon fontSize='inherit'/></span>
-                    <span className={styles.detail}>40</span>
+                    <span className={styles.detail}>{replyCount}</span>
                 </span>
             </span>
             <Dialog open={dialogStatus} onOpenChange={setDialogStatus}>
