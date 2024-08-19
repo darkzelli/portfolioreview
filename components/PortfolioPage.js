@@ -8,10 +8,16 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 import Suggestions from '@/components/old/Suggestions';
-import XIcon from '@mui/icons-material/X';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import LaunchIcon from '@mui/icons-material/Launch';
 import EmailIcon from '@mui/icons-material/Email';
+
+import XIcon from '@mui/icons-material/X';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import SailingIcon from '@mui/icons-material/Sailing';
 
 import GalleryCard from '@/components/old/GalleryCard'
 
@@ -36,6 +42,8 @@ export default function PortfolioPage({portfolio}) {
     const [replies, setReplies] = useState([])
     const [suggestion, setSuggestion] = useState()
     const [gallery, setGalley] = useState([])
+    const [socialOne, setSocialOne] = useState("")
+    const [socialTwo, setSocialTwo] = useState("")
 
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
     const userQueryGalleryCount = useQuery({queryKey: ['gallery'], queryFn: () => getGalleryCount()})
@@ -43,9 +51,36 @@ export default function PortfolioPage({portfolio}) {
         getPortfolio()
         getReplies()
         getGallery()
-        console.log({gallery})
     }, [portfolio])
 
+
+    async function calculateSocials(){
+        console.log(portfolioData?.account?.socials)
+        setSocialOne(possibleSocials(portfolioData?.account?.socials[0]?.social))
+        setSocialTwo(possibleSocials(portfolioData?.account?.socials[1]?.social))
+    }
+
+
+    function possibleSocials(social){
+        switch(social){
+            case "Twitter":
+                return <XIcon fontSize='inherit'/>
+            case "Github":
+                return <GitHubIcon fontSize='inherit'/>
+            case "Facebook":
+                return <FacebookIcon fontSize='inherit'/>
+            case "Linkedin":
+                return <LinkedInIcon fontSize='inherit'/>
+            case "Youtube":
+                return <YouTubeIcon fontSize='inherit'/>
+            case "Instagram":
+                return <InstagramIcon fontSize='inherit'/>
+            case "Artstation":
+                return <SailingIcon fontSize='inherit'/>
+            default:
+                return ""
+        }
+    }
     async function getGallery(){
         const designerQuery = await supabase
             .from('accounts')  
@@ -67,7 +102,9 @@ export default function PortfolioPage({portfolio}) {
         if(Array.isArray(queryAccountData.data)){ 
             portfoliodata.account = queryAccountData?.data[0]
             setPortfolioData(portfoliodata)
+            calculateSocials()
         }
+
     }
 
     async function submitSuggestion(){
@@ -78,7 +115,13 @@ export default function PortfolioPage({portfolio}) {
             if(error) toast("Error adding comment", {type: 'error', theme: 'dark', hideProgressBar: true})
         }else if(error) toast("Must be logged in to add a comment & less than 300 charatcers", {type: 'error', theme: 'dark', hideProgressBar: true})
     }
-
+    const iconTwitter =  <span className={styles.ico}><Link className={styles.socialLink} target='_blank' passHref={true} href={portfolioData?.account?.socials[portfolioData?.account?.socials?.findIndex(e => e.social === "Twitter")]?.url ?? "/dashboard"}><XIcon fontSize='inherit'/></Link></span>
+    const iconGithub =  <span className={styles.ico}><Link className={styles.socialLink} target='_blank' passHref={true} href={portfolioData?.account?.socials[portfolioData?.account?.socials?.findIndex(e => e.social === "Github")]?.url ?? "/dashboard"}><GitHubIcon fontSize='inherit'/></Link></span>
+    const iconFacebook = <span className={styles.ico}><Link className={styles.socialLink} target='_blank' passHref={true} href={portfolioData?.account?.socials[portfolioData?.account?.socials?.findIndex(e => e.social === "Facebook")]?.url ?? "/dashboard"}><FacebookIcon fontSize='inherit'/></Link></span>
+    const iconLinkedIn = <span className={styles.ico}><Link className={styles.socialLink} target='_blank' passHref={true} href={portfolioData?.account?.socials[portfolioData?.account?.socials?.findIndex(e => e.social === "Linkedin")]?.url ?? "/dashboard"}><LinkedInIcon fontSize='inherit'/></Link></span>
+    const iconYoutube = <span className={styles.ico}><Link className={styles.socialLink} target='_blank' passHref={true} href={portfolioData?.account?.socials[portfolioData?.account?.socials?.findIndex(e => e.social === "Youtube")]?.url ?? "/dashboard"}><YouTubeIcon fontSize='inherit'/></Link></span>
+    const iconInstagram = <span className={styles.ico}><Link className={styles.socialLink} target='_blank' passHref={true} href={portfolioData?.account?.socials[portfolioData?.account?.socials?.findIndex(e => e.social === "Instagram")]?.url ?? "/dashboard"}><InstagramIcon fontSize='inherit'/></Link></span>
+    const iconArtstation = <span className={styles.ico}><Link className={styles.socialLink} target='_blank' passHref={true} href={portfolioData?.account?.socials[portfolioData?.account?.socials?.findIndex(e => e.social === "Artstation")]?.url ?? "/dashboard"}><SailingIcon fontSize='inherit'/></Link></span>
     return (
         <span className={styles.userPortfolio}>
             <span className={styles.content}>
@@ -89,8 +132,13 @@ export default function PortfolioPage({portfolio}) {
                             <span className={styles.role}>{portfolioData?.account?.role}</span>
                         </span>
                         <span className={styles.infoBtns}>
-                            <span className={styles.ico}><GitHubIcon fontSize='ineherit'/></span>
-                            <span className={styles.ico}><XIcon fontSize='ineherit'/></span>
+                                {portfolioData?.account?.socials?.some(e => e.social === "Twitter") ? iconTwitter : ""} 
+                                {portfolioData?.account?.socials?.some(e => e.social === "Github") ? iconGithub : ""} 
+                                {portfolioData?.account?.socials?.some(e => e.social === "Facebook") ? iconFacebook : ""} 
+                                {portfolioData?.account?.socials?.some(e => e.social === "Linkedin") ? iconLinkedIn : ""} 
+                                {portfolioData?.account?.socials?.some(e => e.social === "Youtube") ? iconYoutube : ""} 
+                                {portfolioData?.account?.socials?.some(e => e.social === "Instagram") ? iconInstagram : ""} 
+                                {portfolioData?.account?.socials?.some(e => e.social === "Artstation") ? iconArtstation : ""} 
                             <span className={styles.visit}>
                                 <Link className={styles.linktext} target='_blank' passHref={true} href={portfolioData?.account?.portfolio_url ?? "/dashboard"}>Visit Portfolio</Link>
                                 <span className={styles.linkbtn}><LaunchIcon fontSize='inherit'/></span>

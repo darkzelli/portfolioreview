@@ -177,7 +177,6 @@
     border-radius: 25px;
     padding: 9px 20px;
     margin-right: 20px;
-    cursor: pointer;
     background-color: #DFDFDF;
 }
 
@@ -191,6 +190,18 @@
     margin-right: 20px;
     cursor: pointer;
     border: 1px solid rgb(153, 151, 151);
+}
+
+.socialIconSelected{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    border-radius: 25px;
+    padding: 9px 20px;
+    margin-right: 20px;
+    color: white;
+    background-color: #000000;
 }
 
 .addSocial{

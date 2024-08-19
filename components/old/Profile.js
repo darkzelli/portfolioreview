@@ -1,7 +1,7 @@
 "use client"
 import styles from '../../css/profile.module.css'
 
-import { useState} from 'react';
+import { useEffect, useState} from 'react';
 
 import Link from 'next/link';
 
@@ -61,13 +61,12 @@ export default function Profile() {
     const [editMode, setEditMode] = useState(false)
     const [username, setUserName] = useState()
     const [userRole, setUserRole] = useState()
-    const [social, setSocial] = useState([])
+    const [socials, setSocials] = useState([])
     const queryClient = useQueryClient()
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
 
     
-
     const mutation = useMutation({
         mutationFn: () => getUserData(),
         onSuccess: () => {
@@ -81,9 +80,12 @@ export default function Profile() {
 
         const allowedPattern = /^[a-zA-Z0-9]+$/;
 
-        if(allowedPattern.test(username) && username.length <= 15) updateData.name = username
+        if(allowedPattern.test(username) && username?.length <= 15) updateData.name = username
         else toast("Name was not updated! Your new name must have no special characters and be under 15 characters", {type: 'error', theme: 'dark', hideProgressBar: true})
         
+        if(socials?.length > 0){
+            updateData.socials = socials
+        }
 
         if(allowedPattern.test(userRole)) updateData.role = userRole
 
@@ -105,8 +107,52 @@ export default function Profile() {
         setWhichSocial(social)
     }
 
+    function handleSocialAdd(){
+        if(socials?.some(e => e.url === currentlyBeingAddedSocail)){
+            console.log("aldready added")
+            console.log(socials)
+        }else if(socials?.some(e => e.social === whichSocial)){
+            const index = socials?.findIndex(e => e.social  === whichSocial)
+            socials[index] = {social: whichSocial, url: currentlyBeingAddedSocail}
+            console.log("changed same social")
+            console.log(socials)
+        } else{
+            if(socials?.length >= 2){
+                socials[0] = {social: whichSocial, url: currentlyBeingAddedSocail}
+                console.log("replaced the first social")
+                console.log(socials)
+            }else{
+                socials?.push({social: whichSocial, url: currentlyBeingAddedSocail})
+                console.log("added the first social")
+                console.log(socials)
+            }
+        }
+        setDialogSocialStatus(false)
+    }
+        
+
     const roleView = <><span className={userDataQuery?.data?.role === "Developer" ? styles.selectedCard : styles.card }>Developer</span><span className={userDataQuery?.data?.role === "Designer" ? styles.selectedCard : styles.card }>Designer</span><span className={userDataQuery?.data?.role === "Artist" ? styles.selectedCard : styles.card }>Artist</span></>
     const roleEdit = <><span onClick={() => setUserRole("Developer")}className={userRole === "Developer" ? styles.selectedCard : styles.card }>Developer</span><span onClick={() => setUserRole("Designer")} className={userRole === "Designer" ? styles.selectedCard : styles.card }>Designer</span><span onClick={() => setUserRole("Artist")} className={userRole === "Artist" ? styles.selectedCard : styles.card }>Artist</span></>
+    
+    
+
+    const twitterEdit =  <span className={socials?.some(e => e.social === "Twitter") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Twitter")}><XIcon fontSize='inherit'/></span>
+    const githubEdit =  <span className={socials?.some(e => e.social === "Github") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Github")}><GitHubIcon fontSize='inherit'/></span>
+    const facebookEdit = <span className={socials?.some(e => e.social === "Facebook") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Facebook")}><FacebookIcon fontSize='inherit'/></span>
+    const linkedinEdit = <span className={socials?.some(e => e.social === "Linkedin") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Linkedin")}><LinkedInIcon fontSize='inherit'/></span>
+    const youtubeEdit = <span className={socials?.some(e => e.social === "Youtube") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Youtube")}><YouTubeIcon fontSize='inherit'/></span>
+    const instagramEdit = <span className={socials?.some(e => e.social === "Instagram") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Instagram")}><InstagramIcon fontSize='inherit'/></span>
+    const artsationEdit = <span className={socials?.some(e => e.social === "Artstation") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Artstation")}><SailingIcon fontSize='inherit'/></span>
+
+
+    const twitterView =  <span className={userDataQuery?.data?.socials?.some((e) => e.social === "Twitter") ? styles.socialIconSelected : styles.disabledsocialIcon} ><XIcon fontSize='inherit'/></span>
+    const githubView =  <span className={userDataQuery?.data?.socials?.some((e) => e.social === "Github") ? styles.socialIconSelected : styles.disabledsocialIcon} ><GitHubIcon fontSize='inherit'/></span>
+    const facebookView = <span className={userDataQuery?.data?.socials?.some((e) => e.social === "Facebook") ? styles.socialIconSelected : styles.disabledsocialIcon} ><FacebookIcon fontSize='inherit'/></span>
+    const linkedinView = <span className={userDataQuery?.data?.socials?.some((e) => e.social === "Linkedin") ? styles.socialIconSelected : styles.disabledsocialIcon} ><LinkedInIcon fontSize='inherit'/></span>
+    const youtubeView = <span className={userDataQuery?.data?.socials?.some((e) => e.social === "Youtube") ? styles.socialIconSelected : styles.disabledsocialIcon} ><YouTubeIcon fontSize='inherit'/></span>
+    const instagramView = <span className={userDataQuery?.data?.socials?.some((e) => e.social === "Instagram") ? styles.socialIconSelected : styles.disabledsocialIcon} ><InstagramIcon fontSize='inherit'/></span>
+    const artsationView = <span className={userDataQuery?.data?.socials?.some((e) => e.social === "Artstation") ? styles.socialIconSelected : styles.disabledsocialIcon} ><SailingIcon fontSize='inherit'/></span>
+
     return (
         <span className={styles.profile}>
             <span className={styles.mode} onClick={() => setEditMode(!editMode)}><span className={styles.modeIcon}>{editMode ? <EditIcon/> : <VisibilityIcon/>}</span>{ editMode ? "Edit Mode" : "View Mode"}</span>
@@ -120,13 +166,14 @@ export default function Profile() {
             <span className={styles.cardContainer}>{editMode ? roleEdit : roleView}</span>
             <span className={styles.label}> <span className={styles.icon}><Groups3Icon fontSize='inherit'/></span> <span>Socials</span> </span>
             <span className={styles.socials}>
-                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("X")}><XIcon fontSize='inherit'/></span>
-                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("Github")}><GitHubIcon fontSize='inherit'/></span>
-                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("Facebook")}><FacebookIcon fontSize='inherit'/></span>
-                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("Linkedin")}><LinkedInIcon fontSize='inherit'/></span>
-                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("Youtube")}><YouTubeIcon fontSize='inherit'/></span>
-                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("Instagram")}><InstagramIcon fontSize='inherit'/></span>
-                <span className={editMode ? styles.socialIcon : styles.disabledsocialIcon} onClick={() => editSocial("Artstation")}><SailingIcon fontSize='inherit'/></span>
+                {editMode ? twitterEdit : twitterView}
+                {editMode ? githubEdit : githubView}
+                {editMode ? facebookEdit : facebookView}
+                {editMode ? linkedinEdit : linkedinView}
+                {editMode ? youtubeEdit : youtubeView}
+                {editMode ? instagramEdit : instagramView}
+                {editMode ? artsationEdit : artsationView}
+
             </span>
             <span className={editMode ? styles.savechanges : styles.displayNone} onClick={() =>  handleUpdate()}>Save Changes</span>
             <Dialog  open={dialogSocialStatus} onOpenChange={setDialogSocialStatus} >
@@ -134,8 +181,8 @@ export default function Profile() {
                     <DialogHeader>
                         <span className={styles.dialogTitle}><DialogTitle>Editing {whichSocial}</DialogTitle></span>
                     </DialogHeader>
-                    <input type='text' placeholder={whichSocial + ".com/"} onChange={()}/>
-                    <span className={styles.addSocial} onClick={() => }>Add {whichSocial}</span>
+                    <input type='text' placeholder={whichSocial + ".com/"} onChange={(e) => setCurrentlyBeingAddedSocail(e.target.value)}/>
+                    <span className={styles.addSocial} onClick={() => handleSocialAdd()}>Add {whichSocial}</span>
                 </DialogContent>
             </Dialog>
             <Dialog  open={dialogPaymentStatus} onOpenChange={setDialogPaymentStatus} >
