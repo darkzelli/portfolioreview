@@ -122,7 +122,7 @@ export default function Portfolio() {
 
         if(allowedPattern.test(desc) && desc?.length <= 120) updateData.description = desc
         else toast("Description was not updated! Your new description must have no special characters and be under 120 characters", {type: 'error', theme: 'dark', hideProgressBar: true})
-        if(allowedPattern.test(message) && desc?.length <= 200) updateData.message = message
+        if(allowedPattern.test(message) && message?.length <= 200) updateData.message = message
         else toast("Message was not updated! Your new description must have no special characters and be under 120 characters", {type: 'error', theme: 'dark', hideProgressBar: true})
         if(messagecolor) updateData.message_color = messagecolor
         else toast("Message Color was not updated! Your new description must have no special characters and be under 120 characters", {type: 'error', theme: 'dark', hideProgressBar: true})

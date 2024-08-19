@@ -4,6 +4,7 @@ import NotesIcon from '@mui/icons-material/Notes';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
+import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 
@@ -19,10 +20,25 @@ import defaultthumbnail from '../../default_thumbnail.png'
 
 const supabase = createClient()
 
+const getUserData = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if(user){
+        const {data, error} = await supabase
+            .from('accounts')
+            .select()
+            .eq('id', user?.id);
+        return (await data[0] ?? null)  
+    }else return null
+}
+
 export default function GalleryCard({content}) {
     const [dialogStatus, setDialogStatus] = useState(false)
     const [replies, setReplies] = useState([])
     const [replyCount, setReplyCount] = useState(0);
+    const [suggestion, setSuggestion] = useState()
+
+    const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
+
     async function getReplies(){
         const queryComments = await supabase
             .from('comments')
@@ -35,10 +51,10 @@ export default function GalleryCard({content}) {
     }
 
     async function submitSuggestion(){
-        if(userDataQuery?.data){
+        if(userDataQuery?.data && suggestion?.length <= 300){
             const {error} = await supabase
                 .from('comments')
-                .insert({owner: userDataQuery?.data?.id , name: userDataQuery?.data?.name, payload: suggestion, portfolio_location: portfolio});
+                .insert({owner: userDataQuery?.data?.id , name: userDataQuery?.data?.name, payload: suggestion, portfolio_location: content?.route_url});
             if(error) toast("Error adding comment", {type: 'error', theme: 'dark', hideProgressBar: true})
         }else if(error) toast("<ust be logged in to add a comment", {type: 'error', theme: 'dark', hideProgressBar: true})
     }

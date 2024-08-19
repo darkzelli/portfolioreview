@@ -20,6 +20,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import SailingIcon from '@mui/icons-material/Sailing';
 
 import GalleryCard from '@/components/old/GalleryCard'
+import LinkCard from '@/components/LinkCard'
 
 import thumbnail from '../default_thumbnail.png'
 const desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -153,16 +154,16 @@ export default function PortfolioPage({portfolio}) {
             </span>
             <span className={styles.message}>
                 <span className={styles.messageLabel}>Message from {portfolioData?.account?.name}</span>
-                <span className={styles.messageContainer} style={{backgroundColor: portfolioData?.account?.message_color ?? "black"}}>{portfolioData?.account?.message}</span>
+                <span className={styles.messageContainer} style={{backgroundColor: portfolioData?.account?.message_color ?? "black"}}><span className={styles.bruh}>{portfolioData?.account?.message}</span></span>
             </span>
             <span className={styles.suggestionContainer}>
                 <span className={styles.suggesttopLabel}>Suggestions</span>
                 <span className={styles.suggestionContainerContainer}>
-                    {replies > 0 ? <span className={styles.suggestions}>
+                    <span className={styles.suggestions}>
                         {replies.map((item, key) => (
                             <Suggestions key={key} content={item} />
                         ))}
-                    </span> : <span className={styles.nosuggestions}>No Suggestions Yet!!</span>}
+                    </span> 
                     <span className={styles.suggest}>
                         <input className={styles.suggestInput} onChange={(e) => setSuggestion(e.target.value)} placeholder='suggest something...'/>
                         <span className={styles.suggesthr}></span>
@@ -176,7 +177,7 @@ export default function PortfolioPage({portfolio}) {
             {gallery ? <span className={styles.alsoLike}>
                 <span className={styles.alsoLikeLabel}> You might also like</span>
                 <span className={styles.alsoLikeGallery}>{gallery?.map((data, key) => (
-                    <GalleryCard content={data} key={key}/>
+                    <LinkCard content={data} key={key}/>
                 ))}</span>
             </span> : ""}
         </span>
