@@ -47,15 +47,15 @@ const getUser = async () => {
 
 export default function Portfolio() {
     const filereader = new FileReader()
-    const [desc, setDesc] = useState()
+    const [desc, setDesc] = useState("")
     const [editMode, setEditMode] = useState(false)
     const [image, setImage] = useState()
     const [message, setMessage] = useState("")
     const [messagecolor, setMessageColor] = useState(null)
     const [preview, setPreview] = useState(null)
     const [previewName, setPreviewName] = useState("")
-    const [portfolio, setPortfolio] = useState()
-    const [url, setUrl] = useState()
+    const [portfolio, setPortfolio] = useState("")
+    const [url, setUrl] = useState("")
     const queryClient = useQueryClient()
     const [userThumbnail, setUserThumbnail] = useState()
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
@@ -119,17 +119,26 @@ export default function Portfolio() {
         const allowedPattern = /^[a-zA-Z0-9 ]+$/
         const urlPattern = /^[a-zA-Z0-9_-]+$/
         const PortfolioPattern = /^(https?:\/\/)?([a-zA-Z0-9.-]+)(:[0-9]{1,5})?(\/\S*)?$/
-
+        //des
         if(allowedPattern.test(desc) && desc?.length <= 120) updateData.description = desc
+        else if(desc?.length === 0){}
         else toast("Description was not updated! Your new description must have no special characters and be under 120 characters", {type: 'error', theme: 'dark', hideProgressBar: true})
+        //message
         if(allowedPattern.test(message) && message?.length <= 200) updateData.message = message
-        else toast("Message was not updated! Your new description must have no special characters and be under 120 characters", {type: 'error', theme: 'dark', hideProgressBar: true})
+        else if(message?.length === 0){}
+        else toast("Message was not updated! Your new description must have no special characters and be under 120 characters", { type: 'error', theme: 'dark', hideProgressBar: true})
+        //color
         if(messagecolor) updateData.message_color = messagecolor
+        else if(messagecolor === null){}
         else toast("Message Color was not updated! Your new description must have no special characters and be under 120 characters", {type: 'error', theme: 'dark', hideProgressBar: true})
-        if(urlPattern.test(url) && url?.length <= 25) updateData.route_url = url
+        //url
+        if(urlPattern?.test(url) && url?.length <= 25) updateData.route_url = url
+        else if(url.length === 0){}
         else toast("URL was not updated! Your new url must be url encoded and be under 25 characters", {type: 'error', theme: 'dark', hideProgressBar: true})
-        if(PortfolioPattern.test(portfolio)) updateData.portfolio_url = portfolio
-        else toast("Portfolio was not updated! Invalid Website", {type: 'error', theme: 'dark', hideProgressBar: true})
+        //portfolio_url
+        if(PortfolioPattern?.test(portfolio)) updateData.portfolio_url = portfolio
+        else if(portfolio.length === 0){}
+        else toast("Portfolio was not updated! Invalid Website", { type: 'error', theme: 'dark', hideProgressBar: true})
 
         const { data: { user } } = await supabase.auth.getUser()
         updateData.id = user?.id
@@ -167,7 +176,7 @@ export default function Portfolio() {
             <span className={styles.label}> <span className={styles.icon}><FolderIcon fontSize='inherit'/></span> <span>Portfolio</span> </span>
             <span className={styles.inputareaContainer}><input disabled={!editMode} type='url' name='portfolio' placeholder={userDataQuery?.data ? userDataQuery?.data?.portfolio_url : ''} onChange={(e) => setPortfolio(e.target.value)} className={editMode ? styles.input : styles.disabledInput}/></span>
             <span className={editMode ? styles.savechanges : styles.displayNone} onClick={() =>  handleUpdate()}>Save Changes</span>
-            <ToastContainer/>
+            <ToastContainer stacked/>
         </span>
     )
 

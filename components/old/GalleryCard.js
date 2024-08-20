@@ -4,6 +4,7 @@ import NotesIcon from '@mui/icons-material/Notes';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
+import { ToastContainer, toast } from 'react-toastify';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
@@ -50,13 +51,16 @@ export default function GalleryCard({content}) {
         }
     }
 
+ 
+
+
     async function submitSuggestion(){
         if(userDataQuery?.data && suggestion?.length <= 300){
             const {error} = await supabase
                 .from('comments')
                 .insert({owner: userDataQuery?.data?.id , name: userDataQuery?.data?.name, payload: suggestion, portfolio_location: content?.route_url});
-            if(error) toast("Error adding comment", {type: 'error', theme: 'dark', hideProgressBar: true})
-        }else if(error) toast("<ust be logged in to add a comment", {type: 'error', theme: 'dark', hideProgressBar: true})
+            if(error) toast("Error suggesting", {type: 'error', theme: 'dark', hideProgressBar: true})
+        }else toast("Must be logged in to add a comment & less than 300 charatcers", {type: 'error', theme: 'dark', hideProgressBar: true})
     }
 
     
@@ -103,7 +107,7 @@ export default function GalleryCard({content}) {
                     <button onClick={() => setDialogStatus(false)}>close</button>
                 </DialogContent>
             </Dialog>
-    
+            <ToastContainer stacked/>
         </span>
     );
 

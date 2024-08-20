@@ -212,6 +212,14 @@
     color: #A005FF;
     cursor: pointer;
 }
+
+.avatarContainer{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 4vh;
+}
 @media screen and (min-width: 768px) {
     .savechanges{
         font-size: 18px;

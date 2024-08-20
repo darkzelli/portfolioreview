@@ -44,15 +44,19 @@ export default function Gallery() {
         }else return nonZeroIndexValue
     }
 
-    function updateGalleryBasedOnPagination(){
-
-    }
 
     async function getGalleryCount(){
         const rangeStart = calculateRangeStart(currentpage)
         const rangeEnd = calculateRangeEnd(currentpage + 1)
         
         switch(currentTab){
+            case "Artist":
+                const artistQuery = await supabase
+                    .from('accounts')  
+                    .select('*', { count: 'exact' })
+                    .eq('role', 'Artist')
+                    .range(rangeStart, rangeEnd)
+                return ((artistQuery?.count && artistQuery?.data) ?  {data:  artistQuery?.data, count: artistQuery?.count} : null)
             case "Designer":
                 const designerQuery = await supabase
                     .from('accounts')  
@@ -105,16 +109,16 @@ export default function Gallery() {
             label: 'All'
         },
         {
-            value: "Featured", 
-            label: 'Featured'
-        },
-        {
             value: "Developer", 
             label: 'Developer'
         },
         {
             value: "Designer", 
             label: 'Designer'
+        },
+        {
+            value: "Artist", 
+            label: 'Artist'
         },
         {
             value: "Popular", 
@@ -151,9 +155,9 @@ export default function Gallery() {
                 <Select className={styles.selector} styles={{ control: (baseStyles, state) => ({...baseStyles, width: "100%"})}} options={optionsTab} defaultValue={optionsTab[0]} onChange={(e) => changeTab(e.value)}/>
                 <span className={styles.labelContainer}>
                     <span  onClick={() => changeTab("All")} className={currentTab === "All" ? styles.labelSecleted : styles.label}>All</span>
-                    <span  onClick={() => changeTab("Featured")} className={currentTab === "Featured" ? styles.labelSecleted : styles.label}>Featured</span>
                     <span  onClick={() => changeTab("Developer")} className={currentTab === "Developer" ? styles.labelSecleted : styles.label}>Developer</span>
                     <span  onClick={() => changeTab("Designer")} className={currentTab === "Designer" ? styles.labelSecleted : styles.label}>Designer</span>
+                    <span  onClick={() => changeTab("Artist")} className={currentTab === "Artist" ? styles.labelSecleted : styles.label}>Artist</span>
                     <span  onClick={() => changeTab("Popular")} className={currentTab === "Popular" ? styles.labelSecleted : styles.label}>Popular</span>
                 </span>
                 <span className={styles.searchLabel}>

@@ -9,6 +9,8 @@ import { createClient } from "@/utils/supabase/client";
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { ToastContainer, toast, useToast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
 
 
 import PersonIcon from '@mui/icons-material/Person';
@@ -18,6 +20,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EmailIcon from '@mui/icons-material/Email';
 import Groups3Icon from '@mui/icons-material/Groups3';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 import XIcon from '@mui/icons-material/X';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -81,6 +84,7 @@ export default function Profile() {
         const allowedPattern = /^[a-zA-Z0-9]+$/;
 
         if(allowedPattern.test(username) && username?.length <= 15) updateData.name = username
+        else if(username.length === 0){}
         else toast("Name was not updated! Your new name must have no special characters and be under 15 characters", {type: 'error', theme: 'dark', hideProgressBar: true})
         
         if(socials?.length > 0){
@@ -109,22 +113,14 @@ export default function Profile() {
 
     function handleSocialAdd(){
         if(socials?.some(e => e.url === currentlyBeingAddedSocail)){
-            console.log("aldready added")
-            console.log(socials)
         }else if(socials?.some(e => e.social === whichSocial)){
             const index = socials?.findIndex(e => e.social  === whichSocial)
             socials[index] = {social: whichSocial, url: currentlyBeingAddedSocail}
-            console.log("changed same social")
-            console.log(socials)
         } else{
             if(socials?.length >= 2){
                 socials[0] = {social: whichSocial, url: currentlyBeingAddedSocail}
-                console.log("replaced the first social")
-                console.log(socials)
             }else{
                 socials?.push({social: whichSocial, url: currentlyBeingAddedSocail})
-                console.log("added the first social")
-                console.log(socials)
             }
         }
         setDialogSocialStatus(false)

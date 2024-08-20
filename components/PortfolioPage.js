@@ -113,8 +113,7 @@ export default function PortfolioPage({portfolio}) {
             const {error} = await supabase
                 .from('comments')
                 .insert({owner: userDataQuery?.data?.id , name: userDataQuery?.data?.name, payload: suggestion, portfolio_location: portfolio});
-            if(error) toast("Error adding comment", {type: 'error', theme: 'dark', hideProgressBar: true})
-        }else if(error) toast("Must be logged in to add a comment & less than 300 charatcers", {type: 'error', theme: 'dark', hideProgressBar: true})
+        }
     }
     const iconTwitter =  <span className={styles.ico}><Link className={styles.socialLink} target='_blank' passHref={true} href={portfolioData?.account?.socials[portfolioData?.account?.socials?.findIndex(e => e.social === "Twitter")]?.url ?? "/dashboard"}><XIcon fontSize='inherit'/></Link></span>
     const iconGithub =  <span className={styles.ico}><Link className={styles.socialLink} target='_blank' passHref={true} href={portfolioData?.account?.socials[portfolioData?.account?.socials?.findIndex(e => e.social === "Github")]?.url ?? "/dashboard"}><GitHubIcon fontSize='inherit'/></Link></span>
