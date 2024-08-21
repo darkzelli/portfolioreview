@@ -12,7 +12,7 @@ import { NextRequest } from 'next/server';
           client_reference_id: user?.id?.toString(),
           line_items: [
             {
-              price: 'price_1PWUrgAHFnpEtkCSCHY9B6Eq',
+              price: 'price_1PpvAt081mOBn9zUx6K4D9uL',
               quantity: 1,
             },
           ],

@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
+import { testLocal } from "@/components/old/DashboardNav";
 
 export async function GET(request: Request) {
   // The `/auth/callback` route is required for the server-side auth flow implemented
@@ -13,6 +14,11 @@ export async function GET(request: Request) {
     const supabase = createClient();
     await supabase.auth.exchangeCodeForSession(code);
   }
+
+  console.log("excuting command")
+  testLocal()
+  console.log("done excuting")
+  
 
   // URL to redirect to after sign up process completes
   return NextResponse.redirect(`${origin}/dashboard`);

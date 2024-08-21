@@ -24,6 +24,11 @@ import logo from "/review_logo_black.png"
 
 const supabase = createClient()
 
+export function testLocal(){
+  const stor = typeof window !== 'undefined' ? window.localStorage : undefined
+  stor.setItem("Dopper", "213313")
+}
+
 const getUserData = async () => {
   const { data: { user } } = await supabase.auth.getUser()
   if(user){

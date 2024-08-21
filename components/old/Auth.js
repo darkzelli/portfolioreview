@@ -48,6 +48,7 @@ export default function AuthPage(){
                 reject("error 400")
             }
             resolve("accepted 200")
+            router.push("/dashboard")
         })
     }
 

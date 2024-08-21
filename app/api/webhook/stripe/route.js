@@ -2,6 +2,9 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/utils/supabase/server";
 import Stripe from "stripe";
+import { Resend } from 'resend';
+import Email from '@/components/Email'
+
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -23,15 +26,24 @@ export async function POST(req){
     }
     const session = event.data.object;
     if(event.type === 'checkout.session.completed'){
-        const customer = session?.customer_details
-        console.log(customer)
-        console.log(session)
-        console.log(customer)
+        const email = session?.customer_details?.email
         const {error} = await supabase
             .from('accounts')
             .update({membership: "Member"})
-            .eq('id', session?.client_reference_id)
-        console.log(error)
+            .eq('id', session?.client_reference_id);
+        const resend = new Resend(process.env.RESEND_KEY)
+  
+        try {
+            const res = await resend.emails.send({
+              from: 'Portfolio Review <team@portfolioreview.me>',
+              to: email,
+              subject: 'Membership',
+              react: <Email/>
+            })
+            return Response.json({message: res}, {status: 200})
+        } catch (error) {
+            return Response.json({message: error}, {status: 400})
+        }
     }
 
     return new NextResponse("ok", {status: 200})

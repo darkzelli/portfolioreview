@@ -164,7 +164,7 @@ export default function Gallery() {
                     <SearchIcon fontSize='inherit'/>
                 </span>
            </span>
-           <span className={styles.content}>{userQueryGalleryCount?.data?.data.map((data, key) => (
+           <span className={styles.content}>{userQueryGalleryCount?.data?.data?.map((data, key) => (
                 <GalleryCard content={data} key={key}/>
            ))}</span>
            <span className={styles.paginationContainer} onClick={() => setPaginationFocus(!paginationFocus)} onBlur={() => setPaginationFocus(false)}>
