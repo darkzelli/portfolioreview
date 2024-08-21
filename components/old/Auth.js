@@ -76,7 +76,7 @@ export default function AuthPage(){
                 const googleLogin = await supabase.auth.signInWithOAuth({
                     provider: 'google',
                     options: {
-                        redirectTo: 'http://localhost:3000/auth/callback'
+                        redirectTo: 'https://portfolioreview.me/auth/callback'
                     }
                 })
                 break;
@@ -86,7 +86,7 @@ export default function AuthPage(){
                 const githubLogin = await supabase.auth.signInWithOAuth({
                     provider: 'github',
                     options: {
-                        redirectTo: 'http://localhost:3000/auth/callback'
+                        redirectTo: 'https://portfolioreview.me/auth/callback'
                     }
                 })
                 break;
