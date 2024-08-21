@@ -4,9 +4,7 @@ import { createServiceClient } from "@/utils/supabase/server";
 import Stripe from "stripe";
 import { Resend } from 'resend';
 import Email from '@/components/Email'
-
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+import { stripe } from "../../../../utils/stripe/stripe";
 
 
 export async function POST(req){
