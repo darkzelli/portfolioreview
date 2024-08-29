@@ -29,8 +29,7 @@
     align-items: center;
     flex-direction: column;
     width: 90%;
-    height: 100vh;  
-    margin-top: 12vh;  
+    margin-top: 50vh; 
 }
 
 .inputareaContainer{
@@ -248,7 +247,7 @@
     }
 
     .profile{
-        margin-top: 34vh;
+        margin-top: 50vh;
     }
   
     .card{

@@ -4,8 +4,8 @@
     align-items: center;
     flex-direction: column;
     width: 90%;
-    height: 100vh;
-    margin-top: 12vh;
+    margin-top: 16vh;
+    margin-bottom: 50px;
     color: black;
 
 }
@@ -104,7 +104,7 @@
 .content{
     margin: 30px 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 300px);
+    grid-template-columns: repeat(auto-fill, 250px);
     align-items: start;
     gap: 10px;
 
@@ -167,3 +167,16 @@
         margin-top: unset;
     }
 }
+
+@media screen and (max-width: 565px) {
+   
+    .content{
+        margin: 30px 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 140px);
+        align-items: start;
+        gap: 5px;
+    
+    }
+}
+

@@ -4,7 +4,7 @@ import styles from '../../css/dashboard-nav.module.css'
 
 import Image from "next/image";
 import Link from 'next/link';
-
+import Drawer from '@mui/material/Drawer';
 import { createClient } from "@/utils/supabase/client";
 import { useQuery } from '@tanstack/react-query';
 
@@ -67,8 +67,8 @@ export default function DashboardNav(props) {
                 <li className={styles.image}><Image src={logo} width={150} height={150} alt="logo.png"/></li>
                 <li  className={props.currentTab === "user" ? styles.selectedTab : styles.notSelectedTab}><span><span className={styles.icon}><PowerSettingsNewIcon/></span>{userQuery?.data ? <span onClick={() => props.tabSetter("user")}>{userDataQuery?.data?.name !== undefined && userDataQuery?.data?.name !== null   ? userDataQuery?.data?.name : "Account"}</span> : <Link href="/login">Log in</Link>}</span></li>
                 {enabledGallery}
-                {userQuery?.data ? enabledPortfolio : disabledPortfolio}
-                {userQuery?.data ? enabledProfile : disabledProfile}
+                {true ? enabledPortfolio : disabledPortfolio}
+                {true ? enabledProfile : disabledProfile}
                 <li  className={props.currentTab === "whatsnew" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("whatsnew")}><span><span className={styles.icon}><HistoryIcon/></span>What's New</span></li>
                 <li ><span><Link href="https://insigh.to/b/portfolio-review" className={styles.link}><span className={styles.icon}><FeedbackIcon/></span>Feedback</Link></span></li>
                 <li><span><Link href="/tos" className={styles.link}><span className={styles.icon}><GavelIcon/></span>TOS</Link></span></li>

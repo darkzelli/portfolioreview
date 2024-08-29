@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import Drawer from '@mui/material/Drawer';
 
 //Other Functional Libaries
 import { useQuery } from '@tanstack/react-query';
@@ -61,6 +62,7 @@ const getUser = async () => {
 
 export default function DASHBOARD(){
     //React Hooks - Alphabetical Order
+    const [drawer, setDrawer] = useState(false)
     const [tab, setTab] = useState("gallery");
     const [tabContent, setTabContent] = useState();
 
@@ -96,18 +98,19 @@ export default function DASHBOARD(){
         }
     }, [tab])
 
+    const drawerContent = <></>
+
     return(
         <span className={styles.dashboard_page_container}>
-            <span className={styles.Hamburger}>
-                <span className={styles.Hamburger_Menu}>
-                    {userQuery?.data ? <span onClick={() => setTab("user")} className={tab === "user" ? styles.purpleColor : styles.blackColor}><PowerSettingsNewIcon fontSize='inherit' /></span> : <Link className={styles.twentyFour} href="/login"><PowerSettingsNewIcon fontSize='inherit' /></Link>}
-                    <span onClick={() => setTab("gallery")}className={tab === "gallery" ? styles.purpleColor : styles.blackColor}><PermMediaIcon fontSize='inherit'/></span>
-                    {userQuery?.data ? <span onClick={() => setTab("portfolio")} className={tab === "portfolio" ? styles.purpleColor : styles.blackColor}><FolderOpenIcon fontSize='inherit'/></span> : <></>}
-                    {userQuery?.data ? <span onClick={() => setTab("profile")} className={tab === "profile" ? styles.purpleColor : styles.blackColor}><PersonIcon fontSize='inherit'/></span> : <></>}
-                    {userQuery?.data ? <span onClick={() => setTab("shop")} className={tab === "shop" ? styles.purpleColor : styles.blackColor}><StoreIcon fontSize='inherit'/></span> : <></>}
-                    <span onClick={() => setTab("whatsnew")} className={tab === "whatsnew" ? styles.purpleColor : styles.blackColor}><HistoryIcon fontSize='inherit'/></span>
-                </span>
+            <span className={styles.Hamburger} onClick={() => setDrawer(true)}>
+               <MenuIcon fontSize='inherit'/>
+               {tab}
             </span>
+            <Drawer open={drawer} onClose={() => setDrawer(false)}>
+                <span className={styles.drawer}>
+                    <DashboardNav tabSetter={setTab} currentTab={tab}/>
+                </span>
+            </Drawer>
             <span className={styles.nav}><DashboardNav tabSetter={setTab} currentTab={tab}/></span>
             <span className={styles.dashboard_content}>
                 {tabContent}

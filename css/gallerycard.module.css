@@ -10,6 +10,7 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
+    font-size: 12px;
     width: 100%;
 }
 
@@ -36,6 +37,18 @@
     justify-content: center;
     align-items: center;
     margin: 4px 4px;
+}
+.dot{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px 4px; 
+}
+.role{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px 4px; 
 }
 
 .suggest{
@@ -94,4 +107,15 @@
 .suggestDetails > p{
     color: #938989;
     margin-right: 10px;
+}
+
+@media screen and (max-width: 565px) {
+   
+    .role{
+        display: none;
+    }
+
+    .dot{
+        display: none; 
+    }
 }

@@ -5,8 +5,7 @@
     align-items: center;
     flex-direction: column;
     width: 90%;
-    height: 100vh;
-    margin-top: 12vh;
+    margin-top: 25vh;
 
 }
 
@@ -312,7 +311,7 @@
 
 @media screen and (min-width: 768px) {
     .portfolio{
-        margin-top: 34vh;
+        margin-top: 70vh;
     }
     .disabledInput{
         font-size: 19px;

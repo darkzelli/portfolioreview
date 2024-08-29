@@ -74,8 +74,8 @@ export default function GalleryCard({content}) {
             <span className={styles.details}>
                 <span className={styles.user}>
                     <span className={styles.detail}>{content?.name}</span>
-                    <span className={styles.detail}><FiberManualRecordIcon fontSize='inherit'/></span>
-                    <span className={styles.detail}>{content?.role}</span>
+                    <span className={styles.dot}><FiberManualRecordIcon fontSize='inherit'/></span>
+                    <span className={styles.role}>{content?.role}</span>
                 </span>
                 <span className={styles.info}>
                     <span className={styles.detail}><NotesIcon fontSize='inherit'/></span>
