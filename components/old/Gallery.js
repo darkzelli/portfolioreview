@@ -21,6 +21,10 @@ const supabase = createClient()
 export default function Gallery() {
     const [currentpage, setCurentPage] = useState(1)
     const [currentTab, setCurrentTab] = useState("All")
+    const [searchDialogue, setSearchDialogue] = useState(false)
+    const [searchValue, setSearchValue] = useState("")
+    const [searchColumn, setSearchColumn] = useState('name')
+    const [searchResults, setSearchResults] = useState([])
     const [tabContent, setTabContent] = useState()
     const [paginationFocus, setPaginationFocus] = useState(false)
     const [pagination, setPagination] = useState()
@@ -147,8 +151,17 @@ export default function Gallery() {
         }
     }
 
+    async function handleSubmit(e){
+        e.preventDefault()
+        const { data, error } = await supabase
+            .from('accounts')
+            .select()
+            .ilike(searchColumn,  '%' + searchValue + '%')
+        if(data) setSearchResults(data); 
+    }
+
     useEffect(() => {
-    }, [currentTab])
+    }, [currentTab, searchResults])
     return (
         <span className={styles.gallery}>
            <span className={styles.header}>
@@ -160,7 +173,7 @@ export default function Gallery() {
                     <span  onClick={() => changeTab("Artist")} className={currentTab === "Artist" ? styles.labelSecleted : styles.label}>Artist</span>
                     <span  onClick={() => changeTab("Popular")} className={currentTab === "Popular" ? styles.labelSecleted : styles.label}>Popular</span>
                 </span>
-                <span className={styles.searchLabel}>
+                <span className={styles.searchLabel} onClick={() => setSearchDialogue(true)}>
                     <SearchIcon fontSize='inherit'/>
                 </span>
            </span>
@@ -176,6 +189,27 @@ export default function Gallery() {
                 {(!userQueryGalleryCount?.isLoading && pagination !== 1 && currentpage !== pagination) ? <span className={styles.paginationContols}  onClick={() => usePagination("after")}><ChevronRightIcon fontSize='inherit'/> </span> : ""}
                 {(!userQueryGalleryCount?.isLoading && pagination !== 1 && currentpage !== pagination) ? <span className={styles.paginationContols}  onClick={() => usePagination("end")}><KeyboardDoubleArrowRightIcon fontSize='inherit'/> </span> : ""}
            </span>
+           <Dialog open={searchDialogue} onOpenChange={() => {setSearchDialogue(!searchDialogue); setSearchColumn('name'); setSearchResults([])}}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Search for a Portfolio</DialogTitle>
+                        <form className={styles.searchForm} onSubmit={(e) => handleSubmit(e)}>
+                            <input className={styles.searchInput} placeholder='Search...' onChange={(e) => setSearchValue(e.target.value)}/>
+                            <select onChange={(e) => setSearchColumn(e.target.value)}>
+                                <option value='name'>Name</option>
+                                <option value='route_url'>Url</option>
+                            </select>
+                        </form>
+                    </DialogHeader>
+
+                    <span className={styles.results}>
+                        {searchResults.map((item, key) => (
+                            <GalleryCard content={item} key={key}/>
+                        ))}
+                    </span>
+
+                </DialogContent>
+            </Dialog>
         </span>
     );
 
