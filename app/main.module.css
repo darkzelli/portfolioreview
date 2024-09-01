@@ -1,0 +1,5 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    background-color: #0D0611;
+}

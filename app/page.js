@@ -1,5 +1,5 @@
 "use client";
-
+import styles from './main.module.css'
 import {  useQueryClient  } from '@tanstack/react-query';
 
 import Header from "@/components/old/Header";
@@ -15,7 +15,7 @@ import { useEffect } from 'react';
 export default  function Home(){
 
   return (
-    <main>
+    <span className={styles.main}>
       <Header/>
       <Cover/>
       <Showcase/>
@@ -23,6 +23,6 @@ export default  function Home(){
       <Pricing/>
       <FAQ/>
       <Footer/>
-    </main>
+    </span>
   );
 }
