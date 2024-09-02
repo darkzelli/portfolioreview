@@ -86,7 +86,7 @@ export default function GalleryCard({content}) {
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>{content?.name ? content?.name : "No User Found"}<Link target='_blank' passHref={true} href={content?.portfolio_url ?? "/dashboard"}><OpenInNewOutlinedIcon/></Link></DialogTitle>
-                        <DialogDescription>portfolioreview.me/{content?.route_url}</DialogDescription>
+                        <DialogDescription><Link href={"/" + content?.route_url} >portfolioreview.me/{content?.route_url}</Link></DialogDescription>
                         <DialogDescription>{content?.role}</DialogDescription>
                     </DialogHeader>
                     <Image  className={styles.image} alt='portfolio.png' src={content?.thumbnail ?? defaultthumbnail} width={512} height={288}/>
