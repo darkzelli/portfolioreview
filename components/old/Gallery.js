@@ -164,22 +164,24 @@ export default function Gallery() {
     }, [currentTab, searchResults])
     return (
         <span className={styles.gallery}>
-           <span className={styles.header}>
-                <Select className={styles.selector} styles={{ control: (baseStyles, state) => ({...baseStyles, width: "100%"})}} options={optionsTab} defaultValue={optionsTab[0]} onChange={(e) => changeTab(e.value)}/>
-                <span className={styles.labelContainer}>
-                    <span  onClick={() => changeTab("All")} className={currentTab === "All" ? styles.labelSecleted : styles.label}>All</span>
-                    <span  onClick={() => changeTab("Developer")} className={currentTab === "Developer" ? styles.labelSecleted : styles.label}>Developer</span>
-                    <span  onClick={() => changeTab("Designer")} className={currentTab === "Designer" ? styles.labelSecleted : styles.label}>Designer</span>
-                    <span  onClick={() => changeTab("Artist")} className={currentTab === "Artist" ? styles.labelSecleted : styles.label}>Artist</span>
-                    <span  onClick={() => changeTab("Popular")} className={currentTab === "Popular" ? styles.labelSecleted : styles.label}>Popular</span>
+            <span className={styles.galleryHeaderContentContainer}>
+                <span className={styles.header}>
+                     <Select className={styles.selector} styles={{ control: (baseStyles, state) => ({...baseStyles, width: "100%"})}} options={optionsTab} defaultValue={optionsTab[0]} onChange={(e) => changeTab(e.value)}/>
+                     <span className={styles.labelContainer}>
+                         <span  onClick={() => changeTab("All")} className={currentTab === "All" ? styles.labelSecleted : styles.label}>All</span>
+                         <span  onClick={() => changeTab("Developer")} className={currentTab === "Developer" ? styles.labelSecleted : styles.label}>Developer</span>
+                         <span  onClick={() => changeTab("Designer")} className={currentTab === "Designer" ? styles.labelSecleted : styles.label}>Designer</span>
+                         <span  onClick={() => changeTab("Artist")} className={currentTab === "Artist" ? styles.labelSecleted : styles.label}>Artist</span>
+                         <span  onClick={() => changeTab("Popular")} className={currentTab === "Popular" ? styles.labelSecleted : styles.label}>Popular</span>
+                     </span>
+                     <span className={styles.searchLabel} onClick={() => setSearchDialogue(true)}>
+                         <SearchIcon fontSize='inherit'/>
+                     </span>
                 </span>
-                <span className={styles.searchLabel} onClick={() => setSearchDialogue(true)}>
-                    <SearchIcon fontSize='inherit'/>
-                </span>
-           </span>
-           <span className={styles.content}>{userQueryGalleryCount?.data?.data?.map((data, key) => (
-                <GalleryCard content={data} key={key}/>
-           ))}</span>
+                <span className={styles.content}>{userQueryGalleryCount?.data?.data?.map((data, key) => (
+                     <GalleryCard content={data} key={key}/>
+                ))}</span>
+            </span>
            <span className={styles.paginationContainer} onClick={() => setPaginationFocus(!paginationFocus)} onBlur={() => setPaginationFocus(false)}>
                 {(!userQueryGalleryCount?.isLoading && pagination !== 1 && currentpage !== 1) ? <span className={styles.paginationContols} onClick={() => usePagination("start")}><KeyboardDoubleArrowLeftIcon fontSize='inherit'/> </span> : ""}
                 {(!userQueryGalleryCount?.isLoading && pagination !== 1 && currentpage !== 1) ? <span className={styles.paginationContols} onClick={() => usePagination("before")}><ChevronLeftIcon fontSize='inherit'/> </span> : ""}

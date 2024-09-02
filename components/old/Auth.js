@@ -108,14 +108,6 @@ export default function AuthPage(){
                     <input type='email' name='email' placeholder='Email' onChange={(e) => setEmail(e.target.value)}/>
                     <input type='password' name='password' placeholder='Password' onChange={(e) => setPassword(e.target.value)}/>
                     <span onClick={() => handleSubmit("email")} className={styles.submit}>Enter</span>
-                    <span className={styles.providersContainer}>
-                        <span onClick={() => handleSubmit("google")} className={styles.providersGoogle}>
-                            <GoogleIcon style={{color: 'white'}}/>
-                        </span>
-                        <span onClick={() => handleSubmit("github")} className={styles.providersGithub}>
-                            <GitHubIcon style={{color: 'white'}}/>
-                        </span>
-                    </span>
                 </span>
                 <span className={styles.details}>By logging in, you agree to Portfolio Review’s <span className={styles.underlinedSpan}><Link href="/tos">Terms of Service</Link></span> and the <span className={styles.underlinedSpan}><Link href="/privacy-policy">Privacy Policy</Link></span></span>
             </span>
