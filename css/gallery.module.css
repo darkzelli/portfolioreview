@@ -4,10 +4,9 @@
     align-items: center;
     flex-direction: column;
     width: 90%;
-    margin-top: 16vh;
-    margin-bottom: 50px;
     height: 100%;
     color: black;
+    margin-bottom: 40px;
 
 }
 
@@ -181,9 +180,6 @@
         cursor: pointer;
     }
 
-    .gallery{
-        margin-top: 34vh;
-    }
 }
 
 

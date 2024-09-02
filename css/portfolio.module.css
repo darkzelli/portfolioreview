@@ -5,7 +5,8 @@
     align-items: center;
     flex-direction: column;
     width: 90%;
-    margin-top: 25vh;
+    height: 100vh;
+    overflow: scroll;
 
 }
 
@@ -259,6 +260,7 @@
     align-items: center;
     width: 100%;
     margin-bottom: 2vh;
+    margin-top: 50px;
     color: #A005FF;
     cursor: pointer;
 }
@@ -310,9 +312,6 @@
 
 
 @media screen and (min-width: 768px) {
-    .portfolio{
-        margin-top: 70vh;
-    }
     .disabledInput{
         font-size: 19px;
         height: 5vh;

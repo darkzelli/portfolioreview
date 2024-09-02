@@ -29,7 +29,12 @@
     align-items: center;
     flex-direction: column;
     width: 90%;
-    margin-top: 50vh; 
+    height: 100vh;
+    overflow: scroll;
+}
+
+.profile::-webkit-scrollbar{
+    display: none;
 }
 
 .inputareaContainer{
@@ -125,6 +130,7 @@
     align-items: center;
     width: 100%;
     margin-bottom: 2vh;
+    margin-top: 50px;
     color: #A005FF;
     cursor: pointer;
 }
@@ -246,9 +252,6 @@
         letter-spacing: 3px;
     }
 
-    .profile{
-        margin-top: 50vh;
-    }
   
     .card{
         margin-right: 1vw;
