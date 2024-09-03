@@ -27,13 +27,14 @@ export default function AuthPage(){
 
     async function loginCallback(){
         const { data: { user } } = await supabase.auth.getUser()
-        if(user) queryClient.setQueriesData(['user'], user)
+        if(user) queryClient.setQueryData(['user'], user)
 
         const {error} = await supabase
             .from('accounts')
             .upsert({id: user?.id}, { onConflict: "id"})
         if(error) console.log(error)
         queryClient.invalidateQueries({queryKey: ['userdata']})
+        queryClient.invalidateQueries({queryKey: ['gallery']})
 
     }
 
@@ -109,7 +110,7 @@ export default function AuthPage(){
                     <input type='password' name='password' placeholder='Password' onChange={(e) => setPassword(e.target.value)}/>
                     <span onClick={() => handleSubmit("email")} className={styles.submit}>Enter</span>
                 </span>
-                <span className={styles.details}>By logging in, you agree to Portfolio Review’s <span className={styles.underlinedSpan}><Link href="/tos">Terms of Service</Link></span> and the <span className={styles.underlinedSpan}><Link href="/privacy-policy">Privacy Policy</Link></span></span>
+                <span className={styles.details}>By logging in, you agree to Portfolio Review's <span className={styles.underlinedSpan}><Link href="/tos">Terms of Service</Link></span> and the <span className={styles.underlinedSpan}><Link href="/privacy-policy">Privacy Policy</Link></span></span>
             </span>
         </span>
     );
