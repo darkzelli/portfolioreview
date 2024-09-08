@@ -7,6 +7,9 @@ import Link from 'next/link';
 import Drawer from '@mui/material/Drawer';
 import { createClient } from "@/utils/supabase/client";
 import { useQuery } from '@tanstack/react-query';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose} from '@/components/ui/dialog';
+import { usePathname } from 'next/navigation'
+import { useState } from 'react';
 
 
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
@@ -18,6 +21,7 @@ import FeedbackIcon from '@mui/icons-material/Feedback';
 import GavelIcon from '@mui/icons-material/Gavel';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 import StoreIcon from '@mui/icons-material/Store';
+import InfoIcon from '@mui/icons-material/Info';
 
 
 import logo from "/review_logo_black.png" 
@@ -47,7 +51,8 @@ const getUser = async () => {
 
 
 export default function DashboardNav(props) {
-
+    const [dialogStatus, setDialogStatus] = useState(false)
+    const pathname = usePathname()
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
     //console.log('loading:',userQuery.isLoading,'fecthing:',userQuery.isFetching)
@@ -73,7 +78,31 @@ export default function DashboardNav(props) {
                 <li ><span><Link href="https://insigh.to/b/portfolio-review" className={styles.link}><span className={styles.icon}><FeedbackIcon/></span>Feedback</Link></span></li>
                 <li><span><Link href="/tos" className={styles.link}><span className={styles.icon}><GavelIcon/></span>TOS</Link></span></li>
                 <li><span><Link href="/privacy-policy" className={styles.link}><span className={styles.icon}><PrivacyTipIcon/></span>Privacy Policy</Link></span></li>
+                <li className={styles.reportissue} onClick={() => setDialogStatus(true)}><span><span className={styles.icon}><InfoIcon/></span>Report Issue</span></li>
            </ul>
+           <Dialog open={dialogStatus} onOpenChange={setDialogStatus}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Report An Issue</DialogTitle>
+                        <DialogDescription>Please provide as much information as possible</DialogDescription>
+                    </DialogHeader>
+                    <form className={styles.issueDialogForm}>
+                      <span className={styles.currentLocationContainer}>
+                        <span className={styles.locationLabel}>Location</span>
+                        <span className={styles.currentLocation}>{pathname}</span>
+                      </span>
+                      <span className={styles.issueLab}>
+                        <label className={styles.issueLabel}>Subject</label>
+                        <input className={styles.issueInput}placeholder='Button does not Work...' required/>
+                      </span>
+                      <span className={styles.issueLab}>
+                        <label className={styles.issueLabel}>Issue</label>
+                        <textarea  className={styles.issueInput}placeholder='Describe the issue' required/>
+                      </span>
+                      <span className={styles.submitIssue}>Submit</span>
+                    </form>
+                </DialogContent>
+            </Dialog>
         </span>
     );
 

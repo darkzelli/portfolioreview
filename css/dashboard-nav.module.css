@@ -75,3 +75,63 @@
 .credits{
     color: #ce7fff;
 }
+
+.reportissue{
+    color: rgba(255, 0, 0, 0.637);
+}
+
+.issueDialogForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.issueLab{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.issueLabel{
+    width: 100%;
+    font-weight: 500;
+    margin: 5px 0;
+}
+
+.issueInput{
+    width: 100%;
+    border: 1px solid rgb(184, 182, 182);
+    padding: 10px 10px;
+}
+
+.submitIssue{
+    cursor: pointer;
+}
+
+.currentLocationContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.locationLabel{
+    width: 100%;
+    margin: 5px 0;
+}
+.currentLocation{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 10px 10px;
+    color: #888585;
+    height: 40px;
+    background-color: #ecebeb;
+}

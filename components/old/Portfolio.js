@@ -162,13 +162,8 @@ export default function Portfolio() {
             <span className={styles.mode} onClick={() => setEditMode(!editMode)}><span className={styles.modeIcon}>{editMode ? <EditIcon/> : <VisibilityIcon/>}</span>{ editMode ? "Edit Mode" : "View Mode"}</span>
             <span className={styles.label}> <span className={styles.icon}><SaveAltIcon fontSize='inherit'/></span> <span>Thumbnail</span> </span>
             { editMode ? <span  className={styles.thumbnail}> { preview ? <Image  alt='thumbnail.png' src={preview} width={512} height={288}/> : ""}<input onChange={(e) => {updatePreview(e.target.files[0]); setPreviewName(e.target.files[0]?.name)}} className={styles.inputfile} type='file'/></span> : <span className={styles.thumbnail_image}><Image  alt='thumbnail.png' src={userThumbnail ? userThumbnail : thumbnail} width={512} height={288}/></span> }
-            <span className={styles.label}><span className={styles.icon}><DescriptionIcon fontSize='inherit'/></span> <span>Description</span> </span>
+            <span className={styles.label}><span className={styles.icon}><DescriptionIcon fontSize='inherit'/></span> <span>Description</span><span className={editMode ? (desc?.length <= 120 ? styles.nameCount : styles.nameCountRed) : styles.displayNone}>{desc?.length ?? 0}/120</span></span>
             <span className={styles.textareaContainer}><textarea placeholder={userDataQuery?.data ? userDataQuery?.data?.description : ''} className={editMode ? styles.textarea : styles.disabledTextArea} disabled={!editMode}  onChange={(e) => setDesc(e.target.value)}/></span>
-            <span className={styles.label}> <span className={styles.icon}><NoteIcon fontSize='inherit'/></span> <span>Message</span> </span>
-            <span className={ editMode ? styles.colopickerContainer : styles.displayNone}>
-                <span className={styles.colorpicker}><CirclePicker onChangeComplete={(e) => setMessageColor(e.hex)}/></span>
-            </span>
-            <span className={styles.textareaContainer}><textarea placeholder={userDataQuery?.data ? userDataQuery?.data?.message : ''} className={editMode ? styles.textarea : styles.disabledTextArea} disabled={!editMode}  onChange={(e) => setMessage(e.target.value)}/></span>
             <span className={styles.label}> <span className={styles.icon}><LinkIcon fontSize='inherit'/></span> <span>URL</span> </span>
             <span className={editMode ? styles.urlinputcontainer : styles.diabledurlinputcontainer}>
                 <span className={styles.origiurl}>portfolioreview.me/</span>

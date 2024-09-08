@@ -31,7 +31,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import SailingIcon from '@mui/icons-material/Sailing';
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose} from '@/components/ui/dialog';
-
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import Membership from '@/components/old/Membership';
 
 
@@ -62,7 +62,7 @@ export default function Profile() {
     const [dialogSocialStatus, setDialogSocialStatus] = useState(false)
     const [whichSocial, setWhichSocial] = useState(null)
     const [editMode, setEditMode] = useState(false)
-    const [username, setUserName] = useState()
+    const [username, setUserName] = useState("")
     const [userRole, setUserRole] = useState()
     const [socials, setSocials] = useState([])
     const queryClient = useQueryClient()
@@ -132,13 +132,13 @@ export default function Profile() {
     
     
 
-    const twitterEdit =  <span className={socials?.some(e => e.social === "Twitter") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Twitter")}><XIcon fontSize='inherit'/></span>
-    const githubEdit =  <span className={socials?.some(e => e.social === "Github") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Github")}><GitHubIcon fontSize='inherit'/></span>
-    const facebookEdit = <span className={socials?.some(e => e.social === "Facebook") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Facebook")}><FacebookIcon fontSize='inherit'/></span>
-    const linkedinEdit = <span className={socials?.some(e => e.social === "Linkedin") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Linkedin")}><LinkedInIcon fontSize='inherit'/></span>
-    const youtubeEdit = <span className={socials?.some(e => e.social === "Youtube") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Youtube")}><YouTubeIcon fontSize='inherit'/></span>
-    const instagramEdit = <span className={socials?.some(e => e.social === "Instagram") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Instagram")}><InstagramIcon fontSize='inherit'/></span>
-    const artsationEdit = <span className={socials?.some(e => e.social === "Artstation") ? styles.socialIconSelected : styles.socialIcon} onClick={() => editSocial("Artstation")}><SailingIcon fontSize='inherit'/></span>
+    const twitterEdit =  <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Twitter") ? styles.socialIconSelected : styles.socialIcon}><XIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Twitter</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='twitter.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
+    const githubEdit =  <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Github") ? styles.socialIconSelected : styles.socialIcon} ><GitHubIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Github</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='github.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
+    const facebookEdit = <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Facebook") ? styles.socialIconSelected : styles.socialIcon} ><FacebookIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Facebook</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='facebook.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
+    const linkedinEdit = <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Linkedin") ? styles.socialIconSelected : styles.socialIcon} ><LinkedInIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing LinkedIn</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='linkedin.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
+    const youtubeEdit = <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Youtube") ? styles.socialIconSelected : styles.socialIcon} ><YouTubeIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Youtube</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='youtube.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
+    const instagramEdit = <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Instagram") ? styles.socialIconSelected : styles.socialIcon} ><InstagramIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Instagram</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='instagram.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
+    const artsationEdit = <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Artstation") ? styles.socialIconSelected : styles.socialIcon} ><SailingIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing ArtStation</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='artstation.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
 
 
     const twitterView =  <span className={userDataQuery?.data?.socials?.some((e) => e.social === "Twitter") ? styles.socialIconSelected : styles.disabledsocialIcon} ><XIcon fontSize='inherit'/></span>
@@ -152,7 +152,7 @@ export default function Profile() {
     return (
         <span className={styles.profile}>
             <span className={styles.mode} onClick={() => setEditMode(!editMode)}><span className={styles.modeIcon}>{editMode ? <EditIcon/> : <VisibilityIcon/>}</span>{ editMode ? "Edit Mode" : "View Mode"}</span>
-            <span className={styles.label}> <span className={styles.icon}><PersonIcon fontSize='inherit'/></span> <span>Name</span> </span>
+            <span className={styles.label}> <span className={styles.icon}><PersonIcon fontSize='inherit'/></span> <span>Name</span><span className={editMode ? (username?.length <= 15 ? styles.nameCount : styles.nameCountRed) : styles.displayNone}>{username?.length ?? 0}/15</span> </span>
             <span className={styles.inputareaContainer}><input type='text' name='name' placeholder={userQuery?.data ? userDataQuery?.data?.name : 'name'} disabled={!editMode} onChange={(e) => setUserName(e.target.value)}className={editMode ? styles.input : styles.disabledInput}/></span>
             <span className={styles.label}> <span className={styles.icon}><EmailIcon fontSize='inherit'/></span> <span>Email</span> </span>
             <span className={styles.inputareaContainer}><span className={styles.disabledInput}>{editMode ? "Your email can not be changed" : userQuery?.data?.email}</span></span>

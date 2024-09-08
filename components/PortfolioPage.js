@@ -6,10 +6,12 @@ import { createClient } from "@/utils/supabase/client";
 import { useQuery } from '@tanstack/react-query';
 
 import { useEffect, useState } from 'react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose} from '@/components/ui/dialog';
 
 import Suggestions from '@/components/old/Suggestions';
 import LaunchIcon from '@mui/icons-material/Launch';
 import EmailIcon from '@mui/icons-material/Email';
+import { usePathname } from 'next/navigation'
 
 import XIcon from '@mui/icons-material/X';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -18,6 +20,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import SailingIcon from '@mui/icons-material/Sailing';
+import InfoIcon from '@mui/icons-material/Info';
 
 import GalleryCard from '@/components/old/GalleryCard'
 import LinkCard from '@/components/LinkCard'
@@ -39,12 +42,14 @@ const getUserData = async () => {
 }
 
 export default function PortfolioPage({portfolio}) {
+    const [dialogStatus, setDialogStatus] = useState(false)
     const [portfolioData, setPortfolioData] = useState()
     const [replies, setReplies] = useState([])
-    const [suggestion, setSuggestion] = useState()
+    const [suggestion, setSuggestion] = useState("")
     const [gallery, setGalley] = useState([])
     const [socialOne, setSocialOne] = useState("")
     const [socialTwo, setSocialTwo] = useState("")
+    const pathname = usePathname()
 
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
     const userQueryGalleryCount = useQuery({queryKey: ['gallery'], queryFn: () => getGalleryCount()})
@@ -151,12 +156,8 @@ export default function PortfolioPage({portfolio}) {
                 </span>
                 <span className={styles.description}>{portfolioData?.account?.description}</span>
             </span>
-            <span className={styles.message}>
-                <span className={styles.messageLabel}>Message from {portfolioData?.account?.name}</span>
-                <span className={styles.messageContainer} style={{backgroundColor: portfolioData?.account?.message_color ?? "black"}}><span className={styles.bruh}>{portfolioData?.account?.message}</span></span>
-            </span>
             <span className={styles.suggestionContainer}>
-                <span className={styles.suggesttopLabel}>Suggestions</span>
+                <span className={styles.suggesttopLabel}>Suggestions<span className={ suggestion?.length <= 0 ? styles.displayNone : ( suggestion?.length <= 300 ? styles.suggestionCount : styles.suggestionCountRed)}>{suggestion?.length ?? 0}/300</span></span>
                 <span className={styles.suggestionContainerContainer}>
                     <span className={styles.suggestions}>
                         {replies.map((item, key) => (
@@ -179,6 +180,30 @@ export default function PortfolioPage({portfolio}) {
                     <LinkCard content={data} key={key}/>
                 ))}</span>
             </span> : ""}
+            <span onClick={() => setDialogStatus(true)} className={styles.report}><span className={styles.icon}><InfoIcon fontSize='inherit'/></span>Report</span>
+            <Dialog open={dialogStatus} onOpenChange={setDialogStatus}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Report An Issue</DialogTitle>
+                        <DialogDescription>Please provide as much information as possible</DialogDescription>
+                    </DialogHeader>
+                    <form className={styles.issueDialogForm}>
+                      <span className={styles.currentLocationContainer}>
+                        <span className={styles.locationLabel}>Location</span>
+                        <span className={styles.currentLocation}>{pathname}</span>
+                      </span>
+                      <span className={styles.issueLab}>
+                        <label className={styles.issueLabel}>Subject</label>
+                        <input className={styles.issueInput}placeholder='Button does not Work...' required/>
+                      </span>
+                      <span className={styles.issueLab}>
+                        <label className={styles.issueLabel}>Issue</label>
+                        <textarea  className={styles.issueInput}placeholder='Describe the issue' required/>
+                      </span>
+                      <span className={styles.submitIssue}>Submit</span>
+                    </form>
+                </DialogContent>
+            </Dialog>
         </span>
     );
 

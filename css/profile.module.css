@@ -225,6 +225,45 @@
     width: 100%;
     margin-bottom: 4vh;
 }
+
+.nameCount{
+    font-size: 12px;
+    color: #A005FF;
+    margin-left: 15px;
+}
+
+.nameCountRed{
+    font-size: 12px;
+    color: #ff0505;
+    margin-left: 15px;
+}
+
+.popoverSocials{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+.popoverInputContainer{
+    width: 100%;
+    margin: 20px 0;
+}
+
+.popoverInput{
+    border: 1px solid rgb(185, 184, 184);
+    width: 100%;
+    padding: 5px 8px;
+}
+.popoverSet{
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 5px 5px;
+    width: 100%;
+}
 @media screen and (min-width: 768px) {
     .savechanges{
         font-size: 18px;

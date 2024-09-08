@@ -6,6 +6,50 @@
     margin-bottom: 15px;
 }
 
+.popoverContainer{
+    display: flex;
+    justify-content: center;    
+    flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    
+}
+.popoverName{
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    width: 100%; 
+    margin-bottom: 5px;
+}
+
+.popoverRole{
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px; 
+}
+.popoverVisit{
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    background-color: black;
+    color: #ffffff;
+    padding: 4px 4px;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.popoverReport{
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    color: #ff0000;
+    width: 100%;
+    cursor: pointer;
+}
+
 .details{
     display: flex;
     flex-direction: row;
@@ -35,4 +79,64 @@
     color: rgb(182, 180, 180);
     font-weight: 800;
     margin-left: 10px;
+}
+
+.reportissue{
+    color: rgba(255, 0, 0, 0.637);
+}
+
+.issueDialogForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.issueLab{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.issueLabel{
+    width: 100%;
+    font-weight: 500;
+    margin: 5px 0;
+}
+
+.issueInput{
+    width: 100%;
+    border: 1px solid rgb(184, 182, 182);
+    padding: 10px 10px;
+}
+
+.submitIssue{
+    cursor: pointer;
+}
+
+.currentLocationContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.locationLabel{
+    width: 100%;
+    margin: 5px 0;
+}
+.currentLocation{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 10px 10px;
+    color: #888585;
+    height: 40px;
+    background-color: #ecebeb;
 }
