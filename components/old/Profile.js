@@ -37,7 +37,7 @@ import Membership from '@/components/old/Membership';
 
 
 
-
+const allowedPattern = /^[a-zA-Z0-9]+$/;
 const supabase = createClient()
 
 const getUserData = async () => {
@@ -60,16 +60,32 @@ export default function Profile() {
     const [currentlyBeingAddedSocail, setCurrentlyBeingAddedSocail] = useState(null)
     const [dialogPaymentStatus, setDialogPaymentStatus] = useState(false)
     const [dialogSocialStatus, setDialogSocialStatus] = useState(false)
+    const [canUpdate, setCanUpdate] = useState(true)
+    const [canUpdateMessage, setCanUpdateMessage] = useState("")
     const [whichSocial, setWhichSocial] = useState(null)
     const [editMode, setEditMode] = useState(false)
     const [username, setUserName] = useState("")
     const [userRole, setUserRole] = useState()
-    const [socials, setSocials] = useState([])
+    const [socials, setSocials] = useState({})
+    const [activeSocials, setActiveSocials] = useState([])
     const queryClient = useQueryClient()
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
 
+
+
     
+    useEffect(() => {
+        
+        if( username?.length > 0 && (!allowedPattern.test(username) || username?.length > 15)){
+            setCanUpdate(false)
+            setCanUpdateMessage("Name is to long or contain special characters")
+        }else{
+            setCanUpdate(true)
+            setCanUpdateMessage("")
+        }
+    }, [username])
+
     const mutation = useMutation({
         mutationFn: () => getUserData(),
         onSuccess: () => {
@@ -80,8 +96,6 @@ export default function Profile() {
 
     async function handleUpdate(){
         let updateData = {};
-
-        const allowedPattern = /^[a-zA-Z0-9]+$/;
 
         if(allowedPattern.test(username) && username?.length <= 15) updateData.name = username
         else if(username.length === 0){}
@@ -106,25 +120,13 @@ export default function Profile() {
         
     }
 
-    function editSocial(social){
-        setDialogSocialStatus(true)
-        setWhichSocial(social)
+    function setNewActiveSocials(social){
+        if(activeSocials >= 2){
+            activeSocials[0] = social
+        }else activeSocials.push(social)
     }
 
-    function handleSocialAdd(){
-        if(socials?.some(e => e.url === currentlyBeingAddedSocail)){
-        }else if(socials?.some(e => e.social === whichSocial)){
-            const index = socials?.findIndex(e => e.social  === whichSocial)
-            socials[index] = {social: whichSocial, url: currentlyBeingAddedSocail}
-        } else{
-            if(socials?.length >= 2){
-                socials[0] = {social: whichSocial, url: currentlyBeingAddedSocail}
-            }else{
-                socials?.push({social: whichSocial, url: currentlyBeingAddedSocail})
-            }
-        }
-        setDialogSocialStatus(false)
-    }
+   
         
 
     const roleView = <><span className={userDataQuery?.data?.role === "Developer" ? styles.selectedCard : styles.card }>Developer</span><span className={userDataQuery?.data?.role === "Designer" ? styles.selectedCard : styles.card }>Designer</span><span className={userDataQuery?.data?.role === "Artist" ? styles.selectedCard : styles.card }>Artist</span></>
@@ -132,13 +134,13 @@ export default function Profile() {
     
     
 
-    const twitterEdit =  <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Twitter") ? styles.socialIconSelected : styles.socialIcon}><XIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Twitter</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='twitter.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
-    const githubEdit =  <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Github") ? styles.socialIconSelected : styles.socialIcon} ><GitHubIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Github</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='github.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
-    const facebookEdit = <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Facebook") ? styles.socialIconSelected : styles.socialIcon} ><FacebookIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Facebook</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='facebook.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
-    const linkedinEdit = <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Linkedin") ? styles.socialIconSelected : styles.socialIcon} ><LinkedInIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing LinkedIn</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='linkedin.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
-    const youtubeEdit = <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Youtube") ? styles.socialIconSelected : styles.socialIcon} ><YouTubeIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Youtube</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='youtube.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
-    const instagramEdit = <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Instagram") ? styles.socialIconSelected : styles.socialIcon} ><InstagramIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Instagram</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='instagram.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
-    const artsationEdit = <Popover><PopoverTrigger><span className={socials?.some(e => e.social === "Artstation") ? styles.socialIconSelected : styles.socialIcon} ><SailingIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing ArtStation</span><span className={styles.popoverInputContainer}><input className={styles.popoverInput} placeholder='artstation.com/'/></span><span className={styles.popoverSet}>Set Active</span></span></PopoverContent></Popover>
+    const twitterEdit =  <Popover><PopoverTrigger><span className={activeSocials?.some(e => e.social === "Twitter") ? styles.socialIconSelected : styles.socialIcon}><XIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Twitter</span><span className={styles.popoverInputContainer}><input onChange={(e) => setSocials({...socials, twitter: e.target.value})} className={styles.popoverInput} placeholder='twitter.com/'/></span><span className={styles.popoverSet} onClick={() => setNewActiveSocials("twitter")}>Set Active</span></span></PopoverContent></Popover>
+    const githubEdit =  <Popover><PopoverTrigger><span className={activeSocials?.some(e => e.social === "Github") ? styles.socialIconSelected : styles.socialIcon} ><GitHubIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Github</span><span className={styles.popoverInputContainer}><input onChange={(e) => setSocials({...socials, github: e.target.value})} className={styles.popoverInput} placeholder='github.com/'/></span><span className={styles.popoverSet} onClick={() => setNewActiveSocials("github")}>Set Active</span></span></PopoverContent></Popover>
+    const facebookEdit = <Popover><PopoverTrigger><span className={activeSocials?.some(e => e.social === "Facebook") ? styles.socialIconSelected : styles.socialIcon} ><FacebookIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Facebook</span><span className={styles.popoverInputContainer}><input onChange={(e) => setSocials({...socials, facebook: e.target.value})} className={styles.popoverInput} placeholder='facebook.com/'/></span><span className={styles.popoverSet} onClick={() => setNewActiveSocials("facebook")}>Set Active</span></span></PopoverContent></Popover>
+    const linkedinEdit = <Popover><PopoverTrigger><span className={activeSocials?.some(e => e.social === "Linkedin") ? styles.socialIconSelected : styles.socialIcon} ><LinkedInIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing LinkedIn</span><span className={styles.popoverInputContainer}><input onChange={(e) => setSocials({...socials, linkedin: e.target.value})} className={styles.popoverInput} placeholder='linkedin.com/'/></span><span className={styles.popoverSet} onClick={() => setNewActiveSocials("linkedin")}>Set Active</span></span></PopoverContent></Popover>
+    const youtubeEdit = <Popover><PopoverTrigger><span className={activeSocials?.some(e => e.social === "Youtube") ? styles.socialIconSelected : styles.socialIcon} ><YouTubeIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Youtube</span><span className={styles.popoverInputContainer}><input onChange={(e) => setSocials({...socials, youtube: e.target.value})} className={styles.popoverInput} placeholder='youtube.com/'/></span><span className={styles.popoverSet} onClick={() => setNewActiveSocials("youtube")}>Set Active</span></span></PopoverContent></Popover>
+    const instagramEdit = <Popover><PopoverTrigger><span className={activeSocials?.some(e => e.social === "Instagram") ? styles.socialIconSelected : styles.socialIcon} ><InstagramIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Instagram</span><span className={styles.popoverInputContainer}><input  onChange={(e) => setSocials({...socials, instagram: e.target.value})} className={styles.popoverInput} placeholder='instagram.com/'/></span><span className={styles.popoverSet} onClick={() => setNewActiveSocials("instagram")}>Set Active</span></span></PopoverContent></Popover>
+    const artsationEdit = <Popover><PopoverTrigger><span className={activeSocials?.some(e => e.social === "Artstation") ? styles.socialIconSelected : styles.socialIcon} ><SailingIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing ArtStation</span><span className={styles.popoverInputContainer}><input onChange={(e) => setSocials({...socials, artstation: e.target.value})} className={styles.popoverInput} placeholder='artstation.com/'/></span><span className={styles.popoverSet} onClick={() => setNewActiveSocials("artstation")}>Set Active</span></span></PopoverContent></Popover>
 
 
     const twitterView =  <span className={userDataQuery?.data?.socials?.some((e) => e.social === "Twitter") ? styles.socialIconSelected : styles.disabledsocialIcon} ><XIcon fontSize='inherit'/></span>
@@ -171,16 +173,7 @@ export default function Profile() {
                 {editMode ? artsationEdit : artsationView}
 
             </span>
-            <span className={editMode ? styles.savechanges : styles.displayNone} onClick={() =>  handleUpdate()}>Save Changes</span>
-            <Dialog  open={dialogSocialStatus} onOpenChange={setDialogSocialStatus} >
-                <DialogContent>
-                    <DialogHeader>
-                        <span className={styles.dialogTitle}><DialogTitle>Editing {whichSocial}</DialogTitle></span>
-                    </DialogHeader>
-                    <input type='text' placeholder={whichSocial + ".com/"} onChange={(e) => setCurrentlyBeingAddedSocail(e.target.value)}/>
-                    <span className={styles.addSocial} onClick={() => handleSocialAdd()}>Add {whichSocial}</span>
-                </DialogContent>
-            </Dialog>
+            { editMode ? ( canUpdate ? <span className={styles.savechanges} onClick={() =>  handleUpdate()}>Save Changes</span> :  <span className={styles.errorContaineer}><span className={styles.errorMessage}>{canUpdateMessage}</span><span className={styles.errorChanges}>Unable to Save</span></span> ): ""}
             <Dialog  open={dialogPaymentStatus} onOpenChange={setDialogPaymentStatus} >
                 <DialogContent>
                     <DialogHeader>

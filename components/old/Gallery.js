@@ -124,10 +124,6 @@ export default function Gallery() {
             value: "Artist", 
             label: 'Artist'
         },
-        {
-            value: "Popular", 
-            label: 'Popular'
-        }
     ]
 
     function usePagination(type){
@@ -172,7 +168,6 @@ export default function Gallery() {
                          <span  onClick={() => changeTab("Developer")} className={currentTab === "Developer" ? styles.labelSecleted : styles.label}>Developer</span>
                          <span  onClick={() => changeTab("Designer")} className={currentTab === "Designer" ? styles.labelSecleted : styles.label}>Designer</span>
                          <span  onClick={() => changeTab("Artist")} className={currentTab === "Artist" ? styles.labelSecleted : styles.label}>Artist</span>
-                         <span  onClick={() => changeTab("Popular")} className={currentTab === "Popular" ? styles.labelSecleted : styles.label}>Popular</span>
                      </span>
                      <span className={styles.searchLabel} onClick={() => setSearchDialogue(true)}>
                          <SearchIcon fontSize='inherit'/>

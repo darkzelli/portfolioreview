@@ -22,6 +22,7 @@ import GavelIcon from '@mui/icons-material/Gavel';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 import StoreIcon from '@mui/icons-material/Store';
 import InfoIcon from '@mui/icons-material/Info';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 
 import logo from "/review_logo_black.png" 
@@ -50,9 +51,12 @@ const getUser = async () => {
 }
 
 
+
 export default function DashboardNav(props) {
     const [dialogStatus, setDialogStatus] = useState(false)
     const pathname = usePathname()
+    const [reportSubject, setReportSubject] = useState('')
+    const [reportIssue, setReportIssue] = useState('')
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
     //console.log('loading:',userQuery.isLoading,'fecthing:',userQuery.isFetching)
@@ -66,6 +70,16 @@ export default function DashboardNav(props) {
     const disabledProfile = <li className={styles.disabledTab}><span><span className={styles.icon}><PersonIcon/></span>Profile</span></li>
     const enabledShop = <li  className={props.currentTab === "shop" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("shop")}><span><span className={styles.icon}><StoreIcon/></span>Shop</span></li>
     const disabledShop = <li className={styles.disabledTab}><span><span className={styles.icon}><StoreIcon/></span>Shop</span></li>
+    
+    async function submitReport(){
+      const { data: { user } } = await supabase.auth.getUser()
+      const { error } = await supabase
+        .from('reports')
+        .insert({user: user?.id, subject: reportSubject, report: reportIssue });
+      console.log(error )
+    
+    }
+    
     return (
         <span className={styles.Settings_Nav_Container}>
            <ul className={styles.settingsUl}>
@@ -78,7 +92,8 @@ export default function DashboardNav(props) {
                 <li ><span><Link href="https://insigh.to/b/portfolio-review" className={styles.link}><span className={styles.icon}><FeedbackIcon/></span>Feedback</Link></span></li>
                 <li><span><Link href="/tos" className={styles.link}><span className={styles.icon}><GavelIcon/></span>TOS</Link></span></li>
                 <li><span><Link href="/privacy-policy" className={styles.link}><span className={styles.icon}><PrivacyTipIcon/></span>Privacy Policy</Link></span></li>
-                <li className={styles.reportissue} onClick={() => setDialogStatus(true)}><span><span className={styles.icon}><InfoIcon/></span>Report Issue</span></li>
+                {userQuery?.data ? <li className={styles.reportissue} onClick={() => setDialogStatus(true)}><span><span className={styles.icon}><InfoIcon/></span>Report Issue</span></li> : ""}
+                {userDataQuery?.data?.admin === true ? <li onClick={() => props.tabSetter("adminpanel")}><span><span className={styles.icon}><AdminPanelSettingsIcon/></span><span>Panel</span></span></li> : ""}
            </ul>
            <Dialog open={dialogStatus} onOpenChange={setDialogStatus}>
                 <DialogContent>
@@ -93,13 +108,13 @@ export default function DashboardNav(props) {
                       </span>
                       <span className={styles.issueLab}>
                         <label className={styles.issueLabel}>Subject</label>
-                        <input className={styles.issueInput}placeholder='Button does not Work...' required/>
+                        <input onChange={(e) => setReportSubject(e.target.value)} className={styles.issueInput}placeholder='Button does not Work...' maxLength={20} required/>
                       </span>
                       <span className={styles.issueLab}>
                         <label className={styles.issueLabel}>Issue</label>
-                        <textarea  className={styles.issueInput}placeholder='Describe the issue' required/>
+                        <textarea onChange={(e) => setReportIssue(e.target.value)}  className={styles.issueInput}placeholder='Describe the issue' maxLength={400} required/>
                       </span>
-                      <span className={styles.submitIssue}>Submit</span>
+                      <span className={styles.submitIssue} onClick={() => submitReport()}>Submit</span>
                     </form>
                 </DialogContent>
             </Dialog>

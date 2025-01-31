@@ -9,7 +9,10 @@
 </a>
 
 
-
+## Version
+i.0.0.1
+#### Explanation
+Versions starting with the letter 'i' (intern) are showcase versions that are not production ready and are only for the sole purpose of showcasing the features of the application. Thus they are not secure.
 ## Packages
 ##### Basic
 Free<br/>
@@ -36,7 +39,7 @@ Simply link your portfolio in the dashboard by copying and pasting your portfoli
 No uploading is needed, and it takes just one second to showcase your work.
 ```
 
-3. Customize 
+3. Customize
 ```
 Customize your profile and set it to public to start receiving feedback instantly.
 Allow peers to view your work and provide valuable criticism that can help you grow and improve.
