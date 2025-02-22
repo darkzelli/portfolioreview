@@ -25,9 +25,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 
-import logo from "/review_logo_black.png" 
+import logo from "/review_logo_black.png"
 
-const supabase = createClient()
 
 export function testLocal(){
   const stor = typeof window !== 'undefined' ? window.localStorage : undefined
@@ -35,19 +34,9 @@ export function testLocal(){
 }
 
 const getUserData = async () => {
-  const { data: { user } } = await supabase.auth.getUser()
-  if(user){
-      const {data, error} = await supabase
-          .from('accounts')
-          .select()
-          .eq('id', user?.id);
-      return (await data[0] ?? null)  
-  }else return null
 }
 
 const getUser = async () => {
-  const { data: { user } } = await supabase.auth.getUser()
-  return await user
 }
 
 
@@ -70,16 +59,16 @@ export default function DashboardNav(props) {
     const disabledProfile = <li className={styles.disabledTab}><span><span className={styles.icon}><PersonIcon/></span>Profile</span></li>
     const enabledShop = <li  className={props.currentTab === "shop" ? styles.selectedTab : styles.notSelectedTab} onClick={() => props.tabSetter("shop")}><span><span className={styles.icon}><StoreIcon/></span>Shop</span></li>
     const disabledShop = <li className={styles.disabledTab}><span><span className={styles.icon}><StoreIcon/></span>Shop</span></li>
-    
+
     async function submitReport(){
       const { data: { user } } = await supabase.auth.getUser()
       const { error } = await supabase
         .from('reports')
         .insert({user: user?.id, subject: reportSubject, report: reportIssue });
       console.log(error )
-    
+
     }
-    
+
     return (
         <span className={styles.Settings_Nav_Container}>
            <ul className={styles.settingsUl}>

@@ -2,8 +2,6 @@
 import styles from '../css/portfolio-page.module.css'
 import Image from "next/image";
 import Link from 'next/link';
-import { createClient } from "@/utils/supabase/client";
-import { useQuery } from '@tanstack/react-query';
 
 import { useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose} from '@/components/ui/dialog';
@@ -28,17 +26,8 @@ import LinkCard from '@/components/LinkCard'
 import thumbnail from '../default_thumbnail.png'
 const desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
-const supabase = createClient()
 
 const getUserData = async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    if(user){
-        const {data, error} = await supabase
-            .from('accounts')
-            .select()
-            .eq('id', user?.id);
-        return (await data[0] ?? null)  
-    }else return null
 }
 
 export default function PortfolioPage({portfolio}) {
@@ -51,8 +40,6 @@ export default function PortfolioPage({portfolio}) {
     const [socialTwo, setSocialTwo] = useState("")
     const pathname = usePathname()
 
-    const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
-    const userQueryGalleryCount = useQuery({queryKey: ['gallery'], queryFn: () => getGalleryCount()})
     useEffect(() => {
         getPortfolio()
         getReplies()
@@ -89,7 +76,7 @@ export default function PortfolioPage({portfolio}) {
     }
     async function getGallery(){
         const designerQuery = await supabase
-            .from('accounts')  
+            .from('accounts')
             .select('*')
             .limit(3)
         setGalley(designerQuery?.data ?? null)
@@ -105,7 +92,7 @@ export default function PortfolioPage({portfolio}) {
     async function getPortfolio(){
         let portfoliodata = {}
         const queryAccountData = await supabase.from('accounts').select().eq('route_url', portfolio);
-        if(Array.isArray(queryAccountData.data)){ 
+        if(Array.isArray(queryAccountData.data)){
             portfoliodata.account = queryAccountData?.data[0]
             setPortfolioData(portfoliodata)
             calculateSocials()
@@ -137,13 +124,13 @@ export default function PortfolioPage({portfolio}) {
                             <span className={styles.role}>{portfolioData?.account?.role}</span>
                         </span>
                         <span className={styles.infoBtns}>
-                                {portfolioData?.account?.socials?.some(e => e.social === "Twitter") ? iconTwitter : ""} 
-                                {portfolioData?.account?.socials?.some(e => e.social === "Github") ? iconGithub : ""} 
-                                {portfolioData?.account?.socials?.some(e => e.social === "Facebook") ? iconFacebook : ""} 
-                                {portfolioData?.account?.socials?.some(e => e.social === "Linkedin") ? iconLinkedIn : ""} 
-                                {portfolioData?.account?.socials?.some(e => e.social === "Youtube") ? iconYoutube : ""} 
-                                {portfolioData?.account?.socials?.some(e => e.social === "Instagram") ? iconInstagram : ""} 
-                                {portfolioData?.account?.socials?.some(e => e.social === "Artstation") ? iconArtstation : ""} 
+                                {portfolioData?.account?.socials?.some(e => e.social === "Twitter") ? iconTwitter : ""}
+                                {portfolioData?.account?.socials?.some(e => e.social === "Github") ? iconGithub : ""}
+                                {portfolioData?.account?.socials?.some(e => e.social === "Facebook") ? iconFacebook : ""}
+                                {portfolioData?.account?.socials?.some(e => e.social === "Linkedin") ? iconLinkedIn : ""}
+                                {portfolioData?.account?.socials?.some(e => e.social === "Youtube") ? iconYoutube : ""}
+                                {portfolioData?.account?.socials?.some(e => e.social === "Instagram") ? iconInstagram : ""}
+                                {portfolioData?.account?.socials?.some(e => e.social === "Artstation") ? iconArtstation : ""}
                             <span className={styles.visit}>
                                 <Link className={styles.linktext} target='_blank' passHref={true} href={portfolioData?.account?.portfolio_url ?? "/dashboard"}>Visit Portfolio</Link>
                                 <span className={styles.linkbtn}><LaunchIcon fontSize='inherit'/></span>
@@ -163,7 +150,7 @@ export default function PortfolioPage({portfolio}) {
                         {replies.map((item, key) => (
                             <Suggestions key={key} content={item} />
                         ))}
-                    </span> 
+                    </span>
                     <span className={styles.suggest}>
                         <input className={styles.suggestInput} onChange={(e) => setSuggestion(e.target.value)} placeholder='suggest something...'/>
                         <span className={styles.suggesthr}></span>

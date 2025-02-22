@@ -1,8 +1,5 @@
 "use client"
 import styles from '../../css/suggestions.module.css'
-
-import { useQuery } from '@tanstack/react-query';
-import { createClient } from "@/utils/supabase/client";
 import Link from 'next/link';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose} from '@/components/ui/dialog';
@@ -10,17 +7,9 @@ import { useState } from 'react';
 
 import PushPinIcon from '@mui/icons-material/PushPin';
 
-const supabase = createClient()
 
 const getUserData = async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    if(user){
-        const {data, error} = await supabase
-            .from('accounts')
-            .select()
-            .eq('id', user?.id);
-        return (await data[0] ?? null)  
-    }else return null
+
   }
 
 const getUser = async () => {
@@ -51,7 +40,7 @@ export default function Suggestions(props) {
     }
     return (
         <span className={styles.Suggestions}>
-            <span className={styles.details}> 
+            <span className={styles.details}>
                 <span>
                     <Popover>
                         <PopoverTrigger>{props?.content?.name}</PopoverTrigger>

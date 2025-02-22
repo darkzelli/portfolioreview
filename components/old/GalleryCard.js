@@ -2,10 +2,8 @@ import styles from '../../css/gallerycard.module.css'
 
 import NotesIcon from '@mui/icons-material/Notes';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 import { ToastContainer, toast } from 'react-toastify';
-import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 
@@ -22,14 +20,6 @@ import defaultthumbnail from '../../default_thumbnail.png'
 const supabase = createClient()
 
 const getUserData = async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    if(user){
-        const {data, error} = await supabase
-            .from('accounts')
-            .select()
-            .eq('id', user?.id);
-        return (await data[0] ?? null)  
-    }else return null
 }
 
 export default function GalleryCard({content}) {
@@ -51,7 +41,7 @@ export default function GalleryCard({content}) {
         }
     }
 
- 
+
 
 
     async function submitSuggestion(){
@@ -63,7 +53,7 @@ export default function GalleryCard({content}) {
         }else toast("Must be logged in to add a comment & less than 300 charatcers", {type: 'error', theme: 'dark', hideProgressBar: true})
     }
 
-    
+
 
     useEffect(() => {
         getReplies()

@@ -1,6 +1,5 @@
 "use client";
 import styles from './main.module.css'
-import {  useQueryClient  } from '@tanstack/react-query';
 
 import Header from "@/components/old/Header";
 import Pricing from "@/components/old/Pricing";

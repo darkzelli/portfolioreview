@@ -6,29 +6,22 @@ import { useEffect, useState} from 'react';
 import Link from "next/link";
 import Image from "next/image";
 
-import { createClient } from "@/utils/supabase/client";
-import { useQuery } from '@tanstack/react-query';
 
 
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import logo from "/review_logo_white.png" 
+import logo from "/review_logo_white.png"
 
-
-const supabase = createClient()
 
 
 const getUser = async () => {
-  const { data: { user } } = await supabase.auth.getUser()
-  return await user
 }
 
 
 export default function Header(){
   const [hamOpen, setHamOpen] = useState(false);
   const [user, setUser] = useState(null)
-  const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
 
   useEffect(() => {
     getUser().then().then((res) => {setUser(res) })

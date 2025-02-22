@@ -3,18 +3,14 @@ import styles from '../../css/user.module.css'
 
 import { useRouter } from 'next/navigation'
 
-import { createClient } from '@/utils/supabase/client'
-import { useQueryClient } from '@tanstack/react-query'
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 
 export default function User() {
-    const queryClient = useQueryClient()
     const router = useRouter()
-    
+
     async function signOut(){
         const supabase = createClient()
         const { error } = await supabase.auth.signOut()

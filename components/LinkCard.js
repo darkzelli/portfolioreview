@@ -1,6 +1,5 @@
 import styles from '../css/gallerycard.module.css'
 
-import { createClient } from "@/utils/supabase/client";
 import Link from 'next/link';
 import Image from "next/image";
 
@@ -12,24 +11,18 @@ import NotesIcon from '@mui/icons-material/Notes';
 
 
 
-const supabase = createClient()
 
 export default function LinkCard({content}) {
     const [replyCount, setReplyCount] = useState(0);
 
 
     async function getReplies(){
-        const queryComments = await supabase
-            .from('comments')
-            .select('*', { count: 'exact' })
-            .eq('portfolio_location', content?.route_url);
-            setReplyCount(queryComments?.count ?? 0)
     }
-    
 
 
 
-    
+
+
 
     useEffect(() => {
         getReplies()
@@ -49,7 +42,7 @@ export default function LinkCard({content}) {
                     <span className={styles.detail}>{replyCount}</span>
                 </span>
             </span>
-    
+
         </span>
     );
 

@@ -2,8 +2,6 @@ import styles from '../../css/gallery.module.css'
 
 import { useEffect, useState } from 'react';
 
-import { createClient } from "@/utils/supabase/client";
-import { useQuery, useQueryClient, useMutation  } from '@tanstack/react-query';
 import Select from 'react-select'
 
 import SearchIcon from '@mui/icons-material/Search';
@@ -52,32 +50,32 @@ export default function Gallery() {
     async function getGalleryCount(){
         const rangeStart = calculateRangeStart(currentpage)
         const rangeEnd = calculateRangeEnd(currentpage + 1)
-        
+
         switch(currentTab){
             case "Artist":
                 const artistQuery = await supabase
-                    .from('accounts')  
+                    .from('accounts')
                     .select('*', { count: 'exact' })
                     .eq('role', 'Artist')
                     .range(rangeStart, rangeEnd)
                 return ((artistQuery?.count && artistQuery?.data) ?  {data:  artistQuery?.data, count: artistQuery?.count} : null)
             case "Designer":
                 const designerQuery = await supabase
-                    .from('accounts')  
+                    .from('accounts')
                     .select('*', { count: 'exact' })
                     .eq('role', 'Designer')
                     .range(rangeStart, rangeEnd)
                 return ((designerQuery?.count && designerQuery?.data) ?  {data:  designerQuery?.data, count: designerQuery?.count} : null)
             case "Developer":
                 const developerQuery = await supabase
-                    .from('accounts')  
+                    .from('accounts')
                     .select('*', { count: 'exact' })
                     .eq('role', 'Developer')
                     .range(rangeStart, rangeEnd)
                 return ((developerQuery?.count && developerQuery?.data) ?  {data:  developerQuery?.data, count: developerQuery?.count} : null)
             default:
                 const allQuery = await supabase
-                    .from('accounts')  
+                    .from('accounts')
                     .select('*', { count: 'exact' })
                     .range(rangeStart, rangeEnd)
                 return ((allQuery?.count && allQuery?.data) ?  {data:  allQuery?.data, count: allQuery?.count} : null)
@@ -89,7 +87,7 @@ export default function Gallery() {
         if(userQueryGalleryCount?.data?.count){
             const pages = Math.ceil((userQueryGalleryCount?.data?.count/maxCardPerPage))
             setPagination(pages)
-            
+
         }
     }
 
@@ -109,19 +107,19 @@ export default function Gallery() {
 
     const optionsTab = [
         {
-            value: "All", 
+            value: "All",
             label: 'All'
         },
         {
-            value: "Developer", 
+            value: "Developer",
             label: 'Developer'
         },
         {
-            value: "Designer", 
+            value: "Designer",
             label: 'Designer'
         },
         {
-            value: "Artist", 
+            value: "Artist",
             label: 'Artist'
         },
     ]
@@ -153,7 +151,7 @@ export default function Gallery() {
             .from('accounts')
             .select()
             .ilike(searchColumn,  '%' + searchValue + '%')
-        if(data) setSearchResults(data); 
+        if(data) setSearchResults(data);
     }
 
     useEffect(() => {

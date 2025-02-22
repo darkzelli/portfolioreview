@@ -6,8 +6,6 @@ import { useState, useRef, useEffect, useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { useQueryClient } from '@tanstack/react-query';
-import { createClient } from "@/utils/supabase/client";
 
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -44,7 +42,7 @@ export default function AuthPage(){
                 email,
                 password,
             })
-    
+
             if(error){
                 reject("error 400")
             }
@@ -61,11 +59,11 @@ export default function AuthPage(){
               emailRedirectTo: 'http://localhost:3000/auth/callback',
             },
         });
-      
+
         if (error) {
             setMessage("Sorry Could not authenticate user...");
         }
-      
+
         setMessage("Check the email you provided to continue the sign in process...");
     }
 

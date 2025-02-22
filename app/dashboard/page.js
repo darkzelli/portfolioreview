@@ -13,8 +13,6 @@ import { useSearchParams } from 'next/navigation';
 import Drawer from '@mui/material/Drawer';
 
 //Other Functional Libaries
-import { useQuery } from '@tanstack/react-query';
-import { createClient } from "@/utils/supabase/client";
 
 //Icons
 import MenuIcon from '@mui/icons-material/Menu';
@@ -37,37 +35,16 @@ import Profile from "@/components/old/Profile";
 import Shop from "@/components/old/Shop";
 import Whatsnew from "@/components/old/Whatsnew";
 import User from '@/components/old/User';
-import Suggestions from '@/components/old/Suggestions';
 import { AdminPanel } from '@/components/old/AdminPanel';
 
-const supabase = createClient()
 //Images
-import portfolio1 from '../../images/1.jpg'
 
-const getUserData = async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    if(user){
-        const {data, error} = await supabase
-            .from('accounts')
-            .select()
-            .eq('id', user?.id);
-        return (await data[0] ?? null)  
-    }else return null
-}
-
-const getUser = async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    return await user
-}
 
 export default function DASHBOARD(){
     //React Hooks - Alphabetical Order
     const [drawer, setDrawer] = useState(false)
     const [tab, setTab] = useState("gallery");
     const [tabContent, setTabContent] = useState();
-
-    //Outsourced Hooks
-    const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
 
 
     useEffect(() => {

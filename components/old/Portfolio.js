@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 
-import { createClient } from "@/utils/supabase/client";
-import { useQuery, useQueryClient, useMutation  } from '@tanstack/react-query';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CirclePicker } from 'react-color'
@@ -35,7 +34,7 @@ const getUserData = async () => {
             .from('accounts')
             .select()
             .eq('id', user?.id);
-        return (await data[0] ?? null)  
+        return (await data[0] ?? null)
     }else return null
 }
 
@@ -60,7 +59,7 @@ export default function Portfolio() {
     const [userThumbnail, setUserThumbnail] = useState()
     const userDataQuery = useQuery({queryKey: ['userdata'], queryFn: () => getUserData()})
     const userQuery = useQuery({queryKey: ['user'], queryFn: () => getUser()})
-    
+
 
 
     const dataMutation = useMutation({
@@ -70,7 +69,7 @@ export default function Portfolio() {
         }
 
     })
-    
+
     function updatePreview(e){
         setImage(e)
         filereader.readAsDataURL(e)
@@ -95,7 +94,7 @@ export default function Portfolio() {
                     .from('accounts')
                     .upsert({id: userQuery?.data?.id, thumbnail: process.env.NEXT_PUBLIC_IMAGE_URL + userQuery?.data?.id + "/" + previewName});
                 dataMutation.mutate()
-                
+
             }
         }else{
             if(userQuery?.data?.id){
@@ -106,10 +105,10 @@ export default function Portfolio() {
                     .from('accounts')
                     .upsert({id: userQuery?.data?.id, thumbnail: process.env.NEXT_PUBLIC_IMAGE_URL + userQuery?.data?.id + "/" + previewName});
                 dataMutation.mutate()
-                
+
             }
         }
-        
+
     }
 
     async function handleUpdate(){

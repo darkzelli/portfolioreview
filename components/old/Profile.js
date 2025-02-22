@@ -6,7 +6,6 @@ import { useEffect, useState} from 'react';
 import Link from 'next/link';
 
 import { createClient } from "@/utils/supabase/client";
-import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { ToastContainer, toast, useToast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -47,10 +46,10 @@ const getUserData = async () => {
             .from('accounts')
             .select()
             .eq('id', user?.id);
-        return (await data[0] ?? null)  
+        return (await data[0] ?? null)
     }else return null
 }
-  
+
 const getUser = async () => {
     const { data: { user } } = await supabase.auth.getUser()
     return await user
@@ -74,9 +73,9 @@ export default function Profile() {
 
 
 
-    
+
     useEffect(() => {
-        
+
         if( username?.length > 0 && (!allowedPattern.test(username) || username?.length > 15)){
             setCanUpdate(false)
             setCanUpdateMessage("Name is to long or contain special characters")
@@ -100,7 +99,7 @@ export default function Profile() {
         if(allowedPattern.test(username) && username?.length <= 15) updateData.name = username
         else if(username.length === 0){}
         else toast("Name was not updated! Your new name must have no special characters and be under 15 characters", {type: 'error', theme: 'dark', hideProgressBar: true})
-        
+
         if(socials?.length > 0){
             updateData.socials = socials
         }
@@ -117,7 +116,7 @@ export default function Profile() {
             mutation.mutate()
             setEditMode(false)
         }else toast("Error updating Portfolio", {type: 'error', theme: 'dark', hideProgressBar: true})
-        
+
     }
 
     function setNewActiveSocials(social){
@@ -126,13 +125,13 @@ export default function Profile() {
         }else activeSocials.push(social)
     }
 
-   
-        
+
+
 
     const roleView = <><span className={userDataQuery?.data?.role === "Developer" ? styles.selectedCard : styles.card }>Developer</span><span className={userDataQuery?.data?.role === "Designer" ? styles.selectedCard : styles.card }>Designer</span><span className={userDataQuery?.data?.role === "Artist" ? styles.selectedCard : styles.card }>Artist</span></>
     const roleEdit = <><span onClick={() => setUserRole("Developer")}className={userRole === "Developer" ? styles.selectedCard : styles.card }>Developer</span><span onClick={() => setUserRole("Designer")} className={userRole === "Designer" ? styles.selectedCard : styles.card }>Designer</span><span onClick={() => setUserRole("Artist")} className={userRole === "Artist" ? styles.selectedCard : styles.card }>Artist</span></>
-    
-    
+
+
 
     const twitterEdit =  <Popover><PopoverTrigger><span className={activeSocials?.some(e => e.social === "Twitter") ? styles.socialIconSelected : styles.socialIcon}><XIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Twitter</span><span className={styles.popoverInputContainer}><input onChange={(e) => setSocials({...socials, twitter: e.target.value})} className={styles.popoverInput} placeholder='twitter.com/'/></span><span className={styles.popoverSet} onClick={() => setNewActiveSocials("twitter")}>Set Active</span></span></PopoverContent></Popover>
     const githubEdit =  <Popover><PopoverTrigger><span className={activeSocials?.some(e => e.social === "Github") ? styles.socialIconSelected : styles.socialIcon} ><GitHubIcon fontSize='inherit'/></span></PopoverTrigger><PopoverContent><span className={styles.popoverSocials}><span>Editing Github</span><span className={styles.popoverInputContainer}><input onChange={(e) => setSocials({...socials, github: e.target.value})} className={styles.popoverInput} placeholder='github.com/'/></span><span className={styles.popoverSet} onClick={() => setNewActiveSocials("github")}>Set Active</span></span></PopoverContent></Popover>
