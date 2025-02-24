@@ -10,7 +10,7 @@
 #managing
 .todo
 .tasks
-
+.env*
 # testing
 /coverage
 

@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/layout.js", "app/layout.js", "utils/react-query/ReactQueryProvider.jsx", "utils/react-query/ReactQueryProvider.jsx", "utils/react-query/ReactQueryProvider.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/layout.js", "app/layout.js", "utils/react-query/ReactQueryProvider.jsx", "utils/react-query/ReactQueryProvider.jsx", "utils/react-query/ReactQueryProvider.jsx", "components/Waitlist.js", "app/waitlist/page.js"],
   "exclude": ["node_modules"]
 }

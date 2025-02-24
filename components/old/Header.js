@@ -40,11 +40,6 @@ export default function Header(){
               <li>
                 <span className={styles.nav_br}></span>
               </li>
-              <li>
-                <Link href="/dashboard">
-                Gallery
-                </Link>
-              </li>
             </ul>
           </span>
         </li>
@@ -52,7 +47,7 @@ export default function Header(){
           <span>
             <ul className={styles.nav_user}>
               <li>
-                <Link className={styles.nav_signup} href={user?.id  ? "/dashboard" : "/login"}><span>{user?.id   ? "Dashboard" : "Log in"}</span></Link>
+                <Link className={styles.nav_signup} href="/waitlist"><span>Join Waitlist</span></Link>
               </li>
               <li className={styles.nav_menu}>
                 <span onClick={() => hamOpen ? setHamOpen(false) : setHamOpen(true)}>{hamOpen ? <CloseIcon className={styles.nav_menuicon}></CloseIcon> : <MenuIcon className={styles.nav_menuicon}></MenuIcon>}</span>
@@ -62,9 +57,8 @@ export default function Header(){
         </li>
       </ul>
       <span className={hamOpen ? styles.extendedNav : styles.disnone}>
-        <span><Link href="/dashboard">Gallery</Link></span>
         <span>
-          {user?.id  ? <Link href="/dashboard">Dashboard</Link> : <Link href="/login">Log In</Link>}
+          <Link href="/waitlist">Join Waitlist</Link>
         </span>
       </span>
     </span>

@@ -3,7 +3,7 @@ import styles from '../../css/getstarted.module.css'
 export default function GetStarted() {
     return (
         <span className={styles.getStartedContainer}>
-            <span className={styles.maintext}>Get Started</span>
+            <span className={styles.maintext}>Join Waitlist</span>
             <span className={styles.stepsContainer}>
                 <span className={styles.step1}>
                     <span className={styles.nunber}>1</span>
@@ -11,7 +11,7 @@ export default function GetStarted() {
                         <span className={styles.maintextStep1}>Begin your journey by simply logging into your account. No sign-up required</span>
                         <span className={styles.undertextStep1}>Where you can explore all the incredible features and benefits we have to offer. Experience the full potential of our platform with a one time payment.</span>
                     </span>
-                    
+
                 </span>
                 <span className={styles.step2}>
                     <span className={styles.nunber1}>2</span>

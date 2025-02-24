@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.12.0",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.4",
@@ -28,6 +29,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "copy-to-clipboard": "^3.3.3",
+    "dotenv": "^16.4.7",
     "framer-motion": "^11.3.12",
     "geist": "^1.2.1",
     "lucide-react": "^0.414.0",
@@ -38,7 +40,7 @@
     "react-dom": "18.2.0",
     "react-select": "^5.8.0",
     "react-toastify": "^10.0.5",
-    "resend": "^4.0.0",
+    "resend": "^4.1.2",
     "sharp": "^0.33.5",
     "stripe": "^16.6.0",
     "tailwind-merge": "^2.4.0",

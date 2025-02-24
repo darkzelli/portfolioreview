@@ -1,0 +1,29 @@
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+.waitlist{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.email{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid gray;
+  padding: 10px 10px ;
+}
+.signup{
+  display: flex;
+  background-color: #A005FF;
+  width: 100%;
+  height: 100%;
+  padding: 12px 12px ;
+  cursor: pointer;
+  color: white;
+}

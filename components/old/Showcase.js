@@ -83,7 +83,7 @@ export default function Showcase() {
                     <span className={styles.card}>
                         <span className={styles.cardMaintext}>Start for Free</span>
                         <span className={styles.cardUndertext}>View the full gallery</span>
-                        <span className={styles.cardButton}><Link href="/dashboard">Gallery</Link></span>
+                        <span className={styles.cardButton}>Coming Soon</span>
                     </span>
                 </span>
             </span>
